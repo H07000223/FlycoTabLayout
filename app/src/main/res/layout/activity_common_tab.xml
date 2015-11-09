@@ -1,0 +1,129 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#eeeeee"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/tl_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            tl:tl_indicator_color="#2C97DE"
+            tl:tl_textSelectColor="#2C97DE"
+            tl:tl_textUnselectColor="#66000000"
+            tl:tl_underline_color="#DDDDDD"
+            tl:tl_underline_height="1dp"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_2"
+            android:layout_width="match_parent"
+            android:layout_height="84dp"/>
+
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/tl_2"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="#ffffff"
+            tl:tl_iconHeight="23dp"
+            tl:tl_iconWidth="23dp"
+            tl:tl_indicator_color="#2C97DE"
+            tl:tl_indicator_height="0dp"
+            tl:tl_textSelectColor="#2C97DE"
+            tl:tl_textUnselectColor="#66000000"
+            tl:tl_textsize="12sp"
+            tl:tl_underline_color="#DDDDDD"
+            tl:tl_underline_height="1dp"/>
+
+        <FrameLayout
+            android:id="@+id/fl_change"
+            android:layout_width="match_parent"
+            android:layout_height="84dp">
+        </FrameLayout>
+
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/tl_3"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#ffffff"
+            tl:tl_iconGravity="LEFT"
+            tl:tl_iconHeight="18dp"
+            tl:tl_iconMargin="5dp"
+            tl:tl_iconWidth="18dp"
+            tl:tl_indicator_bounce_enable="false"
+            tl:tl_indicator_color="#2C97DE"
+            tl:tl_indicator_gravity="TOP"
+            tl:tl_textSelectColor="#2C97DE"
+            tl:tl_textUnselectColor="#66000000"
+            tl:tl_textsize="15sp"
+            tl:tl_underline_color="#DDDDDD"
+            tl:tl_underline_gravity="TOP"
+            tl:tl_underline_height="1dp"/>
+
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/tl_4"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#F6CE59"
+            tl:tl_iconVisible="false"
+            tl:tl_indicator_width="10dp"
+            tl:tl_textsize="14sp"/>
+
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/tl_5"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#EC7263"
+            tl:tl_iconVisible="false"
+            tl:tl_indicator_corner_radius="2dp"
+            tl:tl_indicator_height="4dp"
+            tl:tl_indicator_width="4dp"
+            tl:tl_textsize="14sp"/>
+
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/tl_6"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#57385C"
+            tl:tl_iconVisible="false"
+            tl:tl_indicator_corner_radius="1.5dp"
+            tl:tl_indicator_height="3dp"
+            tl:tl_indicator_width="10dp"
+            tl:tl_textsize="14sp"/>
+
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/tl_7"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#E45171"
+            tl:tl_iconVisible="false"
+            tl:tl_indicator_color="#eeeeee"
+            tl:tl_indicator_corner_radius="1.5dp"
+            tl:tl_indicator_height="3dp"
+            tl:tl_indicator_style="TRIANGLE"
+            tl:tl_indicator_width="10dp"
+            tl:tl_textsize="14sp"/>
+
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/tl_8"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#6D8FB0"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            tl:tl_iconVisible="false"
+            tl:tl_indicator_margin_left="5dp"
+            tl:tl_indicator_margin_right="5dp"
+            tl:tl_indicator_style="BLOCK"
+            tl:tl_textsize="14sp"/>
+    </LinearLayout>
+</ScrollView>
