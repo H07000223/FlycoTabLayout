@@ -13,7 +13,9 @@
 
 
 ##Demo
-![]()
+![](https://github.com/H07000223/FlycoTabLayout/blob/master/preview_1.gif)
+
+![](https://github.com/H07000223/FlycoTabLayout/blob/master/preview_2.gif)
 
 ##Gradle
 
