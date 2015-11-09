@@ -5,11 +5,26 @@
     * 新增部分属性
     * 新增支持多种Indicator显示器
     * 新增支持未读消息显示
+    * 新增方法for懒癌患者
+    
+    ```java
+        /** 关联ViewPager,用于不想在ViewPager适配器中设置titles数据的情况 */
+        public void setViewPager(ViewPager vp, String[] titles)
+        
+        /** 关联ViewPager,用于连适配器都不想自己实例化的情况 */
+        public void setViewPager(ViewPager vp, String[] titles, FragmentActivity fa, ArrayList<Fragment> fragments) 
+    ```
 
 * CommonTabLayout:不同于SlidingTabLayout对ViewPager依赖,它是一个不依赖ViewPager可以与其他控件自由搭配使用的TabLayout.
     * 支持多种Indicator显示器,以及Indicator动画
     * 支持未读消息显示
     * 支持Icon以及Icon位置
+    * 新增方法for懒癌患者
+    
+    ```java
+        /** 关联数据支持同时切换fragments */
+        public void setTabData(ArrayList<CustomTabEntity> tabEntitys, FragmentManager fm, int containerViewId, ArrayList<Fragment> fragments)
+    ```
 
 
 ##Demo
@@ -60,6 +75,9 @@ dependencies{
 | tl_iconVisible |boolean| 设置icon是否可见(仅支持CommonTabLayout)
 | tl_iconGravity |enum| 设置icon显示位置,对应Gravity中常量值,左上右下(仅支持CommonTabLayout)
 | tl_iconMargin |dimension| 设置icon与文字间距(仅支持CommonTabLayout)
+| tl_indicator_anim_enable |boolean| 设置显示器支持动画(only for CommonTabLayout)
+| tl_indicator_anim_duration |integer| 设置显示器动画时间(only for CommonTabLayout)
+| tl_indicator_bounce_enable |boolean| 设置显示器支持动画回弹效果(only for CommonTabLayout)
 
 ##Dependence
 *   [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)

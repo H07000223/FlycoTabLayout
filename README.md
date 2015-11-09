@@ -6,13 +6,27 @@ An Android TabLayout Lib has two kinds of TabLayout at present.
     * new added attribute
     * new added kinds of indicators
     * new added unread msg tip
+    * new added method for convenience
+    
+    ```java
+        /** no need to set titles in adapter */
+        public void setViewPager(ViewPager vp, String[] titles)
+        
+        /** no need to initialize even adapter */
+        public void setViewPager(ViewPager vp, String[] titles, FragmentActivity fa, ArrayList<Fragment> fragments) 
+    ```
 
 * CommonTabLayout:unlike SlidingTabLayout's dependence on ViewPager,it is a tabLayout without dependence on ViewPager and 
 can be used freely with other widgets together.
     * support kinds of indicators and indicator animation
     * support unread msg tip
     * support icon and icon gravity.
-
+    * new added method for convenience
+    
+    ```java
+        /** support switch fragments itself */
+        public void setTabData(ArrayList<CustomTabEntity> tabEntitys, FragmentManager fm, int containerViewId, ArrayList<Fragment> fragments)
+    ```
 
 ##Demo
 ![](https://github.com/H07000223/FlycoTabLayout/blob/master/preview_1.gif)
@@ -62,6 +76,9 @@ dependencies{
 | tl_iconVisible |boolean| set icon is visible(only for CommonTabLayout)
 | tl_iconGravity |enum| set icon gravity LEFT or TOP or RIGHT or BOTTOM(only for CommonTabLayout)
 | tl_iconMargin |dimension| set icon margin with text(only for CommonTabLayout)
+| tl_indicator_anim_enable |boolean| set indicator support animation(only for CommonTabLayout)
+| tl_indicator_anim_duration |integer| set indicator animation duration(only for CommonTabLayout)
+| tl_indicator_bounce_enable |boolean| set indicator aniamtion with bounce effect(only for CommonTabLayout)
 
 ##Dependence
 *   [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)
