@@ -1,4 +1,5 @@
 #FlycoTabLayout
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-FlycoTabLayout-green.svg?style=true)](https://android-arsenal.com/details/1/2756)
 一个Android TabLayout库,目前有两个TabLayout
 
 * SlidingTabLayout:参照[PagerSlidingTabStrip](https://github.com/jpardogo/PagerSlidingTabStrip)进行大量修改.
