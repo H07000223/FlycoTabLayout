@@ -70,6 +70,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     private float indicatorMarginRight;
     private float indicatorMarginBottom;
     private float indicatorGravity;
+    private boolean indicatorWidthEqualTitle;
 
     /** underline */
     private int underlineColor;
@@ -140,6 +141,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         indicatorMarginRight = ta.getDimension(R.styleable.SlidingTabLayout_tl_indicator_margin_right, dp2px(0));
         indicatorMarginBottom = ta.getDimension(R.styleable.SlidingTabLayout_tl_indicator_margin_bottom, dp2px(indicatorStyle == STYLE_BLOCK ? 7 : 0));
         indicatorGravity = ta.getInt(R.styleable.SlidingTabLayout_tl_indicator_gravity, Gravity.BOTTOM);
+        indicatorWidthEqualTitle = ta.getBoolean(R.styleable.SlidingTabLayout_tl_indicator_width_equal_title, false);
 
         underlineColor = ta.getColor(R.styleable.SlidingTabLayout_tl_underline_color, Color.parseColor("#ffffff"));
         underlineHeight = ta.getDimension(R.styleable.SlidingTabLayout_tl_underline_height, dp2px(0));
@@ -377,7 +379,9 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         tabRect.right = (int) right;
 
         if (indicatorWidth < 0) {   //indicatorWidth小于0时,原jpardogo's PagerSlidingTabStrip
-
+            if (indicatorStyle == STYLE_NORMAL && indicatorWidthEqualTitle) {//只有在STYLE_NORMAL并且indicatorWidth小于零有效
+                indicatorMarginLeft = indicatorMarginRight = tabPadding - 1;
+            }
         } else {//indicatorWidth大于0时,圆角矩形以及三角形
             float indicatorLeft = currentTabView.getLeft() + (currentTabView.getWidth() - indicatorWidth) / 2;
 
@@ -462,11 +466,15 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
             if (indicatorHeight > 0) {
                 indicatorDrawable.setColor(indicatorColor);
                 if (indicatorGravity == Gravity.BOTTOM) {
-                    indicatorDrawable.setBounds(paddingLeft + indicatorRect.left,
-                            (int) (height - indicatorHeight), paddingLeft + indicatorRect.right, height);
+                    indicatorDrawable.setBounds(paddingLeft + (int) indicatorMarginLeft + indicatorRect.left,
+                            height - (int) indicatorHeight - (int) indicatorMarginBottom,
+                            paddingLeft + indicatorRect.right - (int) indicatorMarginRight,
+                            height - (int) indicatorMarginBottom);
                 } else {
-                    indicatorDrawable.setBounds(paddingLeft + indicatorRect.left,
-                            0, paddingLeft + indicatorRect.right, (int) indicatorHeight);
+                    indicatorDrawable.setBounds(paddingLeft + (int) indicatorMarginLeft + indicatorRect.left,
+                            (int) indicatorMarginTop,
+                            paddingLeft + indicatorRect.right - (int) indicatorMarginRight,
+                            (int) indicatorHeight + (int) indicatorMarginTop);
                 }
                 indicatorDrawable.setCornerRadius(indicatorCornerRadius);
                 indicatorDrawable.draw(canvas);
@@ -541,6 +549,11 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         this.indicatorMarginTop = dp2px(indicatorMarginTop);
         this.indicatorMarginRight = dp2px(indicatorMarginRight);
         this.indicatorMarginBottom = dp2px(indicatorMarginBottom);
+        invalidate();
+    }
+
+    public void setIndicatorWidthEqualTitle(boolean indicatorWidthEqualTitle) {
+        this.indicatorWidthEqualTitle = indicatorWidthEqualTitle;
         invalidate();
     }
 

@@ -453,11 +453,15 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
             if (indicatorHeight > 0) {
                 indicatorDrawable.setColor(indicatorColor);
                 if (indicatorGravity == Gravity.BOTTOM) {
-                    indicatorDrawable.setBounds(paddingLeft + indicatorRect.left,
-                            (int) (height - indicatorHeight), paddingLeft + indicatorRect.right, height);
+                    indicatorDrawable.setBounds(paddingLeft + (int) indicatorMarginLeft + indicatorRect.left,
+                            height - (int) indicatorHeight - (int) indicatorMarginBottom,
+                            paddingLeft + indicatorRect.right - (int) indicatorMarginRight,
+                            height - (int) indicatorMarginBottom);
                 } else {
-                    indicatorDrawable.setBounds(paddingLeft + indicatorRect.left,
-                            0, paddingLeft + indicatorRect.right, (int) indicatorHeight);
+                    indicatorDrawable.setBounds(paddingLeft + (int) indicatorMarginLeft + indicatorRect.left,
+                            (int) indicatorMarginTop,
+                            paddingLeft + indicatorRect.right - (int) indicatorMarginRight,
+                            (int) indicatorHeight + (int) indicatorMarginTop);
                 }
                 indicatorDrawable.setCornerRadius(indicatorCornerRadius);
                 indicatorDrawable.draw(canvas);

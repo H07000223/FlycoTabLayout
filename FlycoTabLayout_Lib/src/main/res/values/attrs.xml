@@ -25,6 +25,8 @@
         <enum name="TRIANGLE" value="1"/>
         <enum name="BLOCK" value="2"/>
     </attr>
+    <!-- 设置显示器长度与title一样长,只有在STYLE_NORMAL并且indicatorWidth小于零有效-->
+    <attr name="tl_indicator_width_equal_title" format="boolean"/>
 
     <!-- underline -->
     <!-- 设置下划线颜色 -->
@@ -77,6 +79,7 @@
         <attr name="tl_indicator_corner_radius"/>
         <attr name="tl_indicator_gravity"/>
         <attr name="tl_indicator_style"/>
+        <attr name="tl_indicator_width_equal_title"/>
 
         <!-- underline -->
         <attr name="tl_underline_color"/>

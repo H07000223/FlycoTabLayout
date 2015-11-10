@@ -38,6 +38,7 @@
                 tl:tl_divider_width="1dp"
                 tl:tl_indicator_color="#000000"
                 tl:tl_indicator_height="1.5dp"
+                tl:tl_indicator_width_equal_title="true"
                 tl:tl_tab_padding="22dp"
                 tl:tl_tab_space_equal="true"
                 tl:tl_textSelectColor="#000000"
