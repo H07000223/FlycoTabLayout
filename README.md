@@ -39,7 +39,7 @@ can be used freely with other widgets together.
 dependencies{
     compile 'com.android.support:support-v4:23.1.0'
     compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.flyco.roundview:FlycoRoundView_Lib:1.0.4@aar'
+    compile 'com.flyco.roundview:FlycoRoundView_Lib:1.0.6@aar'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:1.3.4@aar'
 }
 ```
@@ -79,6 +79,7 @@ dependencies{
 | tl_indicator_anim_enable |boolean| set indicator support animation(only for CommonTabLayout)
 | tl_indicator_anim_duration |integer| set indicator animation duration(only for CommonTabLayout)
 | tl_indicator_bounce_enable |boolean| set indicator aniamtion with bounce effect(only for CommonTabLayout)
+| tl_indicator_width_equal_title |boolean| set indicator width same as text(only for SlidingTabLayout)
 
 ##Dependence
 *   [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)

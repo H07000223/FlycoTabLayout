@@ -38,7 +38,7 @@
 dependencies{
     compile 'com.android.support:support-v4:23.1.0'
     compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.flyco.roundview:FlycoRoundView_Lib:1.0.4@aar'
+    compile 'com.flyco.roundview:FlycoRoundView_Lib:1.0.6@aar'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:1.3.4@aar'
 }
 ```
@@ -78,6 +78,7 @@ dependencies{
 | tl_indicator_anim_enable |boolean| 设置显示器支持动画(only for CommonTabLayout)
 | tl_indicator_anim_duration |integer| 设置显示器动画时间(only for CommonTabLayout)
 | tl_indicator_bounce_enable |boolean| 设置显示器支持动画回弹效果(only for CommonTabLayout)
+| tl_indicator_width_equal_title |boolean| 设置显示器与标题一样长(only for SlidingTabLayout)
 
 ##Dependence
 *   [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)

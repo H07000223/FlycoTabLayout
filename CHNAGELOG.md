@@ -32,3 +32,7 @@ Version 1.3.2 *(2015-10-28)*
 Version 1.3.4 *(2015-11-5)*
 ----------------------------
 * replace TipView with RoundTextView
+
+Version 1.3.6 *(2015-11-10)*
+----------------------------
+* new add attr tl_indicator_width_equal_title
