@@ -358,30 +358,52 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         }
     }
 
+    private float margin;
+
     private void calcIndicatorRect() {
         View currentTabView = tabsContainer.getChildAt(this.currentTab);
         float left = currentTabView.getLeft();
         float right = currentTabView.getRight();
 
+        //for indicatorWidthEqualTitle
+        if (indicatorStyle == STYLE_NORMAL && indicatorWidthEqualTitle) {
+            TextView tab_title = (TextView) currentTabView.findViewById(R.id.tv_tab_title);
+            textPaint.setTextSize(textsize);
+            float textWidth = textPaint.measureText(tab_title.getText().toString());
+            margin = (right - left - textWidth) / 2;
+        }
+
         if (this.currentTab < tabCount - 1) {
             View nextTabView = tabsContainer.getChildAt(this.currentTab + 1);
-            final float nextTabLeft = nextTabView.getLeft();
-            final float nextTabRight = nextTabView.getRight();
+            float nextTabLeft = nextTabView.getLeft();
+            float nextTabRight = nextTabView.getRight();
 
             left = left + currentPositionOffset * (nextTabLeft - left);
             right = right + currentPositionOffset * (nextTabRight - right);
+
+            //for indicatorWidthEqualTitle
+            if (indicatorStyle == STYLE_NORMAL && indicatorWidthEqualTitle) {
+                TextView next_tab_title = (TextView) nextTabView.findViewById(R.id.tv_tab_title);
+                textPaint.setTextSize(textsize);
+                float nextTextWidth = textPaint.measureText(next_tab_title.getText().toString());
+                float nextMargin = (nextTabRight - nextTabLeft - nextTextWidth) / 2;
+                margin = margin + currentPositionOffset * (nextMargin - margin);
+            }
         }
 
         indicatorRect.left = (int) left;
         indicatorRect.right = (int) right;
+        //for indicatorWidthEqualTitle
+        if (indicatorStyle == STYLE_NORMAL && indicatorWidthEqualTitle) {
+            indicatorRect.left = (int) (left + margin - 1);
+            indicatorRect.right = (int) (right - margin - 1);
+        }
 
         tabRect.left = (int) left;
         tabRect.right = (int) right;
 
         if (indicatorWidth < 0) {   //indicatorWidth小于0时,原jpardogo's PagerSlidingTabStrip
-            if (indicatorStyle == STYLE_NORMAL && indicatorWidthEqualTitle) {//只有在STYLE_NORMAL并且indicatorWidth小于零有效
-                indicatorMarginLeft = indicatorMarginRight = tabPadding - 1;
-            }
+
         } else {//indicatorWidth大于0时,圆角矩形以及三角形
             float indicatorLeft = currentTabView.getLeft() + (currentTabView.getWidth() - indicatorWidth) / 2;
 
@@ -465,6 +487,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
 
             if (indicatorHeight > 0) {
                 indicatorDrawable.setColor(indicatorColor);
+
                 if (indicatorGravity == Gravity.BOTTOM) {
                     indicatorDrawable.setBounds(paddingLeft + (int) indicatorMarginLeft + indicatorRect.left,
                             height - (int) indicatorHeight - (int) indicatorMarginBottom,

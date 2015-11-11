@@ -36,3 +36,7 @@ Version 1.3.4 *(2015-11-5)*
 Version 1.3.6 *(2015-11-10)*
 ----------------------------
 * new add attr tl_indicator_width_equal_title
+
+Version 1.4.0 *(2015-11-11)*
+----------------------------
+* fix bug: attr tl_indicator_width_equal_title sometime invalid

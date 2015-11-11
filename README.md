@@ -41,7 +41,7 @@ dependencies{
     compile 'com.android.support:support-v4:23.1.0'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.flyco.roundview:FlycoRoundView_Lib:1.0.6@aar'
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:1.3.6@aar'
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:1.4.0@aar'
 }
 ```
 
