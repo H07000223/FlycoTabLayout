@@ -21,10 +21,10 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'com.android.support:appcompat-v7:23.1.1'
     compile project(':FlycoTabLayout_Lib')
 
 /*    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:1.4.0@aar'
-    compile 'com.flyco.roundview:FlycoRoundView_Lib:1.0.4@aar'
+    compile 'com.flyco.roundview:FlycoRoundView_Lib:1.1.2@aar'
     compile 'com.nineoldandroids:library:2.4.0'*/
 }
