@@ -125,7 +125,7 @@ public class CommonTabActivity extends AppCompatActivity {
         tl_2.showDot(2);
         RoundTextView rtv_2_2 = tl_2.getMsgView(2);
         if (rtv_2_2 != null) {
-            rtv_2_2.setWidth(dp2px(7.5f));
+            UnreadMsgUtils.setSize(rtv_2_2, dp2px(7.5f));
         }
 
         //设置未读消息背景

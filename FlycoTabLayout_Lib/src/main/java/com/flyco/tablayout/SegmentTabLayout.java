@@ -12,15 +12,20 @@ import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.flyco.roundview.RoundTextView;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.flyco.tablayout.utils.FragmentChangeManager;
+import com.flyco.tablayout.utils.UnreadMsgUtils;
 import com.nineoldandroids.animation.TypeEvaluator;
 import com.nineoldandroids.animation.ValueAnimator;
 
@@ -72,6 +77,8 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
     private int barStrokeColor;
     private float barStrokeWidth;
 
+    private int h;
+
     /** anim */
     private ValueAnimator valueAnimator;
     private OvershootInterpolator interpolator = new OvershootInterpolator(0.8f);
@@ -98,6 +105,19 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         addView(tabsContainer);
 
         obtainAttributes(context, attrs);
+
+        //get layout_height
+        String height = attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "layout_height");
+
+        //create ViewPager
+        if (height.equals(ViewGroup.LayoutParams.MATCH_PARENT + "")) {
+        } else if (height.equals(ViewGroup.LayoutParams.WRAP_CONTENT + "")) {
+        } else {
+            int[] systemAttrs = {android.R.attr.layout_height};
+            TypedArray a = context.obtainStyledAttributes(attrs, systemAttrs);
+            h = a.getDimensionPixelSize(0, ViewGroup.LayoutParams.WRAP_CONTENT);
+            a.recycle();
+        }
 
         valueAnimator = ValueAnimator.ofObject(new PointEvaluator(), lp, cp);
         valueAnimator.addUpdateListener(this);
@@ -160,7 +180,7 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         this.tabCount = titles.length;
         View tabView;
         for (int i = 0; i < tabCount; i++) {
-            tabView = View.inflate(context, R.layout.layout_tab, null);
+            tabView = View.inflate(context, R.layout.layout_tab_segment, null);
             tabView.setTag(i);
             addTab(i, tabView);
         }
@@ -573,6 +593,95 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
     }
 
     //setter and getter
+    // show MsgTipView
+    private Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private SparseArray<Boolean> initSetMap = new SparseArray<>();
+
+    /**
+     * 显示未读消息
+     *
+     * @param position 显示tab位置
+     * @param num      num小于等于0显示红点,num大于0显示数字
+     */
+    public void showMsg(int position, int num) {
+        if (position >= tabCount) {
+            position = tabCount - 1;
+        }
+
+        View tabView = tabsContainer.getChildAt(position);
+        RoundTextView tipView = (RoundTextView) tabView.findViewById(R.id.rtv_msg_tip);
+        if (tipView != null) {
+            UnreadMsgUtils.show(tipView, num);
+
+            if (initSetMap.get(position) != null && initSetMap.get(position)) {
+                return;
+            }
+
+            setMsgMargin(position, 2, 2);
+
+            initSetMap.put(position, true);
+        }
+    }
+
+    /**
+     * 显示未读红点
+     *
+     * @param position 显示tab位置
+     */
+    public void showDot(int position) {
+        if (position >= tabCount) {
+            position = tabCount - 1;
+        }
+        showMsg(position, 0);
+    }
+
+    public void hideMsg(int position) {
+        if (position >= tabCount) {
+            position = tabCount - 1;
+        }
+
+        View tabView = tabsContainer.getChildAt(position);
+        RoundTextView tipView = (RoundTextView) tabView.findViewById(R.id.rtv_msg_tip);
+        if (tipView != null) {
+            tipView.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * 设置提示红点偏移,注意
+     * 1.控件为固定高度:参照点为tab内容的右上角
+     * 2.控件高度不固定(WRAP_CONTENT):参照点为tab内容的右上角,此时高度已是红点的最高显示范围,所以这时bottomPadding其实就是topPadding
+     */
+    public void setMsgMargin(int position, float leftPadding, float bottomPadding) {
+        if (position >= tabCount) {
+            position = tabCount - 1;
+        }
+        View tabView = tabsContainer.getChildAt(position);
+        RoundTextView tipView = (RoundTextView) tabView.findViewById(R.id.rtv_msg_tip);
+        if (tipView != null) {
+            TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
+            textPaint.setTextSize(textsize);
+            float textWidth = textPaint.measureText(tv_tab_title.getText().toString());
+            float textHeight = textPaint.descent() - textPaint.ascent();
+            MarginLayoutParams lp = (MarginLayoutParams) tipView.getLayoutParams();
+
+            lp.leftMargin = dp2px(leftPadding);
+            lp.topMargin = h > 0 ? (int) (h - textHeight) / 2 - dp2px(bottomPadding) : dp2px(bottomPadding);
+
+            tipView.setLayoutParams(lp);
+        }
+    }
+
+    /** 当前类只提供了少许设置未读消息属性的方法,可以通过该方法获取RoundTextView对象从而各种设置 */
+    public RoundTextView getMsgView(int position) {
+        if (position >= tabCount) {
+            position = tabCount - 1;
+        }
+        View tabView = tabsContainer.getChildAt(position);
+        RoundTextView tipView = (RoundTextView) tabView.findViewById(R.id.rtv_msg_tip);
+        return tipView;
+    }
+
     private OnTabSelectListener listener;
 
     public void setOnTabSelectListener(OnTabSelectListener listener) {

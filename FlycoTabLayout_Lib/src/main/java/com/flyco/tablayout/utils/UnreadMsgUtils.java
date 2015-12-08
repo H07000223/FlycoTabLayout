@@ -1,7 +1,6 @@
 package com.flyco.tablayout.utils;
 
 
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -47,5 +46,15 @@ public class UnreadMsgUtils {
             }
             rtv.setLayoutParams(lp);
         }
+    }
+
+    public static void setSize(RoundTextView rtv, int size) {
+        if (rtv == null) {
+            return;
+        }
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) rtv.getLayoutParams();
+        lp.width = size;
+        lp.height = size;
+        rtv.setLayoutParams(lp);
     }
 }

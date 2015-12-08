@@ -1,6 +1,7 @@
 package com.flyco.tablayoutsamples.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,9 +10,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.flyco.roundview.RoundTextView;
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.flyco.tablayout.utils.UnreadMsgUtils;
 import com.flyco.tablayoutsamples.R;
 import com.flyco.tablayoutsamples.entity.TabEntity;
 import com.flyco.tablayoutsamples.utils.ViewFindUtils;
@@ -72,46 +75,12 @@ public class SegmentTabActivity extends AppCompatActivity {
         tl_3();
         tl_4.setTabData(titles_2, this, R.id.fl_change, fragments2);
         tl_5.setTabData(titles_3);
-//        /** indicator固定宽度 */
-//        tl_5 = ViewFindUtils.find(decorView, R.id.tl_5);
-//        /** indicator矩形圆角 */
-//        tl_6 = ViewFindUtils.find(decorView, R.id.tl_6);
-//        /** indicator三角形 */
-//        tl_7 = ViewFindUtils.find(decorView, R.id.tl_7);
-//        /** indicator圆角色块 */
-//        tl_8 = ViewFindUtils.find(decorView, R.id.tl_8);
 
+        //显示未读红点
+        tl_1.showDot(2);
+        tl_3.showDot(1);
+        tl_4.showDot(1);
 
-//        tl_3.setTabData(tabs, this, R.id.fl_change, fragments2);
-//        tl_4.setTabData(tabs);
-//        tl_5.setTabData(tabs);
-//        tl_6.setTabData(tabs);
-//        tl_7.setTabData(tabs);
-//        tl_8.setTabData(tabs);
-//
-//        tl_3.setOnTabSelectListener(new OnTabSelectListener() {
-//            @Override
-//            public void onTabSelect(int position) {
-//                tl_1.setCurrentTab(position);
-//                tl_3.setCurrentTab(position);
-//                tl_4.setCurrentTab(position);
-//                tl_5.setCurrentTab(position);
-//                tl_6.setCurrentTab(position);
-//                tl_7.setCurrentTab(position);
-//                tl_8.setCurrentTab(position);
-//            }
-//
-//            @Override
-//            public void onTabReselect(int position) {
-//
-//            }
-//        });
-//
-//        //显示未读红点
-//        tl_1.showDot(2);
-//        tl_3.showDot(1);
-//        tl_4.showDot(1);
-//
 //        //两位数
 //        tl_3.showMsg(0, 55);
 //        tl_3.setMsgMargin(0, -5, 5);
@@ -119,14 +88,14 @@ public class SegmentTabActivity extends AppCompatActivity {
 //        //三位数
 //        tl_3.showMsg(1, 100);
 //        tl_3.setMsgMargin(1, -5, 5);
-//
-//        //设置未读消息红点
-//        tl_3.showDot(2);
-//        RoundTextView rtv_2_2 = tl_3.getMsgView(2);
-//        if (rtv_2_2 != null) {
-//            rtv_2_2.setWidth(dp2px(7.5f));
-//        }
-//
+
+        //设置未读消息红点
+        tl_3.showDot(2);
+        RoundTextView rtv_3_2 = tl_3.getMsgView(2);
+        if (rtv_3_2 != null) {
+            rtv_3_2.getDelegate().setBackgroundColor(Color.parseColor("#6D8FB0"));
+        }
+
 //        //设置未读消息背景
 //        tl_3.showMsg(3, 5);
 //        tl_3.setMsgMargin(3, 0, 5);
