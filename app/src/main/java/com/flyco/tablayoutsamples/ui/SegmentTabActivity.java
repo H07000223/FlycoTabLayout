@@ -1,6 +1,5 @@
 package com.flyco.tablayoutsamples.ui;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,54 +11,33 @@ import android.view.View;
 
 import com.flyco.roundview.RoundTextView;
 import com.flyco.tablayout.SegmentTabLayout;
-import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
-import com.flyco.tablayout.utils.UnreadMsgUtils;
 import com.flyco.tablayoutsamples.R;
-import com.flyco.tablayoutsamples.entity.TabEntity;
 import com.flyco.tablayoutsamples.utils.ViewFindUtils;
 
 import java.util.ArrayList;
 
 public class SegmentTabActivity extends AppCompatActivity {
-    private Context context = this;
     private ArrayList<Fragment> fragments = new ArrayList<>();
     private ArrayList<Fragment> fragments2 = new ArrayList<>();
 
     private String[] titles = {"首页", "消息"};
     private String[] titles_2 = {"首页", "消息", "联系人"};
     private String[] titles_3 = {"首页", "消息", "联系人", "更多"};
-    private int[] iconUnselectIds = {
-            R.mipmap.tab_home_unselect, R.mipmap.tab_speech_unselect,
-            R.mipmap.tab_contact_unselect, R.mipmap.tab_more_unselect};
-    private int[] iconSelectIds = {
-            R.mipmap.tab_home_select, R.mipmap.tab_speech_select,
-            R.mipmap.tab_contact_select, R.mipmap.tab_more_select};
-    private ArrayList<CustomTabEntity> tabs = new ArrayList<>();
     private View decorView;
     private SegmentTabLayout tl_3;
-    //    private CommonTabLayout tl_4;
-//    private CommonTabLayout tl_5;
-//    private CommonTabLayout tl_6;
-//    private CommonTabLayout tl_7;
-//    private CommonTabLayout tl_8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_segment_tab);
 
-        for (String title : titles_2) {
-            fragments2.add(SimpleCardFragment.getInstance("Switch Fragment " + title));
-        }
-
         for (String title : titles_3) {
             fragments.add(SimpleCardFragment.getInstance("Switch ViewPager " + title));
         }
 
-
-        for (int i = 0; i < titles.length; i++) {
-            tabs.add(new TabEntity(titles[i], iconSelectIds[i], iconUnselectIds[i]));
+        for (String title : titles_2) {
+            fragments2.add(SimpleCardFragment.getInstance("Switch Fragment " + title));
         }
 
         decorView = getWindow().getDecorView();
@@ -78,16 +56,9 @@ public class SegmentTabActivity extends AppCompatActivity {
 
         //显示未读红点
         tl_1.showDot(2);
+        tl_2.showDot(2);
         tl_3.showDot(1);
         tl_4.showDot(1);
-
-//        //两位数
-//        tl_3.showMsg(0, 55);
-//        tl_3.setMsgMargin(0, -5, 5);
-//
-//        //三位数
-//        tl_3.showMsg(1, 100);
-//        tl_3.setMsgMargin(1, -5, 5);
 
         //设置未读消息红点
         tl_3.showDot(2);
@@ -95,14 +66,6 @@ public class SegmentTabActivity extends AppCompatActivity {
         if (rtv_3_2 != null) {
             rtv_3_2.getDelegate().setBackgroundColor(Color.parseColor("#6D8FB0"));
         }
-
-//        //设置未读消息背景
-//        tl_3.showMsg(3, 5);
-//        tl_3.setMsgMargin(3, 0, 5);
-//        RoundTextView rtv_2_3 = tl_3.getMsgView(3);
-//        if (rtv_2_3 != null) {
-//            rtv_2_3.getDelegate().setBackgroundColor(Color.parseColor("#6D8FB0"));
-//        }
     }
 
     private void tl_3() {
@@ -159,10 +122,5 @@ public class SegmentTabActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             return fragments.get(position);
         }
-    }
-
-    protected int dp2px(float dp) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dp * scale + 0.5f);
     }
 }
