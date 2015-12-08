@@ -69,13 +69,13 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     private float indicatorMarginTop;
     private float indicatorMarginRight;
     private float indicatorMarginBottom;
-    private float indicatorGravity;
+    private int indicatorGravity;
     private boolean indicatorWidthEqualTitle;
 
     /** underline */
     private int underlineColor;
     private float underlineHeight;
-    private float underlineGravity;
+    private int underlineGravity;
 
     /** divider */
     private int dividerColor;
@@ -433,7 +433,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
             dividerPaint.setColor(dividerColor);
             for (int i = 0; i < tabCount - 1; i++) {
                 View tab = tabsContainer.getChildAt(i);
-                canvas.drawLine(tab.getRight(), dividerPadding, tab.getRight(), height - dividerPadding, dividerPaint);
+                canvas.drawLine(paddingLeft + tab.getRight(), dividerPadding, paddingLeft + tab.getRight(), height - dividerPadding, dividerPaint);
             }
         }
 
@@ -551,18 +551,8 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         invalidate();
     }
 
-    public void setIndicatorGravity(float indicatorGravity) {
+    public void setIndicatorGravity(int indicatorGravity) {
         this.indicatorGravity = indicatorGravity;
-        invalidate();
-    }
-
-    public void setUnderlineColor(int underlineColor) {
-        this.underlineColor = underlineColor;
-        invalidate();
-    }
-
-    public void setUnderlineHeight(float underlineHeight) {
-        this.underlineHeight = dp2px(underlineHeight);
         invalidate();
     }
 
@@ -580,7 +570,17 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         invalidate();
     }
 
-    public void setUnderlineGravity(float underlineGravity) {
+    public void setUnderlineColor(int underlineColor) {
+        this.underlineColor = underlineColor;
+        invalidate();
+    }
+
+    public void setUnderlineHeight(float underlineHeight) {
+        this.underlineHeight = dp2px(underlineHeight);
+        invalidate();
+    }
+
+    public void setUnderlineGravity(int underlineGravity) {
         this.underlineGravity = underlineGravity;
         invalidate();
     }

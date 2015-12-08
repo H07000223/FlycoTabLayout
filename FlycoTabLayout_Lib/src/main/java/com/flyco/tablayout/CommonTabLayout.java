@@ -11,6 +11,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -73,12 +74,12 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
     private long indicatorAnimDuration;
     private boolean indicatorAnimEnable;
     private boolean indicatorBounceEnable;
-    private float indicatorGravity;
+    private int indicatorGravity;
 
     /** underline */
     private int underlineColor;
     private float underlineHeight;
-    private float underlineGravity;
+    private int underlineGravity;
 
     /** divider */
     private int dividerColor;
@@ -148,7 +149,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CommonTabLayout);
 
         indicatorStyle = ta.getInt(R.styleable.CommonTabLayout_tl_indicator_style, 0);
-        indicatorColor = ta.getColor(R.styleable.CommonTabLayout_tl_indicator_color, Color.parseColor(indicatorStyle == STYLE_BLOCK ? "#4B6A87" : "#ffffff"));
+            indicatorColor = ta.getColor(R.styleable.CommonTabLayout_tl_indicator_color, Color.parseColor(indicatorStyle == STYLE_BLOCK ? "#4B6A87" : "#ffffff"));
         indicatorHeight = ta.getDimension(R.styleable.CommonTabLayout_tl_indicator_height,
                 dp2px(indicatorStyle == STYLE_TRIANGLE ? 4 : (indicatorStyle == STYLE_BLOCK ? -1 : 2)));
         indicatorWidth = ta.getDimension(R.styleable.CommonTabLayout_tl_indicator_width, dp2px(indicatorStyle == STYLE_TRIANGLE ? 10 : -1));
@@ -201,8 +202,8 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
     }
 
     /** 关联数据支持同时切换fragments */
-    public void setTabData(ArrayList<CustomTabEntity> tabEntitys, FragmentManager fm, int containerViewId, ArrayList<Fragment> fragments) {
-        fragmentChangeManager = new FragmentChangeManager(fm, containerViewId, fragments);
+    public void setTabData(ArrayList<CustomTabEntity> tabEntitys, FragmentActivity fa, int containerViewId, ArrayList<Fragment> fragments) {
+        fragmentChangeManager = new FragmentChangeManager(fa.getSupportFragmentManager(), containerViewId, fragments);
         setTabData(tabEntitys);
     }
 
@@ -390,7 +391,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
             dividerPaint.setColor(dividerColor);
             for (int i = 0; i < tabCount - 1; i++) {
                 View tab = tabsContainer.getChildAt(i);
-                canvas.drawLine(tab.getRight(), dividerPadding, tab.getRight(), height - dividerPadding, dividerPaint);
+                canvas.drawLine(paddingLeft + tab.getRight(), dividerPadding, paddingLeft + tab.getRight(), height - dividerPadding, dividerPaint);
             }
         }
 
@@ -524,13 +525,8 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         invalidate();
     }
 
-    public void setUnderlineColor(int underlineColor) {
-        this.underlineColor = underlineColor;
-        invalidate();
-    }
-
-    public void setUnderlineHeight(float underlineHeight) {
-        this.underlineHeight = dp2px(underlineHeight);
+    public void setIndicatorGravity(int indicatorGravity) {
+        this.indicatorGravity = indicatorGravity;
         invalidate();
     }
 
@@ -553,6 +549,21 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
 
     public void setIndicatorBounceEnable(boolean indicatorBounceEnable) {
         this.indicatorBounceEnable = indicatorBounceEnable;
+    }
+
+    public void setUnderlineColor(int underlineColor) {
+        this.underlineColor = underlineColor;
+        invalidate();
+    }
+
+    public void setUnderlineHeight(float underlineHeight) {
+        this.underlineHeight = dp2px(underlineHeight);
+        invalidate();
+    }
+
+    public void setUnderlineGravity(int underlineGravity) {
+        this.underlineGravity = underlineGravity;
+        invalidate();
     }
 
     public void setDividerColor(int dividerColor) {
