@@ -40,3 +40,7 @@ Version 1.3.6 *(2015-11-10)*
 Version 1.4.0 *(2015-11-11)*
 ----------------------------
 * fix bug: attr tl_indicator_width_equal_title sometime invalid
+
+Version 1.4.2 *(2015-12-9)*
+----------------------------
+* new added tablayout
