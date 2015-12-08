@@ -1,7 +1,7 @@
 #FlycoTabLayout
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-FlycoTabLayout-green.svg?style=true)](https://android-arsenal.com/details/1/2756)
 
-一个Android TabLayout库,目前有两个TabLayout
+一个Android TabLayout库,目前有3个TabLayout
 
 * SlidingTabLayout:参照[PagerSlidingTabStrip](https://github.com/jpardogo/PagerSlidingTabStrip)进行大量修改.
     * 新增部分属性
@@ -28,11 +28,14 @@
         public void setTabData(ArrayList<CustomTabEntity> tabEntitys, FragmentManager fm, int containerViewId, ArrayList<Fragment> fragments)
     ```
 
+* SegmentTabLayout
 
 ##Demo
 ![](https://github.com/H07000223/FlycoTabLayout/blob/master/preview_1.gif)
 
 ![](https://github.com/H07000223/FlycoTabLayout/blob/master/preview_2.gif)
+
+![](https://github.com/H07000223/FlycoTabLayout/blob/master/preview_3.gif)
 
 ##Gradle
 
@@ -41,7 +44,7 @@ dependencies{
     compile 'com.android.support:support-v4:23.1.1'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.flyco.roundview:FlycoRoundView_Lib:1.1.2@aar'
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:1.4.0@aar'
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:1.4.2@aar'
 }
 ```
 
