@@ -52,3 +52,7 @@ Version 1.4.4 *(2015-12-11)*
 Version 1.4.6 *(2015-12-11)*
 ----------------------------
 * fix bug: CommonTabLayout first setCurrentTab() cause indicator not show
+
+Version 1.5.0 *(2015-12-11)*
+----------------------------
+* change code style
