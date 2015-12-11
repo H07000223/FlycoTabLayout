@@ -20,9 +20,9 @@ import com.flyco.tablayoutsamples.utils.ViewFindUtils;
 import java.util.ArrayList;
 
 public class SlidingTabActivity extends AppCompatActivity implements OnTabSelectListener {
-    private Context context = this;
-    private ArrayList<Fragment> fragments = new ArrayList<>();
-    private final String[] titles = {
+    private Context mContext = this;
+    private ArrayList<Fragment> mFragments = new ArrayList<>();
+    private final String[] mTitles = {
             "热门", "iOS", "Android", "前端"
             , "后端", "设计", "工具资源"
     };
@@ -32,8 +32,8 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sliding_tab);
 
-        for (String title : titles) {
-            fragments.add(SimpleCardFragment.getInstance(title));
+        for (String title : mTitles) {
+            mFragments.add(SimpleCardFragment.getInstance(title));
         }
 
         View decorView = getWindow().getDecorView();
@@ -41,63 +41,63 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
         vp.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
 
         /** 默认 */
-        SlidingTabLayout tl_1 = ViewFindUtils.find(decorView, R.id.tl_1);
+        SlidingTabLayout tabLayout_1 = ViewFindUtils.find(decorView, R.id.tl_1);
         /**自定义部分属性*/
-        SlidingTabLayout tl_2 = ViewFindUtils.find(decorView, R.id.tl_2);
+        SlidingTabLayout tabLayout_2 = ViewFindUtils.find(decorView, R.id.tl_2);
         /** 字体加粗,大写 */
-        SlidingTabLayout tl_3 = ViewFindUtils.find(decorView, R.id.tl_3);
+        SlidingTabLayout tabLayout_3 = ViewFindUtils.find(decorView, R.id.tl_3);
         /** tab固定宽度 */
-        SlidingTabLayout tl_4 = ViewFindUtils.find(decorView, R.id.tl_4);
+        SlidingTabLayout tabLayout_4 = ViewFindUtils.find(decorView, R.id.tl_4);
         /** indicator固定宽度 */
-        SlidingTabLayout tl_5 = ViewFindUtils.find(decorView, R.id.tl_5);
+        SlidingTabLayout tabLayout_5 = ViewFindUtils.find(decorView, R.id.tl_5);
         /** indicator圆 */
-        SlidingTabLayout tl_6 = ViewFindUtils.find(decorView, R.id.tl_6);
+        SlidingTabLayout tabLayout_6 = ViewFindUtils.find(decorView, R.id.tl_6);
         /** indicator矩形圆角 */
-        SlidingTabLayout tl_7 = ViewFindUtils.find(decorView, R.id.tl_7);
+        SlidingTabLayout tabLayout_7 = ViewFindUtils.find(decorView, R.id.tl_7);
         /** indicator三角形 */
-        SlidingTabLayout tl_8 = ViewFindUtils.find(decorView, R.id.tl_8);
+        SlidingTabLayout tabLayout_8 = ViewFindUtils.find(decorView, R.id.tl_8);
         /** indicator圆角色块 */
-        SlidingTabLayout tl_9 = ViewFindUtils.find(decorView, R.id.tl_9);
+        SlidingTabLayout tabLayout_9 = ViewFindUtils.find(decorView, R.id.tl_9);
         /** indicator圆角色块 */
-        SlidingTabLayout tl_10 = ViewFindUtils.find(decorView, R.id.tl_10);
+        SlidingTabLayout tabLayout_10 = ViewFindUtils.find(decorView, R.id.tl_10);
 
-        tl_1.setViewPager(vp);
-        tl_2.setViewPager(vp);
-        tl_2.setOnTabSelectListener(this);
-        tl_3.setViewPager(vp);
-        tl_4.setViewPager(vp);
-        tl_5.setViewPager(vp);
-        tl_6.setViewPager(vp);
-        tl_7.setViewPager(vp, titles);
-        tl_8.setViewPager(vp, titles, this, fragments);
-        tl_9.setViewPager(vp);
-        tl_10.setViewPager(vp);
+        tabLayout_1.setViewPager(vp);
+        tabLayout_2.setViewPager(vp);
+        tabLayout_2.setOnTabSelectListener(this);
+        tabLayout_3.setViewPager(vp);
+        tabLayout_4.setViewPager(vp);
+        tabLayout_5.setViewPager(vp);
+        tabLayout_6.setViewPager(vp);
+        tabLayout_7.setViewPager(vp, mTitles);
+        tabLayout_8.setViewPager(vp, mTitles, this, mFragments);
+        tabLayout_9.setViewPager(vp);
+        tabLayout_10.setViewPager(vp);
 
         vp.setCurrentItem(4);
 
-        tl_1.showDot(4);
-        tl_3.showDot(4);
-        tl_2.showDot(4);
+        tabLayout_1.showDot(4);
+        tabLayout_3.showDot(4);
+        tabLayout_2.showDot(4);
 
-        tl_2.showMsg(3, 5);
-        tl_2.setMsgMargin(3, 0, 10);
-        RoundTextView rtv_2_3 = tl_2.getMsgView(3);
+        tabLayout_2.showMsg(3, 5);
+        tabLayout_2.setMsgMargin(3, 0, 10);
+        RoundTextView rtv_2_3 = tabLayout_2.getMsgView(3);
         if (rtv_2_3 != null) {
             rtv_2_3.getDelegate().setBackgroundColor(Color.parseColor("#6D8FB0"));
         }
 
-        tl_2.showMsg(5, 5);
-        tl_2.setMsgMargin(5, 0, 10);
+        tabLayout_2.showMsg(5, 5);
+        tabLayout_2.setMsgMargin(5, 0, 10);
     }
 
     @Override
     public void onTabSelect(int position) {
-        Toast.makeText(context, "onTabSelect&position--->" + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, "onTabSelect&position--->" + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onTabReselect(int position) {
-        Toast.makeText(context, "onTabReselect&position--->" + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, "onTabReselect&position--->" + position, Toast.LENGTH_SHORT).show();
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
@@ -107,17 +107,17 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
 
         @Override
         public int getCount() {
-            return fragments.size();
+            return mFragments.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return titles[position];
+            return mTitles[position];
         }
 
         @Override
         public Fragment getItem(int position) {
-            return fragments.get(position);
+            return mFragments.get(position);
         }
     }
 }

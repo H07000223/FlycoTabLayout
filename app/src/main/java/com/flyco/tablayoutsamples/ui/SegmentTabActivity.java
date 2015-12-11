@@ -18,62 +18,62 @@ import com.flyco.tablayoutsamples.utils.ViewFindUtils;
 import java.util.ArrayList;
 
 public class SegmentTabActivity extends AppCompatActivity {
-    private ArrayList<Fragment> fragments = new ArrayList<>();
-    private ArrayList<Fragment> fragments2 = new ArrayList<>();
+    private ArrayList<Fragment> mFragments = new ArrayList<>();
+    private ArrayList<Fragment> mFragments2 = new ArrayList<>();
 
-    private String[] titles = {"首页", "消息"};
-    private String[] titles_2 = {"首页", "消息", "联系人"};
-    private String[] titles_3 = {"首页", "消息", "联系人", "更多"};
-    private View decorView;
-    private SegmentTabLayout tl_3;
+    private String[] mTitles = {"首页", "消息"};
+    private String[] mTitles_2 = {"首页", "消息", "联系人"};
+    private String[] mTitles_3 = {"首页", "消息", "联系人", "更多"};
+    private View mDecorView;
+    private SegmentTabLayout mTabLayout_3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_segment_tab);
 
-        for (String title : titles_3) {
-            fragments.add(SimpleCardFragment.getInstance("Switch ViewPager " + title));
+        for (String title : mTitles_3) {
+            mFragments.add(SimpleCardFragment.getInstance("Switch ViewPager " + title));
         }
 
-        for (String title : titles_2) {
-            fragments2.add(SimpleCardFragment.getInstance("Switch Fragment " + title));
+        for (String title : mTitles_2) {
+            mFragments2.add(SimpleCardFragment.getInstance("Switch Fragment " + title));
         }
 
-        decorView = getWindow().getDecorView();
+        mDecorView = getWindow().getDecorView();
 
-        SegmentTabLayout tl_1 = ViewFindUtils.find(decorView, R.id.tl_1);
-        SegmentTabLayout tl_2 = ViewFindUtils.find(decorView, R.id.tl_2);
-        tl_3 = ViewFindUtils.find(decorView, R.id.tl_3);
-        SegmentTabLayout tl_4 = ViewFindUtils.find(decorView, R.id.tl_4);
-        SegmentTabLayout tl_5 = ViewFindUtils.find(decorView, R.id.tl_5);
+        SegmentTabLayout tabLayout_1 = ViewFindUtils.find(mDecorView, R.id.tl_1);
+        SegmentTabLayout tabLayout_2 = ViewFindUtils.find(mDecorView, R.id.tl_2);
+        mTabLayout_3 = ViewFindUtils.find(mDecorView, R.id.tl_3);
+        SegmentTabLayout tabLayout_4 = ViewFindUtils.find(mDecorView, R.id.tl_4);
+        SegmentTabLayout tabLayout_5 = ViewFindUtils.find(mDecorView, R.id.tl_5);
 
-        tl_1.setTabData(titles);
-        tl_2.setTabData(titles_2);
+        tabLayout_1.setTabData(mTitles);
+        tabLayout_2.setTabData(mTitles_2);
         tl_3();
-        tl_4.setTabData(titles_2, this, R.id.fl_change, fragments2);
-        tl_5.setTabData(titles_3);
+        tabLayout_4.setTabData(mTitles_2, this, R.id.fl_change, mFragments2);
+        tabLayout_5.setTabData(mTitles_3);
 
         //显示未读红点
-        tl_1.showDot(2);
-        tl_2.showDot(2);
-        tl_3.showDot(1);
-        tl_4.showDot(1);
+        tabLayout_1.showDot(2);
+        tabLayout_2.showDot(2);
+        mTabLayout_3.showDot(1);
+        tabLayout_4.showDot(1);
 
         //设置未读消息红点
-        tl_3.showDot(2);
-        RoundTextView rtv_3_2 = tl_3.getMsgView(2);
+        mTabLayout_3.showDot(2);
+        RoundTextView rtv_3_2 = mTabLayout_3.getMsgView(2);
         if (rtv_3_2 != null) {
             rtv_3_2.getDelegate().setBackgroundColor(Color.parseColor("#6D8FB0"));
         }
     }
 
     private void tl_3() {
-        final ViewPager vp_3 = ViewFindUtils.find(decorView, R.id.vp_2);
+        final ViewPager vp_3 = ViewFindUtils.find(mDecorView, R.id.vp_2);
         vp_3.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
 
-        tl_3.setTabData(titles_3);
-        tl_3.setOnTabSelectListener(new OnTabSelectListener() {
+        mTabLayout_3.setTabData(mTitles_3);
+        mTabLayout_3.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
                 vp_3.setCurrentItem(position);
@@ -92,7 +92,7 @@ public class SegmentTabActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                tl_3.setCurrentTab(position);
+                mTabLayout_3.setCurrentTab(position);
             }
 
             @Override
@@ -110,17 +110,17 @@ public class SegmentTabActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return fragments.size();
+            return mFragments.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return titles_3[position];
+            return mTitles_3[position];
         }
 
         @Override
         public Fragment getItem(int position) {
-            return fragments.get(position);
+            return mFragments.get(position);
         }
     }
 }

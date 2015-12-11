@@ -23,83 +23,83 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class CommonTabActivity extends AppCompatActivity {
-    private Context context = this;
-    private ArrayList<Fragment> fragments = new ArrayList<>();
-    private ArrayList<Fragment> fragments2 = new ArrayList<>();
+    private Context mContext = this;
+    private ArrayList<Fragment> mFragments = new ArrayList<>();
+    private ArrayList<Fragment> mFragments2 = new ArrayList<>();
 
-    private String[] titles = {"首页", "消息", "联系人", "更多"};
-    private int[] iconUnselectIds = {
+    private String[] mTitles = {"首页", "消息", "联系人", "更多"};
+    private int[] mIconUnselectIds = {
             R.mipmap.tab_home_unselect, R.mipmap.tab_speech_unselect,
             R.mipmap.tab_contact_unselect, R.mipmap.tab_more_unselect};
-    private int[] iconSelectIds = {
+    private int[] mIconSelectIds = {
             R.mipmap.tab_home_select, R.mipmap.tab_speech_select,
             R.mipmap.tab_contact_select, R.mipmap.tab_more_select};
-    private ArrayList<CustomTabEntity> tabs = new ArrayList<>();
-    private View decorView;
-    private CommonTabLayout tl_2;
-    private ViewPager vp_2;
-    private CommonTabLayout tl_1;
-    private CommonTabLayout tl_3;
-    private CommonTabLayout tl_4;
-    private CommonTabLayout tl_5;
-    private CommonTabLayout tl_6;
-    private CommonTabLayout tl_7;
-    private CommonTabLayout tl_8;
+    private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
+    private View mDecorView;
+    private ViewPager mViewPager;
+    private CommonTabLayout mTabLayout_1;
+    private CommonTabLayout mTabLayout_2;
+    private CommonTabLayout mTabLayout_3;
+    private CommonTabLayout mTabLayout_4;
+    private CommonTabLayout mTabLayout_5;
+    private CommonTabLayout mTabLayout_6;
+    private CommonTabLayout mTabLayout_7;
+    private CommonTabLayout mTabLayout_8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_common_tab);
 
-        for (String title : titles) {
-            fragments.add(SimpleCardFragment.getInstance("Switch ViewPager " + title));
-            fragments2.add(SimpleCardFragment.getInstance("Switch Fragment " + title));
+        for (String title : mTitles) {
+            mFragments.add(SimpleCardFragment.getInstance("Switch ViewPager " + title));
+            mFragments2.add(SimpleCardFragment.getInstance("Switch Fragment " + title));
         }
 
 
-        for (int i = 0; i < titles.length; i++) {
-            tabs.add(new TabEntity(titles[i], iconSelectIds[i], iconUnselectIds[i]));
+        for (int i = 0; i < mTitles.length; i++) {
+            mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
         }
 
-        decorView = getWindow().getDecorView();
-        vp_2 = ViewFindUtils.find(decorView, R.id.vp_2);
-        vp_2.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+        mDecorView = getWindow().getDecorView();
+        mViewPager = ViewFindUtils.find(mDecorView, R.id.vp_2);
+        mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         /** with nothing */
-        tl_1 = ViewFindUtils.find(decorView, R.id.tl_1);
+        mTabLayout_1 = ViewFindUtils.find(mDecorView, R.id.tl_1);
         /** with ViewPager */
-        tl_2 = ViewFindUtils.find(decorView, R.id.tl_2);
+        mTabLayout_2 = ViewFindUtils.find(mDecorView, R.id.tl_2);
         /** with Fragments */
-        tl_3 = ViewFindUtils.find(decorView, R.id.tl_3);
+        mTabLayout_3 = ViewFindUtils.find(mDecorView, R.id.tl_3);
         /** indicator固定宽度 */
-        tl_4 = ViewFindUtils.find(decorView, R.id.tl_4);
+        mTabLayout_4 = ViewFindUtils.find(mDecorView, R.id.tl_4);
         /** indicator固定宽度 */
-        tl_5 = ViewFindUtils.find(decorView, R.id.tl_5);
+        mTabLayout_5 = ViewFindUtils.find(mDecorView, R.id.tl_5);
         /** indicator矩形圆角 */
-        tl_6 = ViewFindUtils.find(decorView, R.id.tl_6);
+        mTabLayout_6 = ViewFindUtils.find(mDecorView, R.id.tl_6);
         /** indicator三角形 */
-        tl_7 = ViewFindUtils.find(decorView, R.id.tl_7);
+        mTabLayout_7 = ViewFindUtils.find(mDecorView, R.id.tl_7);
         /** indicator圆角色块 */
-        tl_8 = ViewFindUtils.find(decorView, R.id.tl_8);
+        mTabLayout_8 = ViewFindUtils.find(mDecorView, R.id.tl_8);
 
-        tl_1.setTabData(tabs);
+        mTabLayout_1.setTabData(mTabEntities);
         tl_2();
-        tl_3.setTabData(tabs, this, R.id.fl_change, fragments2);
-        tl_4.setTabData(tabs);
-        tl_5.setTabData(tabs);
-        tl_6.setTabData(tabs);
-        tl_7.setTabData(tabs);
-        tl_8.setTabData(tabs);
+        mTabLayout_3.setTabData(mTabEntities, this, R.id.fl_change, mFragments2);
+        mTabLayout_4.setTabData(mTabEntities);
+        mTabLayout_5.setTabData(mTabEntities);
+        mTabLayout_6.setTabData(mTabEntities);
+        mTabLayout_7.setTabData(mTabEntities);
+        mTabLayout_8.setTabData(mTabEntities);
 
-        tl_3.setOnTabSelectListener(new OnTabSelectListener() {
+        mTabLayout_3.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                tl_1.setCurrentTab(position);
-                tl_2.setCurrentTab(position);
-                tl_4.setCurrentTab(position);
-                tl_5.setCurrentTab(position);
-                tl_6.setCurrentTab(position);
-                tl_7.setCurrentTab(position);
-                tl_8.setCurrentTab(position);
+                mTabLayout_1.setCurrentTab(position);
+                mTabLayout_2.setCurrentTab(position);
+                mTabLayout_4.setCurrentTab(position);
+                mTabLayout_5.setCurrentTab(position);
+                mTabLayout_6.setCurrentTab(position);
+                mTabLayout_7.setCurrentTab(position);
+                mTabLayout_8.setCurrentTab(position);
             }
 
             @Override
@@ -107,58 +107,58 @@ public class CommonTabActivity extends AppCompatActivity {
 
             }
         });
-        tl_8.setCurrentTab(2);
-        tl_3.setCurrentTab(1);
+        mTabLayout_8.setCurrentTab(2);
+        mTabLayout_3.setCurrentTab(1);
 
         //显示未读红点
-        tl_1.showDot(2);
-        tl_3.showDot(1);
-        tl_4.showDot(1);
+        mTabLayout_1.showDot(2);
+        mTabLayout_3.showDot(1);
+        mTabLayout_4.showDot(1);
 
         //两位数
-        tl_2.showMsg(0, 55);
-        tl_2.setMsgMargin(0, -5, 5);
+        mTabLayout_2.showMsg(0, 55);
+        mTabLayout_2.setMsgMargin(0, -5, 5);
 
         //三位数
-        tl_2.showMsg(1, 100);
-        tl_2.setMsgMargin(1, -5, 5);
+        mTabLayout_2.showMsg(1, 100);
+        mTabLayout_2.setMsgMargin(1, -5, 5);
 
         //设置未读消息红点
-        tl_2.showDot(2);
-        RoundTextView rtv_2_2 = tl_2.getMsgView(2);
+        mTabLayout_2.showDot(2);
+        RoundTextView rtv_2_2 = mTabLayout_2.getMsgView(2);
         if (rtv_2_2 != null) {
             UnreadMsgUtils.setSize(rtv_2_2, dp2px(7.5f));
         }
 
         //设置未读消息背景
-        tl_2.showMsg(3, 5);
-        tl_2.setMsgMargin(3, 0, 5);
-        RoundTextView rtv_2_3 = tl_2.getMsgView(3);
+        mTabLayout_2.showMsg(3, 5);
+        mTabLayout_2.setMsgMargin(3, 0, 5);
+        RoundTextView rtv_2_3 = mTabLayout_2.getMsgView(3);
         if (rtv_2_3 != null) {
             rtv_2_3.getDelegate().setBackgroundColor(Color.parseColor("#6D8FB0"));
         }
     }
 
-    Random random = new Random();
+    Random mRandom = new Random();
 
     private void tl_2() {
-        tl_2.setTabData(tabs);
-        tl_2.setOnTabSelectListener(new OnTabSelectListener() {
+        mTabLayout_2.setTabData(mTabEntities);
+        mTabLayout_2.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                vp_2.setCurrentItem(position);
+                mViewPager.setCurrentItem(position);
             }
 
             @Override
             public void onTabReselect(int position) {
                 if (position == 0) {
-                    tl_2.showMsg(0, random.nextInt(100) + 1);
-//                    UnreadMsgUtils.show(tl_2.getMsgView(0), random.nextInt(100) + 1);
+                    mTabLayout_2.showMsg(0, mRandom.nextInt(100) + 1);
+//                    UnreadMsgUtils.show(mTabLayout_2.getMsgView(0), mRandom.nextInt(100) + 1);
                 }
             }
         });
 
-        vp_2.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -166,7 +166,7 @@ public class CommonTabActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                tl_2.setCurrentTab(position);
+                mTabLayout_2.setCurrentTab(position);
             }
 
             @Override
@@ -175,7 +175,7 @@ public class CommonTabActivity extends AppCompatActivity {
             }
         });
 
-        vp_2.setCurrentItem(1);
+        mViewPager.setCurrentItem(1);
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
@@ -185,22 +185,22 @@ public class CommonTabActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return fragments.size();
+            return mFragments.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return titles[position];
+            return mTitles[position];
         }
 
         @Override
         public Fragment getItem(int position) {
-            return fragments.get(position);
+            return mFragments.get(position);
         }
     }
 
     protected int dp2px(float dp) {
-        final float scale = context.getResources().getDisplayMetrics().density;
+        final float scale = mContext.getResources().getDisplayMetrics().density;
         return (int) (dp * scale + 0.5f);
     }
 }
