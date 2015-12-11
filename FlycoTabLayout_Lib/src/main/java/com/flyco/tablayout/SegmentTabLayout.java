@@ -12,6 +12,7 @@ import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -198,7 +199,6 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
             public void onClick(View v) {
                 int position = (Integer) v.getTag();
                 if (currentTab != position) {
-                    isFirstSet = false;
                     setCurrentTab(position);
                     if (listener != null) {
                         listener.onTabSelect(position);
@@ -257,16 +257,22 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         lp.left = lastTabView.getLeft();
         lp.right = lastTabView.getRight();
 
-        valueAnimator.setObjectValues(lp, cp);
-        if (indicatorBounceEnable) {
-            valueAnimator.setInterpolator(interpolator);
-        }
+//        Log.d("AAA", "lp--->" + lp.left + "&" + lp.right);
+//        Log.d("AAA", "cp--->" + cp.left + "&" + cp.right);
+        if (lp.left == cp.left && lp.right == cp.right) {
+            invalidate();
+        } else {
+            valueAnimator.setObjectValues(lp, cp);
+            if (indicatorBounceEnable) {
+                valueAnimator.setInterpolator(interpolator);
+            }
 
-        if (indicatorAnimDuration < 0) {
-            indicatorAnimDuration = indicatorBounceEnable ? 500 : 250;
+            if (indicatorAnimDuration < 0) {
+                indicatorAnimDuration = indicatorBounceEnable ? 500 : 250;
+            }
+            valueAnimator.setDuration(indicatorAnimDuration);
+            valueAnimator.start();
         }
-        valueAnimator.setDuration(indicatorAnimDuration);
-        valueAnimator.start();
     }
 
     private void calcIndicatorRect() {
@@ -331,7 +337,6 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
     }
 
     private boolean isFirstDraw = true;
-    private boolean isFirstSet = true;
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -398,12 +403,7 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
             fragmentChangeManager.setFragments(currentTab);
         }
         if (indicatorAnimEnable) {
-            if (isFirstSet) {
-                invalidate();
-                isFirstSet = false;
-            } else {
-                calcOffset();
-            }
+            calcOffset();
         } else {
             invalidate();
         }

@@ -242,7 +242,6 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
             public void onClick(View v) {
                 int position = (Integer) v.getTag();
                 if (currentTab != position) {
-                    isFirstSet = false;
                     setCurrentTab(position);
                     if (listener != null) {
                         listener.onTabSelect(position);
@@ -327,16 +326,22 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         lp.left = lastTabView.getLeft();
         lp.right = lastTabView.getRight();
 
-        valueAnimator.setObjectValues(lp, cp);
-        if (indicatorBounceEnable) {
-            valueAnimator.setInterpolator(interpolator);
-        }
+//        Log.d("AAA", "lp--->" + lp.left + "&" + lp.right);
+//        Log.d("AAA", "cp--->" + cp.left + "&" + cp.right);
+        if (lp.left == cp.left && lp.right == cp.right) {
+            invalidate();
+        } else {
+            valueAnimator.setObjectValues(lp, cp);
+            if (indicatorBounceEnable) {
+                valueAnimator.setInterpolator(interpolator);
+            }
 
-        if (indicatorAnimDuration < 0) {
-            indicatorAnimDuration = indicatorBounceEnable ? 500 : 250;
+            if (indicatorAnimDuration < 0) {
+                indicatorAnimDuration = indicatorBounceEnable ? 500 : 250;
+            }
+            valueAnimator.setDuration(indicatorAnimDuration);
+            valueAnimator.start();
         }
-        valueAnimator.setDuration(indicatorAnimDuration);
-        valueAnimator.start();
     }
 
     private void calcIndicatorRect() {
@@ -363,6 +368,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         IndicatorPoint p = (IndicatorPoint) animation.getAnimatedValue();
         indicatorRect.left = (int) p.left;
         indicatorRect.right = (int) p.right;
+
         if (indicatorWidth < 0) {   //indicatorWidth小于0时,原jpardogo's PagerSlidingTabStrip
 
         } else {//indicatorWidth大于0时,圆角矩形以及三角形
@@ -375,7 +381,6 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
     }
 
     private boolean isFirstDraw = true;
-    private boolean isFirstSet = true;
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -481,12 +486,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
             fragmentChangeManager.setFragments(currentTab);
         }
         if (indicatorAnimEnable) {
-            if (isFirstSet) {
-                invalidate();
-                isFirstSet = false;
-            } else {
-                calcOffset();
-            }
+            calcOffset();
         } else {
             invalidate();
         }

@@ -108,6 +108,7 @@ public class CommonTabActivity extends AppCompatActivity {
             }
         });
         tl_8.setCurrentTab(2);
+        tl_3.setCurrentTab(1);
 
         //显示未读红点
         tl_1.showDot(2);
