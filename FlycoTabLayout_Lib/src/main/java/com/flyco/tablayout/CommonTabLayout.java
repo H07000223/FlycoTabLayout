@@ -149,7 +149,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CommonTabLayout);
 
         indicatorStyle = ta.getInt(R.styleable.CommonTabLayout_tl_indicator_style, 0);
-            indicatorColor = ta.getColor(R.styleable.CommonTabLayout_tl_indicator_color, Color.parseColor(indicatorStyle == STYLE_BLOCK ? "#4B6A87" : "#ffffff"));
+        indicatorColor = ta.getColor(R.styleable.CommonTabLayout_tl_indicator_color, Color.parseColor(indicatorStyle == STYLE_BLOCK ? "#4B6A87" : "#ffffff"));
         indicatorHeight = ta.getDimension(R.styleable.CommonTabLayout_tl_indicator_height,
                 dp2px(indicatorStyle == STYLE_TRIANGLE ? 4 : (indicatorStyle == STYLE_BLOCK ? -1 : 2)));
         indicatorWidth = ta.getDimension(R.styleable.CommonTabLayout_tl_indicator_width, dp2px(indicatorStyle == STYLE_TRIANGLE ? 10 : -1));
@@ -242,6 +242,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
             public void onClick(View v) {
                 int position = (Integer) v.getTag();
                 if (currentTab != position) {
+                    isFirstSet = false;
                     setCurrentTab(position);
                     if (listener != null) {
                         listener.onTabSelect(position);
@@ -374,6 +375,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
     }
 
     private boolean isFirstDraw = true;
+    private boolean isFirstSet = true;
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -479,7 +481,12 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
             fragmentChangeManager.setFragments(currentTab);
         }
         if (indicatorAnimEnable) {
-            calcOffset();
+            if (isFirstSet) {
+                invalidate();
+                isFirstSet = false;
+            } else {
+                calcOffset();
+            }
         } else {
             invalidate();
         }

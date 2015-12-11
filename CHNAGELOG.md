@@ -44,3 +44,7 @@ Version 1.4.0 *(2015-11-11)*
 Version 1.4.2 *(2015-12-9)*
 ----------------------------
 * new added tablayout
+
+Version 1.4.4 *(2015-12-11)*
+----------------------------
+* fix bug: CommonTabLayout first setCurrentTab() cause indicator not show
