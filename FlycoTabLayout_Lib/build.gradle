@@ -6,7 +6,7 @@ apply plugin: 'com.android.library'
 version = "1.5.0"
 android {
     compileSdkVersion 23
-    buildToolsVersion "22.0.1"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         minSdkVersion 8
