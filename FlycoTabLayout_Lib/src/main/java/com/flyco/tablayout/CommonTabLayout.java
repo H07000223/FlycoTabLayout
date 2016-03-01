@@ -24,11 +24,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.flyco.roundview.RoundTextView;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.flyco.tablayout.utils.FragmentChangeManager;
 import com.flyco.tablayout.utils.UnreadMsgUtils;
+import com.flyco.tablayout.widget.MsgView;
 import com.nineoldandroids.animation.TypeEvaluator;
 import com.nineoldandroids.animation.ValueAnimator;
 
@@ -795,7 +795,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         }
 
         View tabView = mTabsContainer.getChildAt(position);
-        RoundTextView tipView = (RoundTextView) tabView.findViewById(R.id.rtv_msg_tip);
+        MsgView tipView = (MsgView) tabView.findViewById(R.id.rtv_msg_tip);
         if (tipView != null) {
             UnreadMsgUtils.show(tipView, num);
 
@@ -832,7 +832,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         }
 
         View tabView = mTabsContainer.getChildAt(position);
-        RoundTextView tipView = (RoundTextView) tabView.findViewById(R.id.rtv_msg_tip);
+        MsgView tipView = (MsgView) tabView.findViewById(R.id.rtv_msg_tip);
         if (tipView != null) {
             tipView.setVisibility(View.GONE);
         }
@@ -848,7 +848,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
             position = mTabCount - 1;
         }
         View tabView = mTabsContainer.getChildAt(position);
-        RoundTextView tipView = (RoundTextView) tabView.findViewById(R.id.rtv_msg_tip);
+        MsgView tipView = (MsgView) tabView.findViewById(R.id.rtv_msg_tip);
         if (tipView != null) {
             TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
             mTextPaint.setTextSize(mTextsize);
@@ -878,12 +878,12 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
     }
 
     /** 当前类只提供了少许设置未读消息属性的方法,可以通过该方法获取RoundTextView对象从而各种设置 */
-    public RoundTextView getMsgView(int position) {
+    public MsgView getMsgView(int position) {
         if (position >= mTabCount) {
             position = mTabCount - 1;
         }
         View tabView = mTabsContainer.getChildAt(position);
-        RoundTextView tipView = (RoundTextView) tabView.findViewById(R.id.rtv_msg_tip);
+        MsgView tipView = (MsgView) tabView.findViewById(R.id.rtv_msg_tip);
         return tipView;
     }
 

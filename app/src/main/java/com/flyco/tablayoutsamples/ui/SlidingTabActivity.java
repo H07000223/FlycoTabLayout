@@ -11,9 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.flyco.roundview.RoundTextView;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.flyco.tablayout.widget.MsgView;
 import com.flyco.tablayoutsamples.R;
 import com.flyco.tablayoutsamples.utils.ViewFindUtils;
 
@@ -81,9 +81,9 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
 
         tabLayout_2.showMsg(3, 5);
         tabLayout_2.setMsgMargin(3, 0, 10);
-        RoundTextView rtv_2_3 = tabLayout_2.getMsgView(3);
+        MsgView rtv_2_3 = tabLayout_2.getMsgView(3);
         if (rtv_2_3 != null) {
-            rtv_2_3.getDelegate().setBackgroundColor(Color.parseColor("#6D8FB0"));
+            rtv_2_3.setBackgroundColor(Color.parseColor("#6D8FB0"));
         }
 
         tabLayout_2.showMsg(5, 5);

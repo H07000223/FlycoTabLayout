@@ -14,18 +14,18 @@
         android:gravity="center"
         android:singleLine="true"/>
 
-    <com.flyco.roundview.RoundTextView
+    <com.flyco.tablayout.widget.MsgView
         android:id="@+id/rtv_msg_tip"
-        xmlns:rv="http://schemas.android.com/apk/res-auto"
+        xmlns:mv="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="#ffffff"
         android:textSize="11.5sp"
         android:visibility="gone"
-        rv:rv_backgroundColor="#FD481F"
-        rv:rv_isRadiusHalfHeight="true"
-        rv:rv_strokeColor="#ffffff"
-        rv:rv_strokeWidth="1dp"/>
+        mv:mv_backgroundColor="#FD481F"
+        mv:mv_isRadiusHalfHeight="true"
+        mv:mv_strokeColor="#ffffff"
+        mv:mv_strokeWidth="1dp"/>
 
 </RelativeLayout>

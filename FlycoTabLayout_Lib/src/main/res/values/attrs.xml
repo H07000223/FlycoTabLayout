@@ -203,4 +203,19 @@
         <attr name="tl_bar_stroke_width" format="dimension"/>
 
     </declare-styleable>
+
+    <declare-styleable name="MsgView">
+        <!-- 圆角矩形背景色 -->
+        <attr name="mv_backgroundColor" format="color"/>
+        <!-- 圆角弧度,单位dp-->
+        <attr name="mv_cornerRadius" format="dimension"/>
+        <!-- 圆角弧度,单位dp-->
+        <attr name="mv_strokeWidth" format="dimension"/>
+        <!-- 圆角边框颜色-->
+        <attr name="mv_strokeColor" format="color"/>
+        <!-- 圆角弧度是高度一半-->
+        <attr name="mv_isRadiusHalfHeight" format="boolean"/>
+        <!-- 圆角矩形宽高相等,取较宽高中大值-->
+        <attr name="mv_isWidthHeightEqual" format="boolean"/>
+    </declare-styleable>
 </resources>

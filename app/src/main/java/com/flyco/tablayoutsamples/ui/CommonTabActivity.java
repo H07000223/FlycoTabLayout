@@ -10,11 +10,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.flyco.roundview.RoundTextView;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.flyco.tablayout.utils.UnreadMsgUtils;
+import com.flyco.tablayout.widget.MsgView;
 import com.flyco.tablayoutsamples.R;
 import com.flyco.tablayoutsamples.entity.TabEntity;
 import com.flyco.tablayoutsamples.utils.ViewFindUtils;
@@ -125,7 +125,7 @@ public class CommonTabActivity extends AppCompatActivity {
 
         //设置未读消息红点
         mTabLayout_2.showDot(2);
-        RoundTextView rtv_2_2 = mTabLayout_2.getMsgView(2);
+        MsgView rtv_2_2 = mTabLayout_2.getMsgView(2);
         if (rtv_2_2 != null) {
             UnreadMsgUtils.setSize(rtv_2_2, dp2px(7.5f));
         }
@@ -133,9 +133,9 @@ public class CommonTabActivity extends AppCompatActivity {
         //设置未读消息背景
         mTabLayout_2.showMsg(3, 5);
         mTabLayout_2.setMsgMargin(3, 0, 5);
-        RoundTextView rtv_2_3 = mTabLayout_2.getMsgView(3);
+        MsgView rtv_2_3 = mTabLayout_2.getMsgView(3);
         if (rtv_2_3 != null) {
-            rtv_2_3.getDelegate().setBackgroundColor(Color.parseColor("#6D8FB0"));
+            rtv_2_3.setBackgroundColor(Color.parseColor("#6D8FB0"));
         }
     }
 

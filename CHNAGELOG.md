@@ -56,3 +56,9 @@ Version 1.4.6 *(2015-12-11)*
 Version 1.5.0 *(2015-12-11)*
 ----------------------------
 * change code style
+
+Version 2.0.0 *(2016.3.1)*
+----------------------------
+* remove the dependence of FlycoRoundView
+* new added method getIconView and getTitleView
+

@@ -9,9 +9,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.flyco.roundview.RoundTextView;
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.flyco.tablayout.widget.MsgView;
 import com.flyco.tablayoutsamples.R;
 import com.flyco.tablayoutsamples.utils.ViewFindUtils;
 
@@ -62,9 +62,9 @@ public class SegmentTabActivity extends AppCompatActivity {
 
         //设置未读消息红点
         mTabLayout_3.showDot(2);
-        RoundTextView rtv_3_2 = mTabLayout_3.getMsgView(2);
+        MsgView rtv_3_2 = mTabLayout_3.getMsgView(2);
         if (rtv_3_2 != null) {
-            rtv_3_2.getDelegate().setBackgroundColor(Color.parseColor("#6D8FB0"));
+            rtv_3_2.setBackgroundColor(Color.parseColor("#6D8FB0"));
         }
     }
 
