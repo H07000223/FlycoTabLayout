@@ -764,6 +764,19 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         return mIconVisible;
     }
 
+
+    public ImageView getIconView(int tab) {
+        View tabView = mTabsContainer.getChildAt(tab);
+        ImageView iv_tab_icon = (ImageView) tabView.findViewById(R.id.iv_tab_icon);
+        return iv_tab_icon;
+    }
+
+    public TextView getTitleView(int tab) {
+        View tabView = mTabsContainer.getChildAt(tab);
+        TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
+        return tv_tab_title;
+    }
+
     //setter and getter
 
     // show MsgTipView
@@ -880,6 +893,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         this.mListener = listener;
     }
 
+
     @Override
     protected Parcelable onSaveInstanceState() {
         Bundle bundle = new Bundle();
@@ -900,7 +914,6 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         }
         super.onRestoreInstanceState(state);
     }
-
 
     class IndicatorPoint {
         public float left;

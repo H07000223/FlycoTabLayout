@@ -590,6 +590,12 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         return mTextAllCaps;
     }
 
+    public TextView getTitleView(int tab) {
+        View tabView = mTabsContainer.getChildAt(tab);
+        TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
+        return tv_tab_title;
+    }
+
     //setter and getter
     // show MsgTipView
     private Paint mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
