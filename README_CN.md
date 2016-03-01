@@ -37,6 +37,14 @@
 
 ![](https://github.com/H07000223/FlycoTabLayout/blob/master/preview_3.gif)
 
+
+>##Change Log
+
+ > v2.0.0(2016-03-01)
+   - 删除了对FlycoRoundView库的依赖
+   - 新增方法getIconView和getTitleView(为了某些情况需要动态更新icon之类的)
+
+
 ##Gradle
 
 ```groovy

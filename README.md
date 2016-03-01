@@ -38,6 +38,14 @@ can be used freely with other widgets together.
 
 ![](https://github.com/H07000223/FlycoTabLayout/blob/master/preview_3.gif)
 
+
+>##Change Log
+
+ > v2.0.0(2016-03-01)
+   - remove the dependence of FlycoRoundView
+   - new added method getIconView and getTitleView
+
+
 ##Gradle
 
 ```groovy
