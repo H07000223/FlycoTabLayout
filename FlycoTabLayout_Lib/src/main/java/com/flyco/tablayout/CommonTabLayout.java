@@ -490,8 +490,8 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
     }
 
     public void setIndicatorStyle(int indicatorStyle) {
-        this.mIndicatorStyle = indicatorStyle;
         invalidate();
+        this.mIndicatorStyle = indicatorStyle;
     }
 
     public void setTabPadding(float tabPadding) {
