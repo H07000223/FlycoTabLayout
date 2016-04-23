@@ -62,3 +62,7 @@ Version 2.0.0 *(2016.3.1)*
 * remove the dependence of FlycoRoundView
 * new added method getIconView and getTitleView
 
+Version 2.0.2 *(2016.4.23)*
+----------------------------
+* remove the dependence of NineOldAnimation(only support 3.0+)
+
