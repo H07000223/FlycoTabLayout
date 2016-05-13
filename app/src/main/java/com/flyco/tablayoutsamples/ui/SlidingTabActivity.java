@@ -36,6 +36,7 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
             mFragments.add(SimpleCardFragment.getInstance(title));
         }
 
+
         View decorView = getWindow().getDecorView();
         ViewPager vp = ViewFindUtils.find(decorView, R.id.vp);
         vp.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
