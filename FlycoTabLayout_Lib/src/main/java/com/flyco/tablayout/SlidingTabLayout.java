@@ -31,12 +31,13 @@ import com.flyco.tablayout.utils.UnreadMsgUtils;
 import com.flyco.tablayout.widget.MsgView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /** 滑动TabLayout,对于ViewPager的依赖性强 */
 public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.OnPageChangeListener {
     private Context mContext;
     private ViewPager mViewPager;
-    private String[] mTitles;
+    private ArrayList<String> mTitles;
     private LinearLayout mTabsContainer;
     private int mCurrentTab;
     private float mCurrentPositionOffset;
@@ -192,7 +193,8 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         }
 
         this.mViewPager = vp;
-        this.mTitles = titles;
+        mTitles = new ArrayList<>();
+        Collections.addAll(mTitles, titles);
 
         this.mViewPager.removeOnPageChangeListener(this);
         this.mViewPager.addOnPageChangeListener(this);
@@ -220,18 +222,26 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     /** 更新数据 */
     public void notifyDataSetChanged() {
         mTabsContainer.removeAllViews();
-        this.mTabCount = mTitles == null ? mViewPager.getAdapter().getCount() : mTitles.length;
+        this.mTabCount = mTitles == null ? mViewPager.getAdapter().getCount() : mTitles.size();
         View tabView;
         for (int i = 0; i < mTabCount; i++) {
-            if (mViewPager.getAdapter() instanceof CustomTabProvider) {
-                tabView = ((CustomTabProvider) mViewPager.getAdapter()).getCustomTabView(this, i);
-            } else {
-                tabView = View.inflate(mContext, R.layout.layout_tab, null);
-            }
-
-            CharSequence pageTitle = mTitles == null ? mViewPager.getAdapter().getPageTitle(i) : mTitles[i];
+            tabView = View.inflate(mContext, R.layout.layout_tab, null);
+            CharSequence pageTitle = mTitles == null ? mViewPager.getAdapter().getPageTitle(i) : mTitles.get(i);
             addTab(i, pageTitle.toString(), tabView);
         }
+
+        updateTabStyles();
+    }
+
+    public void addNewTab(String title) {
+        View tabView = View.inflate(mContext, R.layout.layout_tab, null);
+        if (mTitles != null) {
+            mTitles.add(title);
+        }
+
+        CharSequence pageTitle = mTitles == null ? mViewPager.getAdapter().getPageTitle(mTabCount) : mTitles.get(mTabCount);
+        addTab(mTabCount, pageTitle.toString(), tabView);
+        this.mTabCount = mTitles == null ? mViewPager.getAdapter().getCount() : mTitles.size();
 
         updateTabStyles();
     }
@@ -246,14 +256,17 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         tabView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mViewPager.getCurrentItem() != position) {
-                    mViewPager.setCurrentItem(position);
-                    if (mListener != null) {
-                        mListener.onTabSelect(position);
-                    }
-                } else {
-                    if (mListener != null) {
-                        mListener.onTabReselect(position);
+                int position = mTabsContainer.indexOfChild(v);
+                if (position != -1) {
+                    if (mViewPager.getCurrentItem() != position) {
+                        mViewPager.setCurrentItem(position);
+                        if (mListener != null) {
+                            mListener.onTabSelect(position);
+                        }
+                    } else {
+                        if (mListener != null) {
+                            mListener.onTabReselect(position);
+                        }
                     }
                 }
             }
@@ -346,14 +359,6 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
 
             if (tab_title != null) {
                 tab_title.setTextColor(isSelect ? mTextSelectColor : mTextUnselectColor);
-            }
-
-            if (mViewPager.getAdapter() instanceof CustomTabProvider) {
-                if (isSelect) {
-                    ((CustomTabProvider) mViewPager.getAdapter()).tabSelect(tabView);
-                } else {
-                    ((CustomTabProvider) mViewPager.getAdapter()).tabUnselect(tabView);
-                }
             }
         }
     }
@@ -854,14 +859,6 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         public int getItemPosition(Object object) {
             return PagerAdapter.POSITION_NONE;
         }
-    }
-
-    public interface CustomTabProvider {
-        View getCustomTabView(ViewGroup parent, int position);
-
-        void tabSelect(View tab);
-
-        void tabUnselect(View tab);
     }
 
     @Override

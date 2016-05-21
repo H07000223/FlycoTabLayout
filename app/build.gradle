@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.flyco.tablayoutsamples"
@@ -21,11 +21,11 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:appcompat-v7:23.4.0'
     compile project(':FlycoTabLayout_Lib')
 
     //--->support 3.0+
-//    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.2@aar'
+//    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.6@aar'
     //--->support 2.2+
 //    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.0@aar'
 //    compile 'com.nineoldandroids:library:2.4.0'

@@ -66,3 +66,8 @@ Version 2.0.2 *(2016.4.23)*
 ----------------------------
 * remove the dependence of NineOldAnimation(only support 3.0+)
 
+Version 2.0.6 *(2016.5.21)*
+----------------------------
+* remove CustomTabProvider in SlidingTabLayout
+* new added method 'addNewTab(String title)' for SlidingTabLayout
+
