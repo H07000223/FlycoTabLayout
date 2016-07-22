@@ -69,7 +69,11 @@
     <!-- 设置字体未选中颜色 -->
     <attr name="tl_textUnselectColor" format="color"/>
     <!-- 设置字体加粗 -->
-    <attr name="tl_textBold" format="boolean"/>
+    <attr name="tl_textBold" format="enum">
+        <enum name="NONE" value="0"/>
+        <enum name="SELECT" value="1"/>
+        <enum name="BOTH" value="2"/>
+    </attr>
     <!-- 设置字体全大写 -->
     <attr name="tl_textAllCaps" format="boolean"/>
 

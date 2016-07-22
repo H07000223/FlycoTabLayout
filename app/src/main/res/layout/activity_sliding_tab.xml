@@ -24,6 +24,7 @@
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
                 tl:tl_indicator_gravity="TOP"
+                tl:tl_textBold="SELECT"
                 tl:tl_underline_color="#1A000000"
                 tl:tl_underline_gravity="TOP"
                 tl:tl_underline_height="1dp"/>
@@ -52,7 +53,7 @@
                 android:layout_height="48dp"
                 android:background="#3F9FE0"
                 tl:tl_textAllCaps="true"
-                tl:tl_textBold="true"
+                tl:tl_textBold="BOTH"
                 tl:tl_textsize="14sp"/>
 
             <com.flyco.tablayout.SlidingTabLayout
