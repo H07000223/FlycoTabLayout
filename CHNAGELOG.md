@@ -75,3 +75,4 @@ Version 2.0.8 *(2016.7.26)*
 ---------------------------
 * Fix #27，#31(new added method 'setCurrentTab(int currentTab, boolean smoothScroll)' for SlidingTabLayout and redefine attr 'tl_textBold')
 
+
