@@ -66,10 +66,13 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
     private float mDividerPadding;
 
     /** title */
+    private static final int TEXT_BOLD_NONE = 0;
+    private static final int TEXT_BOLD_WHEN_SELECT = 1;
+    private static final int TEXT_BOLD_BOTH = 2;
     private float mTextsize;
     private int mTextSelectColor;
     private int mTextUnselectColor;
-    private boolean mTextBold;
+    private int mTextBold;
     private boolean mTextAllCaps;
 
     private int mBarColor;
@@ -143,7 +146,7 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         mTextsize = ta.getDimension(R.styleable.SegmentTabLayout_tl_textsize, sp2px(13f));
         mTextSelectColor = ta.getColor(R.styleable.SegmentTabLayout_tl_textSelectColor, Color.parseColor("#ffffff"));
         mTextUnselectColor = ta.getColor(R.styleable.SegmentTabLayout_tl_textUnselectColor, mIndicatorColor);
-        mTextBold = ta.getBoolean(R.styleable.SegmentTabLayout_tl_textBold, false);
+        mTextBold = ta.getInt(R.styleable.SegmentTabLayout_tl_textBold, TEXT_BOLD_NONE);
         mTextAllCaps = ta.getBoolean(R.styleable.SegmentTabLayout_tl_textAllCaps, false);
 
         mTabSpaceEqual = ta.getBoolean(R.styleable.SegmentTabLayout_tl_tab_space_equal, true);
@@ -231,8 +234,10 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
                 tv_tab_title.setText(tv_tab_title.getText().toString().toUpperCase());
             }
 
-            if (mTextBold) {
-                tv_tab_title.getPaint().setFakeBoldText(mTextBold);
+            if (mTextBold == TEXT_BOLD_BOTH) {
+                tv_tab_title.getPaint().setFakeBoldText(true);
+            } else if (mTextBold == TEXT_BOLD_NONE) {
+                tv_tab_title.getPaint().setFakeBoldText(false);
             }
         }
     }
@@ -243,6 +248,9 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
             final boolean isSelect = i == position;
             TextView tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
             tab_title.setTextColor(isSelect ? mTextSelectColor : mTextUnselectColor);
+            if (mTextBold == TEXT_BOLD_WHEN_SELECT) {
+                tab_title.getPaint().setFakeBoldText(isSelect);
+            }
         }
     }
 
@@ -488,7 +496,7 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         updateTabStyles();
     }
 
-    public void setTextBold(boolean textBold) {
+    public void setTextBold(int textBold) {
         this.mTextBold = textBold;
         updateTabStyles();
     }
@@ -582,7 +590,7 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         return mTextUnselectColor;
     }
 
-    public boolean isTextBold() {
+    public int getTextBold() {
         return mTextBold;
     }
 

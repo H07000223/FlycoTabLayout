@@ -84,10 +84,13 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
     private float mDividerPadding;
 
     /** title */
+    private static final int TEXT_BOLD_NONE = 0;
+    private static final int TEXT_BOLD_WHEN_SELECT = 1;
+    private static final int TEXT_BOLD_BOTH = 2;
     private float mTextsize;
     private int mTextSelectColor;
     private int mTextUnselectColor;
-    private boolean mTextBold;
+    private int mTextBold;
     private boolean mTextAllCaps;
 
     /** icon */
@@ -171,7 +174,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         mTextsize = ta.getDimension(R.styleable.CommonTabLayout_tl_textsize, sp2px(13f));
         mTextSelectColor = ta.getColor(R.styleable.CommonTabLayout_tl_textSelectColor, Color.parseColor("#ffffff"));
         mTextUnselectColor = ta.getColor(R.styleable.CommonTabLayout_tl_textUnselectColor, Color.parseColor("#AAffffff"));
-        mTextBold = ta.getBoolean(R.styleable.CommonTabLayout_tl_textBold, false);
+        mTextBold = ta.getInt(R.styleable.CommonTabLayout_tl_textBold, TEXT_BOLD_NONE);
         mTextAllCaps = ta.getBoolean(R.styleable.CommonTabLayout_tl_textAllCaps, false);
 
         mIconVisible = ta.getBoolean(R.styleable.CommonTabLayout_tl_iconVisible, true);
@@ -273,8 +276,10 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
                 tv_tab_title.setText(tv_tab_title.getText().toString().toUpperCase());
             }
 
-            if (mTextBold) {
-                tv_tab_title.getPaint().setFakeBoldText(mTextBold);
+            if (mTextBold == TEXT_BOLD_BOTH) {
+                tv_tab_title.getPaint().setFakeBoldText(true);
+            } else if (mTextBold == TEXT_BOLD_NONE) {
+                tv_tab_title.getPaint().setFakeBoldText(false);
             }
 
             ImageView iv_tab_icon = (ImageView) tabView.findViewById(R.id.iv_tab_icon);
@@ -311,6 +316,9 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
             ImageView iv_tab_icon = (ImageView) tabView.findViewById(R.id.iv_tab_icon);
             CustomTabEntity tabEntity = mTabEntitys.get(i);
             iv_tab_icon.setImageResource(isSelect ? tabEntity.getTabSelectedIcon() : tabEntity.getTabUnselectedIcon());
+            if (mTextBold == TEXT_BOLD_WHEN_SELECT) {
+                tab_title.getPaint().setFakeBoldText(isSelect);
+            }
         }
     }
 
@@ -600,7 +608,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         updateTabStyles();
     }
 
-    public void setTextBold(boolean textBold) {
+    public void setTextBold(int textBold) {
         this.mTextBold = textBold;
         updateTabStyles();
     }
@@ -736,7 +744,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         return mTextUnselectColor;
     }
 
-    public boolean isTextBold() {
+    public int getTextBold() {
         return mTextBold;
     }
 

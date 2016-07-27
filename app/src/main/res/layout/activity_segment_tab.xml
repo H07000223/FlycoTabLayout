@@ -48,7 +48,8 @@
             tl:tl_indicator_margin_bottom="2dp"
             tl:tl_indicator_margin_left="2dp"
             tl:tl_indicator_margin_right="2dp"
-            tl:tl_indicator_margin_top="2dp"/>
+            tl:tl_indicator_margin_top="2dp"
+            tl:tl_textBold="SELECT"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_2"
@@ -68,7 +69,8 @@
             tl:tl_indicator_margin_left="2dp"
             tl:tl_indicator_margin_right="2dp"
             tl:tl_indicator_margin_top="2dp"
-            tl:tl_tab_width="80dp"/>
+            tl:tl_tab_width="80dp"
+            tl:tl_textBold="BOTH"/>
 
         <FrameLayout
             android:id="@+id/fl_change"

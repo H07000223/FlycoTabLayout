@@ -75,10 +75,12 @@
             android:layout_height="48dp"
             android:background="#F6CE59"
             tl:tl_iconVisible="false"
+            tl:tl_textBold="SELECT"
             tl:tl_indicator_width="10dp"
             tl:tl_textsize="14sp"/>
 
         <com.flyco.tablayout.CommonTabLayout
+            tl:tl_textBold="BOTH"
             android:id="@+id/tl_5"
             android:layout_width="match_parent"
             android:layout_height="48dp"
