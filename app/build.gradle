@@ -25,7 +25,7 @@ dependencies {
     compile project(':FlycoTabLayout_Lib')
 
     //--->support 3.0+
-//    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.8@aar'
+//    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.0@aar'
     //--->support 2.2+
 //    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.0@aar'
 //    compile 'com.nineoldandroids:library:2.4.0'

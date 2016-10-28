@@ -95,6 +95,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
 
     private int mLastScrollX;
     private int mHeight;
+    private boolean mSnapOnTabClick;
 
     public SlidingTabLayout(Context context) {
         this(context, null, 0);
@@ -120,7 +121,6 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         //get layout_height
         String height = attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "layout_height");
 
-        //create ViewPager
         if (height.equals(ViewGroup.LayoutParams.MATCH_PARENT + "")) {
         } else if (height.equals(ViewGroup.LayoutParams.WRAP_CONTENT + "")) {
         } else {
@@ -262,7 +262,12 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
                 int position = mTabsContainer.indexOfChild(v);
                 if (position != -1) {
                     if (mViewPager.getCurrentItem() != position) {
-                        mViewPager.setCurrentItem(position);
+                        if (mSnapOnTabClick) {
+                            mViewPager.setCurrentItem(position, false);
+                        } else {
+                            mViewPager.setCurrentItem(position);
+                        }
+
                         if (mListener != null) {
                             mListener.onTabSelect(position);
                         }
@@ -642,6 +647,10 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     public void setTextAllCaps(boolean textAllCaps) {
         this.mTextAllCaps = textAllCaps;
         updateTabStyles();
+    }
+
+    public void setSnapOnTabClick(boolean snapOnTabClick) {
+        mSnapOnTabClick = snapOnTabClick;
     }
 
 

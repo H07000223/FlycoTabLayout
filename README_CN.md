@@ -67,7 +67,7 @@ dependencies{
 After v2.0.2(support 3.0+)
 dependencies{
     compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.8@aar'
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.0@aar'
 }
 ```
 
