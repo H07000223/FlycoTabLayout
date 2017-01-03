@@ -82,6 +82,8 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     private int mDividerColor;
     private float mDividerWidth;
     private float mDividerPadding;
+    private int mBlockDividerColor;
+    private float mBlockDividerWidth;
 
     /** title */
     private static final int TEXT_BOLD_NONE = 0;
@@ -154,6 +156,8 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         mDividerColor = ta.getColor(R.styleable.SlidingTabLayout_tl_divider_color, Color.parseColor("#ffffff"));
         mDividerWidth = ta.getDimension(R.styleable.SlidingTabLayout_tl_divider_width, dp2px(0));
         mDividerPadding = ta.getDimension(R.styleable.SlidingTabLayout_tl_divider_padding, dp2px(12));
+        mBlockDividerColor = ta.getColor(R.styleable.CommonTabLayout_tl_block_divider_color, Color.parseColor("#ffffff"));
+        mBlockDividerWidth = ta.getDimension(R.styleable.CommonTabLayout_tl_block_divider_width, dp2px(0));
 
         mTextsize = ta.getDimension(R.styleable.SlidingTabLayout_tl_textsize, sp2px(14));
         mTextSelectColor = ta.getColor(R.styleable.SlidingTabLayout_tl_textSelectColor, Color.parseColor("#ffffff"));
@@ -495,6 +499,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
                         (int) mIndicatorMarginTop, (int) (paddingLeft + mIndicatorRect.right - mIndicatorMarginRight),
                         (int) (mIndicatorMarginTop + mIndicatorHeight));
                 mIndicatorDrawable.setCornerRadius(mIndicatorCornerRadius);
+                mIndicatorDrawable.setStroke((int) mBlockDividerWidth, mBlockDividerColor);
                 mIndicatorDrawable.draw(canvas);
             }
         } else {

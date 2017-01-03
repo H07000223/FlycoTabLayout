@@ -52,6 +52,10 @@
     <attr name="tl_divider_width" format="dimension"/>
     <!-- 设置分割线的paddingTop和paddingBottom -->
     <attr name="tl_divider_padding" format="dimension"/>
+    <!-- 背景色块样式下的分割线颜色-->
+    <attr name="tl_block_divider_color" format="color"/>
+    <!-- 背景色块样式下的分割线宽度-->
+    <attr name="tl_block_divider_width" format="dimension"/>
 
     <!-- tab -->
     <!-- 设置tab的paddingLeft和paddingRight -->
@@ -100,6 +104,8 @@
         <attr name="tl_divider_color"/>
         <attr name="tl_divider_width"/>
         <attr name="tl_divider_padding"/>
+        <attr name="tl_block_divider_color"/>
+        <attr name="tl_block_divider_width"/>
 
         <!-- tab -->
         <attr name="tl_tab_padding"/>
@@ -140,6 +146,8 @@
         <attr name="tl_divider_color"/>
         <attr name="tl_divider_width"/>
         <attr name="tl_divider_padding"/>
+        <attr name="tl_block_divider_color"/>
+        <attr name="tl_block_divider_width"/>
 
         <!-- tab -->
         <attr name="tl_tab_padding"/>
