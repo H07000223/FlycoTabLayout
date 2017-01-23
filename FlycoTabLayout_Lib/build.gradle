@@ -3,15 +3,15 @@ apply plugin: 'com.android.library'
 //apply plugin: 'com.jfrog.bintray'
 
 // 这个version是区分library版本的，因此当我们需要更新library时记得修改这个version
-version = "2.1.0"
+version = "2.1.2"
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
 
     defaultConfig {
         minSdkVersion 11
-        targetSdkVersion 23
-        versionCode 210
+        targetSdkVersion 25
+        versionCode 212
         versionName version
     }
     buildTypes {
@@ -24,7 +24,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.android.support:support-v4:25.1.0'
 }
 
 //def siteUrl = 'https://github.com/H07000223'  // 项目的主页
