@@ -1,4 +1,4 @@
-#FlycoTabLayout
+# FlycoTabLayout
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-FlycoTabLayout-green.svg?style=true)](https://android-arsenal.com/details/1/2756)
 
 一个Android TabLayout库,目前有3个TabLayout
@@ -30,7 +30,7 @@
 
 * SegmentTabLayout
 
-##Demo
+## Demo
 ![](https://github.com/H07000223/FlycoTabLayout/blob/master/preview_1.gif)
 
 ![](https://github.com/H07000223/FlycoTabLayout/blob/master/preview_2.gif)
@@ -47,7 +47,7 @@
  > v2.0.2(2016-04-23)
    - 删除了对NineOldAnimation库依赖(仅支持3.0+)
 
-##Gradle
+## Gradle
 
 ```groovy
 dependencies{
@@ -71,7 +71,7 @@ dependencies{
 }
 ```
 
-##Attributes
+## Attributes
 
 |name|format|description|
 |:---:|:---:|:---:|
@@ -108,9 +108,9 @@ dependencies{
 | tl_indicator_bounce_enable |boolean| 设置显示器支持动画回弹效果(only for CommonTabLayout)
 | tl_indicator_width_equal_title |boolean| 设置显示器与标题一样长(only for SlidingTabLayout)
 
-##Dependence
+## Dependence
 *   [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)
 *   [FlycoRoundView](https://github.com/H07000223/FlycoRoundView)
 
-##Thanks
+## Thanks
 *   [PagerSlidingTabStrip](https://github.com/jpardogo/PagerSlidingTabStrip)

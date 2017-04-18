@@ -1,4 +1,4 @@
-#Change Log
+# Change Log
 Version 1.1.2 *(2015-10-14)*
 ----------------------------
 * add method setViewPager(ViewPager vp, String[] titles)  for the condition that you do not want set titles in page adapter 
