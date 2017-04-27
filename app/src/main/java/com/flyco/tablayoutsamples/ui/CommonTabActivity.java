@@ -45,6 +45,7 @@ public class CommonTabActivity extends AppCompatActivity {
     private CommonTabLayout mTabLayout_6;
     private CommonTabLayout mTabLayout_7;
     private CommonTabLayout mTabLayout_8;
+    private CommonTabLayout mTabLayout_9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,8 @@ public class CommonTabActivity extends AppCompatActivity {
         mTabLayout_7 = ViewFindUtils.find(mDecorView, R.id.tl_7);
         /** indicator圆角色块 */
         mTabLayout_8 = ViewFindUtils.find(mDecorView, R.id.tl_8);
+        /** indicator圆角色块,带边框 */
+        mTabLayout_9 = ViewFindUtils.find(mDecorView, R.id.tl_9);
 
         mTabLayout_1.setTabData(mTabEntities);
         tl_2();
@@ -89,6 +92,7 @@ public class CommonTabActivity extends AppCompatActivity {
         mTabLayout_6.setTabData(mTabEntities);
         mTabLayout_7.setTabData(mTabEntities);
         mTabLayout_8.setTabData(mTabEntities);
+        mTabLayout_9.setTabData(mTabEntities);
 
         mTabLayout_3.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
@@ -100,6 +104,7 @@ public class CommonTabActivity extends AppCompatActivity {
                 mTabLayout_6.setCurrentTab(position);
                 mTabLayout_7.setCurrentTab(position);
                 mTabLayout_8.setCurrentTab(position);
+                mTabLayout_9.setCurrentTab(position);
             }
 
             @Override

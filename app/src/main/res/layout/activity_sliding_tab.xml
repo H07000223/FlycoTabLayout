@@ -122,6 +122,22 @@
                 tl:tl_indicator_margin_right="2dp"
                 tl:tl_indicator_style="BLOCK"/>
 
+            <com.flyco.tablayout.SlidingTabLayout
+                android:id="@+id/tl_11"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#FAFAFA"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                tl:tl_block_divider_color="#0068B7"
+                tl:tl_block_divider_width="1dp"
+                tl:tl_indicator_color="#FFFFFF"
+                tl:tl_indicator_margin_left="2dp"
+                tl:tl_indicator_margin_right="2dp"
+                tl:tl_indicator_style="BLOCK"
+                tl:tl_textSelectColor="#0068B7"
+                tl:tl_textUnselectColor="#666666"/>
+
         </LinearLayout>
 
         <android.support.v4.view.ViewPager
