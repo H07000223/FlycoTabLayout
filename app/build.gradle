@@ -22,10 +22,10 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:25.1.0'
-//    compile project(':FlycoTabLayout_Lib')
+    compile project(':FlycoTabLayout_Lib')
 
     //--->support 3.0+
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+//    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     //--->support 2.2+
 //    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.0@aar'
 //    compile 'com.nineoldandroids:library:2.4.0'
