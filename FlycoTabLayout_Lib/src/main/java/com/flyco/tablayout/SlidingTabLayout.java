@@ -1,5 +1,9 @@
 package com.flyco.tablayout;
 
+import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.flyco.tablayout.utils.UnreadMsgUtils;
+import com.flyco.tablayout.widget.MsgView;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -25,10 +29,6 @@ import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.flyco.tablayout.listener.OnTabSelectListener;
-import com.flyco.tablayout.utils.UnreadMsgUtils;
-import com.flyco.tablayout.widget.MsgView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,6 +63,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
 
     /** indicator */
     private int mIndicatorColor;
+    private int[] mIndicatorColors;
     private float mIndicatorHeight;
     private float mIndicatorWidth;
     private float mIndicatorCornerRadius;
@@ -504,7 +505,13 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
                         mIndicatorRect.right + getPaddingLeft(), getHeight(), mRectPaint);*/
 
             if (mIndicatorHeight > 0) {
-                mIndicatorDrawable.setColor(mIndicatorColor);
+                if (mGradual) {
+                    mIndicatorDrawable.setOrientation(GradientDrawable.Orientation.BL_TR);
+                    mIndicatorDrawable.setColors(mIndicatorColors);
+                    mIndicatorDrawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
+                } else {
+                    mIndicatorDrawable.setColor(mIndicatorColor);
+                }
 
                 if (mIndicatorGravity == Gravity.BOTTOM) {
                     mIndicatorDrawable.setBounds(paddingLeft + (int) mIndicatorMarginLeft + mIndicatorRect.left,
@@ -555,8 +562,16 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         updateTabStyles();
     }
 
+    private boolean mGradual = false;
     public void setIndicatorColor(int indicatorColor) {
         this.mIndicatorColor = indicatorColor;
+        mGradual = false;
+        invalidate();
+    }
+
+    public void setIndicatorColors(int[] indicatorColors) {
+        this.mIndicatorColors = indicatorColors;
+        mGradual = true;
         invalidate();
     }
 
