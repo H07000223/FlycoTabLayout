@@ -40,12 +40,11 @@
 
 >## Change Log
 
- > v2.0.0(2016-03-01)
-   - 删除了对FlycoRoundView库的依赖
-   - 新增方法getIconView和getTitleView(为了某些情况需要动态更新icon之类的)
+ > Version 2.1.2 *(2017.1.23)*
+   - update compileSdkVersion to 25, buildToolsVersion to "25.0.2"
 
- > v2.0.2(2016-04-23)
-   - 删除了对NineOldAnimation库依赖(仅支持3.0+)
+ > 2017.5.4
+   - 针对自己的需求添加了指示器设置渐变色的方法,gradle version 升级
 
 ## Gradle
 
