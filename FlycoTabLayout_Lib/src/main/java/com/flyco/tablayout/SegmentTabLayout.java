@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.util.TypedValue;
@@ -171,8 +172,8 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
     }
 
     /** 关联数据支持同时切换fragments */
-    public void setTabData(String[] titles, FragmentActivity fa, int containerViewId, ArrayList<Fragment> fragments) {
-        mFragmentChangeManager = new FragmentChangeManager(fa.getSupportFragmentManager(), containerViewId, fragments);
+    public void setTabData(String[] titles, FragmentManager manager, int containerViewId, ArrayList<Fragment> fragments) {
+        mFragmentChangeManager = new FragmentChangeManager(manager, containerViewId, fragments);
         setTabData(titles);
     }
 
