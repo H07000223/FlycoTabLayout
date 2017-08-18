@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.util.TypedValue;
@@ -202,8 +203,8 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
     }
 
     /** 关联数据支持同时切换fragments */
-    public void setTabData(ArrayList<CustomTabEntity> tabEntitys, FragmentActivity fa, int containerViewId, ArrayList<Fragment> fragments) {
-        mFragmentChangeManager = new FragmentChangeManager(fa.getSupportFragmentManager(), containerViewId, fragments);
+    public void setTabData(ArrayList<CustomTabEntity> tabEntitys, FragmentManager manager, int containerViewId, ArrayList<Fragment> fragments) {
+        mFragmentChangeManager = new FragmentChangeManager(manager, containerViewId, fragments);
         setTabData(tabEntitys);
     }
 

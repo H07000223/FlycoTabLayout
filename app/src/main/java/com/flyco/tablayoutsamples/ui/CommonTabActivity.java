@@ -83,7 +83,7 @@ public class CommonTabActivity extends AppCompatActivity {
 
         mTabLayout_1.setTabData(mTabEntities);
         tl_2();
-        mTabLayout_3.setTabData(mTabEntities, this, R.id.fl_change, mFragments2);
+        mTabLayout_3.setTabData(mTabEntities, this.getSupportFragmentManager(), R.id.fl_change, mFragments2);
         mTabLayout_4.setTabData(mTabEntities);
         mTabLayout_5.setTabData(mTabEntities);
         mTabLayout_6.setTabData(mTabEntities);
