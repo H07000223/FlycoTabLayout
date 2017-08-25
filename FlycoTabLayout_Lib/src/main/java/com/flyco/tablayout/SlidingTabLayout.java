@@ -33,7 +33,9 @@ import com.flyco.tablayout.widget.MsgView;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/** 滑动TabLayout,对于ViewPager的依赖性强 */
+/**
+ * 滑动TabLayout,对于ViewPager的依赖性强
+ */
 public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.OnPageChangeListener {
     private Context mContext;
     private ViewPager mViewPager;
@@ -42,9 +44,13 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     private int mCurrentTab;
     private float mCurrentPositionOffset;
     private int mTabCount;
-    /** 用于绘制显示器 */
+    /**
+     * 用于绘制显示器
+     */
     private Rect mIndicatorRect = new Rect();
-    /** 用于实现滚动居中 */
+    /**
+     * 用于实现滚动居中
+     */
     private Rect mTabRect = new Rect();
     private GradientDrawable mIndicatorDrawable = new GradientDrawable();
 
@@ -61,7 +67,9 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     private boolean mTabSpaceEqual;
     private float mTabWidth;
 
-    /** indicator */
+    /**
+     * indicator
+     */
     private int mIndicatorColor;
     private float mIndicatorHeight;
     private float mIndicatorWidth;
@@ -73,17 +81,23 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     private int mIndicatorGravity;
     private boolean mIndicatorWidthEqualTitle;
 
-    /** underline */
+    /**
+     * underline
+     */
     private int mUnderlineColor;
     private float mUnderlineHeight;
     private int mUnderlineGravity;
 
-    /** divider */
+    /**
+     * divider
+     */
     private int mDividerColor;
     private float mDividerWidth;
     private float mDividerPadding;
 
-    /** title */
+    /**
+     * title
+     */
     private static final int TEXT_BOLD_NONE = 0;
     private static final int TEXT_BOLD_WHEN_SELECT = 1;
     private static final int TEXT_BOLD_BOTH = 2;
@@ -168,7 +182,9 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         ta.recycle();
     }
 
-    /** 关联ViewPager */
+    /**
+     * 关联ViewPager
+     */
     public void setViewPager(ViewPager vp) {
         if (vp == null || vp.getAdapter() == null) {
             throw new IllegalStateException("ViewPager or ViewPager adapter can not be NULL !");
@@ -181,7 +197,9 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         notifyDataSetChanged();
     }
 
-    /** 关联ViewPager,用于不想在ViewPager适配器中设置titles数据的情况 */
+    /**
+     * 关联ViewPager,用于不想在ViewPager适配器中设置titles数据的情况
+     */
     public void setViewPager(ViewPager vp, String[] titles) {
         if (vp == null || vp.getAdapter() == null) {
             throw new IllegalStateException("ViewPager or ViewPager adapter can not be NULL !");
@@ -204,7 +222,9 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         notifyDataSetChanged();
     }
 
-    /** 关联ViewPager,用于连适配器都不想自己实例化的情况 */
+    /**
+     * 关联ViewPager,用于连适配器都不想自己实例化的情况
+     */
     public void setViewPager(ViewPager vp, String[] titles, FragmentActivity fa, ArrayList<Fragment> fragments) {
         if (vp == null) {
             throw new IllegalStateException("ViewPager can not be NULL !");
@@ -222,7 +242,9 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         notifyDataSetChanged();
     }
 
-    /** 更新数据 */
+    /**
+     * 更新数据
+     */
     public void notifyDataSetChanged() {
         mTabsContainer.removeAllViews();
         this.mTabCount = mTitles == null ? mViewPager.getAdapter().getCount() : mTitles.size();
@@ -249,7 +271,9 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         updateTabStyles();
     }
 
-    /** 创建并添加tab */
+    /**
+     * 创建并添加tab
+     */
     private void addTab(final int position, String title, View tabView) {
         TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
         if (tv_tab_title != null) {
@@ -334,7 +358,9 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     public void onPageScrollStateChanged(int state) {
     }
 
-    /** HorizontalScrollView滚到当前tab,并且居中显示 */
+    /**
+     * HorizontalScrollView滚到当前tab,并且居中显示
+     */
     private void scrollToCurrentTab() {
         if (mTabCount <= 0) {
             return;
@@ -387,8 +413,8 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         if (mIndicatorStyle == STYLE_NORMAL && mIndicatorWidthEqualTitle) {
             TextView tab_title = (TextView) currentTabView.findViewById(R.id.tv_tab_title);
             mTextPaint.setTextSize(mTextsize);
-            float textWidth = mTextPaint.measureText(tab_title.getText().toString());
-            margin = (right - left - textWidth) / 2;
+            float contentWidth = tab_title.getMeasuredWidth() - tab_title.getPaddingLeft() - tab_title.getPaddingRight();
+            margin = (right - left - contentWidth) / 2;
         }
 
         if (this.mCurrentTab < mTabCount - 1) {
@@ -799,7 +825,9 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         showMsg(position, 0);
     }
 
-    /** 隐藏未读消息 */
+    /**
+     * 隐藏未读消息
+     */
     public void hideMsg(int position) {
         if (position >= mTabCount) {
             position = mTabCount - 1;
@@ -812,7 +840,9 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         }
     }
 
-    /** 设置未读消息偏移,原点为文字的右上角.当控件高度固定,消息提示位置易控制,显示效果佳 */
+    /**
+     * 设置未读消息偏移,原点为文字的右上角.当控件高度固定,消息提示位置易控制,显示效果佳
+     */
     public void setMsgMargin(int position, float leftPadding, float bottomPadding) {
         if (position >= mTabCount) {
             position = mTabCount - 1;
@@ -831,7 +861,9 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         }
     }
 
-    /** 当前类只提供了少许设置未读消息属性的方法,可以通过该方法获取MsgView对象从而各种设置 */
+    /**
+     * 当前类只提供了少许设置未读消息属性的方法,可以通过该方法获取MsgView对象从而各种设置
+     */
     public MsgView getMsgView(int position) {
         if (position >= mTabCount) {
             position = mTabCount - 1;
