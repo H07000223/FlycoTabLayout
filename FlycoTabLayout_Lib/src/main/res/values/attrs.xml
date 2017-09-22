@@ -27,6 +27,7 @@
     </attr>
     <!-- 设置显示器长度与title一样长,只有在STYLE_NORMAL并且indicatorWidth小于零有效-->
     <attr name="tl_indicator_width_equal_title" format="boolean"/>
+    <attr name="tl_indicator_width_equal_title_extra_width" format="dimension"/>
     <!-- 设置显示器支持动画-->
     <attr name="tl_indicator_anim_enable" format="boolean"/>
     <!-- 设置显示器动画时间-->
@@ -90,6 +91,7 @@
         <attr name="tl_indicator_gravity"/>
         <attr name="tl_indicator_style"/>
         <attr name="tl_indicator_width_equal_title"/>
+        <attr name="tl_indicator_width_equal_title_extra_width"/>
 
         <!-- underline -->
         <attr name="tl_underline_color"/>
