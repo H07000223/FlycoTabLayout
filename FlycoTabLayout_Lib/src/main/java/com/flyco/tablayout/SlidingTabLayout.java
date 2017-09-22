@@ -72,6 +72,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     private float mIndicatorMarginBottom;
     private int mIndicatorGravity;
     private boolean mIndicatorWidthEqualTitle;
+    private float mIndicatorWidthEqualTitleExtra;
 
     /** underline */
     private int mUnderlineColor;
@@ -146,6 +147,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         mIndicatorMarginBottom = ta.getDimension(R.styleable.SlidingTabLayout_tl_indicator_margin_bottom, dp2px(mIndicatorStyle == STYLE_BLOCK ? 7 : 0));
         mIndicatorGravity = ta.getInt(R.styleable.SlidingTabLayout_tl_indicator_gravity, Gravity.BOTTOM);
         mIndicatorWidthEqualTitle = ta.getBoolean(R.styleable.SlidingTabLayout_tl_indicator_width_equal_title, false);
+        mIndicatorWidthEqualTitleExtraWidth = ta.getDimension(R.styleable.SlidingTabLayout_tl_indicator_width_equal_title_extra_width, dp2px(0));
 
         mUnderlineColor = ta.getColor(R.styleable.SlidingTabLayout_tl_underline_color, Color.parseColor("#ffffff"));
         mUnderlineHeight = ta.getDimension(R.styleable.SlidingTabLayout_tl_underline_height, dp2px(0));
@@ -413,8 +415,8 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         mIndicatorRect.right = (int) right;
         //for mIndicatorWidthEqualTitle
         if (mIndicatorStyle == STYLE_NORMAL && mIndicatorWidthEqualTitle) {
-            mIndicatorRect.left = (int) (left + margin - 1);
-            mIndicatorRect.right = (int) (right - margin - 1);
+            mIndicatorRect.left = (int) ((left + margin - 1) - mIndicatorWidthEqualTitleExtraWidth);
+            mIndicatorRect.right = (int) ((right - margin - 1) + mIndicatorWidthEqualTitleExtraWidth);
         }
 
         mTabRect.left = (int) left;
