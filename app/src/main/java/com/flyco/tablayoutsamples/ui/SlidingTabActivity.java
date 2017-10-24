@@ -54,6 +54,7 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
         tabLayout_3.setIndicatorColors(colors);
         /** tab固定宽度 */
         SlidingTabLayout tabLayout_4 = ViewFindUtils.find(decorView, R.id.tl_4);
+        SlidingTabLayout tabLayout_44 = ViewFindUtils.find(decorView, R.id.tl_44);
         /** indicator固定宽度 */
         SlidingTabLayout tabLayout_5 = ViewFindUtils.find(decorView, R.id.tl_5);
         /** indicator圆 */
@@ -72,6 +73,7 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
         tabLayout_2.setOnTabSelectListener(this);
         tabLayout_3.setViewPager(vp);
         tabLayout_4.setViewPager(vp);
+        tabLayout_44.setViewPager(vp);
         tabLayout_5.setViewPager(vp);
         tabLayout_6.setViewPager(vp);
         tabLayout_7.setViewPager(vp, mTitles);

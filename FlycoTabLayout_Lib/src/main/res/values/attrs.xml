@@ -90,6 +90,7 @@
         <attr name="tl_indicator_gravity"/>
         <attr name="tl_indicator_style"/>
         <attr name="tl_indicator_width_equal_title"/>
+        <attr name="tl_indicator_src" format="reference" />
 
         <!-- underline -->
         <attr name="tl_underline_color"/>

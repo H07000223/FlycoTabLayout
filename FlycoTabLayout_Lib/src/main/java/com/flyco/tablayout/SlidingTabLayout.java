@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -73,6 +74,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     private float mIndicatorMarginBottom;
     private int mIndicatorGravity;
     private boolean mIndicatorWidthEqualTitle;
+    private int mIndicatorSrc;
 
     /** underline */
     private int mUnderlineColor;
@@ -147,6 +149,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         mIndicatorMarginBottom = ta.getDimension(R.styleable.SlidingTabLayout_tl_indicator_margin_bottom, dp2px(mIndicatorStyle == STYLE_BLOCK ? 7 : 0));
         mIndicatorGravity = ta.getInt(R.styleable.SlidingTabLayout_tl_indicator_gravity, Gravity.BOTTOM);
         mIndicatorWidthEqualTitle = ta.getBoolean(R.styleable.SlidingTabLayout_tl_indicator_width_equal_title, false);
+        mIndicatorSrc = ta.getResourceId(R.styleable.SlidingTabLayout_tl_indicator_src, 0);
 
         mUnderlineColor = ta.getColor(R.styleable.SlidingTabLayout_tl_underline_color, Color.parseColor("#ffffff"));
         mUnderlineHeight = ta.getDimension(R.styleable.SlidingTabLayout_tl_underline_height, dp2px(0));
@@ -383,6 +386,10 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         View currentTabView = mTabsContainer.getChildAt(this.mCurrentTab);
         float left = currentTabView.getLeft();
         float right = currentTabView.getRight();
+        if (0 == currentTabView.getWidth()) {
+            invalidate();
+            return;
+        }
 
         //for mIndicatorWidthEqualTitle
         if (mIndicatorStyle == STYLE_NORMAL && mIndicatorWidthEqualTitle) {
@@ -524,8 +531,18 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
                             paddingLeft + mIndicatorRect.right - (int) mIndicatorMarginRight,
                             (int) mIndicatorHeight + (int) mIndicatorMarginTop);
                 }
-                mIndicatorDrawable.setCornerRadius(mIndicatorCornerRadius);
-                mIndicatorDrawable.draw(canvas);
+                if (mIndicatorSrc != 0) {//设置了指示器为图片
+                    BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(mIndicatorSrc);
+                    mIndicatorHeight = drawable.getBitmap().getHeight();
+                    drawable.setBounds(paddingLeft + (int) mIndicatorMarginLeft + mIndicatorRect.left,
+                            height - (int) mIndicatorHeight - (int) mIndicatorMarginBottom + (int) mIndicatorMarginTop,
+                            paddingLeft + mIndicatorRect.right - (int) mIndicatorMarginRight,
+                            height - (int) mIndicatorMarginBottom + (int) mIndicatorMarginTop);
+                    drawable.draw(canvas);
+                } else {
+                    mIndicatorDrawable.setCornerRadius(mIndicatorCornerRadius);
+                    mIndicatorDrawable.draw(canvas);
+                }
             }
         }
     }
