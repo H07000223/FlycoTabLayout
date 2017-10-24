@@ -40,35 +40,12 @@
 
 >## Change Log
 
- > Version 2.1.2 *(2017.1.23)*
-   - update compileSdkVersion to 25, buildToolsVersion to "25.0.2"
-
  > 2017.5.4
    - 针对自己的需求添加了指示器设置渐变色的方法,gradle version 升级
+   
+ > 2017.10.24
+   - 给指示器添加设置图片资源的属性
 
-## Gradle
-
-```groovy
-dependencies{
-    compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.flyco.roundview:FlycoRoundView_Lib:1.1.2@aar'
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:1.5.0@aar'
-}
-
-After v2.0.0(support 2.2+)
-dependencies{
-    compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.0@aar'
-}
-
-After v2.0.2(support 3.0+)
-dependencies{
-    compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-}
-```
 
 ## Attributes
 
@@ -106,6 +83,7 @@ dependencies{
 | tl_indicator_anim_duration |integer| 设置显示器动画时间(only for CommonTabLayout)
 | tl_indicator_bounce_enable |boolean| 设置显示器支持动画回弹效果(only for CommonTabLayout)
 | tl_indicator_width_equal_title |boolean| 设置显示器与标题一样长(only for SlidingTabLayout)
+| tl_indicator_src |reference| 设置指示器为图片资源背景(only for SlidingTabLayout)
 
 ## Dependence
 *   [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)
