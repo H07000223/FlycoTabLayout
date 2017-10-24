@@ -84,4 +84,5 @@ Version 2.1.2 *(2017.1.23)*
 ----------------------------
 * update compileSdkVersion to 25, buildToolsVersion to "25.0.2"
 
-
+2017.5.4
+针对自己的需求添加了指示器设置渐变色的方法,gradle version 升级

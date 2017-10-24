@@ -66,6 +66,17 @@
                 tl:tl_textsize="15sp"/>
 
             <com.flyco.tablayout.SlidingTabLayout
+                    android:id="@+id/tl_44"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#009688"
+                    tl:tl_indicator_width_equal_title="true"
+                    tl:tl_indicator_src="@mipmap/ic_indicator"
+                    tl:tl_tab_padding="0dp"
+                    tl:tl_tab_width="95dp"
+                    tl:tl_textsize="15sp" />
+
+            <com.flyco.tablayout.SlidingTabLayout
                 android:id="@+id/tl_5"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"

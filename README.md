@@ -1,6 +1,6 @@
 # FlycoTabLayout
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-FlycoTabLayout-green.svg?style=true)](https://android-arsenal.com/details/1/2756)
-#### [中文版](https://github.com/H07000223/FlycoTabLayout/blob/master/README_CN.md)
+#### [中文版](https://github.com/renyanxu2000/FlycoTabLayout/blob/master/README_CN.md)
 An Android TabLayout Lib has 3 kinds of TabLayout at present.
 
 * SlidingTabLayout: deeply modified from [PagerSlidingTabStrip](https://github.com/jpardogo/PagerSlidingTabStrip).
@@ -41,37 +41,11 @@ can be used freely with other widgets together.
 
 >## Change Log
 
- > v2.0.0(2016-03-01)
-   - remove the dependence of FlycoRoundView
-   - new added method getIconView and getTitleView
+ > 2017.5.4
+   - add a gradient to the indicator ,gradle version update
+ > 2017.10.24
+   - Add an attribute that set the png for the indicator
 
- > v2.0.2(2016-04-23)
-   - remove the dependence of NineOldAnimation(only support 3.0+)
-
-
-## Gradle
-
-```groovy
-dependencies{
-    compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.flyco.roundview:FlycoRoundView_Lib:1.1.2@aar'
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:1.5.0@aar'
-}
-
-After v2.0.0
-dependencies{
-    compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.0@aar'
-}
-
-After v2.0.2(support 3.0+)
-dependencies{
-    compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-}
-```
 
 ## Attributes
 
@@ -109,6 +83,7 @@ dependencies{
 | tl_indicator_anim_duration |integer| set indicator animation duration(only for CommonTabLayout)
 | tl_indicator_bounce_enable |boolean| set indicator aniamtion with bounce effect(only for CommonTabLayout)
 | tl_indicator_width_equal_title |boolean| set indicator width same as text(only for SlidingTabLayout)
+| tl_indicator_src |reference| Add an attribute that set the png resource for the indicator(only for SlidingTabLayout)
 
 ## Dependence
 *   [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)

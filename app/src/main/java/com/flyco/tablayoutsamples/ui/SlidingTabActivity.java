@@ -1,5 +1,11 @@
 package com.flyco.tablayoutsamples.ui;
 
+import com.flyco.tablayout.SlidingTabLayout;
+import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.flyco.tablayout.widget.MsgView;
+import com.flyco.tablayoutsamples.R;
+import com.flyco.tablayoutsamples.utils.ViewFindUtils;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,12 +16,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
-
-import com.flyco.tablayout.SlidingTabLayout;
-import com.flyco.tablayout.listener.OnTabSelectListener;
-import com.flyco.tablayout.widget.MsgView;
-import com.flyco.tablayoutsamples.R;
-import com.flyco.tablayoutsamples.utils.ViewFindUtils;
 
 import java.util.ArrayList;
 
@@ -49,8 +49,12 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
         SlidingTabLayout tabLayout_2 = ViewFindUtils.find(decorView, R.id.tl_2);
         /** 字体加粗,大写 */
         SlidingTabLayout tabLayout_3 = ViewFindUtils.find(decorView, R.id.tl_3);
+        //指示器设置渐变色
+        int[] colors = {Color.parseColor("#538EEB"), Color.parseColor("#00D397")};
+        tabLayout_3.setIndicatorColors(colors);
         /** tab固定宽度 */
         SlidingTabLayout tabLayout_4 = ViewFindUtils.find(decorView, R.id.tl_4);
+        SlidingTabLayout tabLayout_44 = ViewFindUtils.find(decorView, R.id.tl_44);
         /** indicator固定宽度 */
         SlidingTabLayout tabLayout_5 = ViewFindUtils.find(decorView, R.id.tl_5);
         /** indicator圆 */
@@ -69,6 +73,7 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
         tabLayout_2.setOnTabSelectListener(this);
         tabLayout_3.setViewPager(vp);
         tabLayout_4.setViewPager(vp);
+        tabLayout_44.setViewPager(vp);
         tabLayout_5.setViewPager(vp);
         tabLayout_6.setViewPager(vp);
         tabLayout_7.setViewPager(vp, mTitles);
