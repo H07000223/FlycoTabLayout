@@ -59,12 +59,7 @@ public class CommonTabActivity extends AppCompatActivity {
 
 
         for (int i = 0; i < mTitles.length; i++) {
-            TabEntity tabEntity = new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]);
-            mTabEntities.add(tabEntity);
-            if (i == 1) {
-                tabEntity.selectedDrawable = ContextCompat.getDrawable(this, mIconUnselectIds[i]);
-                tabEntity.unselectedDrawable = ContextCompat.getDrawable(this, mIconSelectIds[i]);
-            }
+            mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
         }
 
         mDecorView = getWindow().getDecorView();
