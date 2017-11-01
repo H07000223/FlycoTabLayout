@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -58,7 +59,12 @@ public class CommonTabActivity extends AppCompatActivity {
 
 
         for (int i = 0; i < mTitles.length; i++) {
-            mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
+            TabEntity tabEntity = new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]);
+            mTabEntities.add(tabEntity);
+            if (i == 1) {
+                tabEntity.selectedDrawable = ContextCompat.getDrawable(this, mIconUnselectIds[i]);
+                tabEntity.unselectedDrawable = ContextCompat.getDrawable(this, mIconSelectIds[i]);
+            }
         }
 
         mDecorView = getWindow().getDecorView();
