@@ -48,6 +48,7 @@
             tl:tl_indicator_margin_bottom="2dp"
             tl:tl_indicator_margin_left="2dp"
             tl:tl_indicator_margin_right="2dp"
+            tl:tl_indicator_draggable="true"
             tl:tl_indicator_margin_top="2dp"
             tl:tl_textBold="SELECT"/>
 
@@ -90,6 +91,22 @@
             tl:tl_indicator_margin_left="2dp"
             tl:tl_indicator_margin_right="2dp"
             tl:tl_indicator_margin_top="2dp"
+            tl:tl_tab_space_equal="true"/>
+
+        <com.flyco.tablayout.SegmentTabLayout
+            android:id="@+id/tl_6"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_gravity="center_horizontal"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            tl:tl_indicator_anim_enable="true"
+            tl:tl_indicator_bounce_enable="false"
+            tl:tl_indicator_margin_bottom="2dp"
+            tl:tl_indicator_margin_left="2dp"
+            tl:tl_indicator_margin_right="2dp"
+            tl:tl_indicator_margin_top="2dp"
+            tl:tl_indicator_draggable="true"
             tl:tl_tab_space_equal="true"/>
     </LinearLayout>
 </ScrollView>

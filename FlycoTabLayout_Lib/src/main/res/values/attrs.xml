@@ -33,6 +33,8 @@
     <attr name="tl_indicator_anim_duration" format="integer"/>
     <!-- 设置显示器支持动画回弹效果-->
     <attr name="tl_indicator_bounce_enable" format="boolean"/>
+    <!-- 设置显示器支持拖动-->
+    <attr name="tl_indicator_draggable" format="boolean"/>
 
     <!-- underline -->
     <!-- 设置下划线颜色 -->
@@ -184,6 +186,7 @@
         <attr name="tl_indicator_anim_enable"/>
         <attr name="tl_indicator_anim_duration"/>
         <attr name="tl_indicator_bounce_enable"/>
+        <attr name="tl_indicator_draggable"/>
 
         <!-- divider -->
         <attr name="tl_divider_color"/>

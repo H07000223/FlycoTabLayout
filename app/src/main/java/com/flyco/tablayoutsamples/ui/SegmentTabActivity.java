@@ -47,12 +47,14 @@ public class SegmentTabActivity extends AppCompatActivity {
         mTabLayout_3 = ViewFindUtils.find(mDecorView, R.id.tl_3);
         SegmentTabLayout tabLayout_4 = ViewFindUtils.find(mDecorView, R.id.tl_4);
         SegmentTabLayout tabLayout_5 = ViewFindUtils.find(mDecorView, R.id.tl_5);
+        SegmentTabLayout tabLayout_6 = ViewFindUtils.find(mDecorView, R.id.tl_6);
 
         tabLayout_1.setTabData(mTitles);
         tabLayout_2.setTabData(mTitles_2);
         tl_3();
         tabLayout_4.setTabData(mTitles_2, this, R.id.fl_change, mFragments2);
         tabLayout_5.setTabData(mTitles_3);
+        tabLayout_6.setTabData(mTitles_3);
 
         //显示未读红点
         tabLayout_1.showDot(2);

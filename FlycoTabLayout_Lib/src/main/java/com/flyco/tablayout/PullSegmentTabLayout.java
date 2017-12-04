@@ -14,6 +14,7 @@ import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -31,7 +32,7 @@ import com.flyco.tablayout.widget.MsgView;
 
 import java.util.ArrayList;
 
-public class SegmentTabLayout extends FrameLayout implements ValueAnimator.AnimatorUpdateListener {
+public class PullSegmentTabLayout extends FrameLayout implements ValueAnimator.AnimatorUpdateListener {
     private Context mContext;
     private String[] mTitles;
     private ViewGroup mTabsContainer;
@@ -64,7 +65,6 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
     private long mIndicatorAnimDuration;
     private boolean mIndicatorAnimEnable;
     private boolean mIndicatorBounceEnable;
-    private boolean mIndicatorDraggable;
 
     /**
      * divider
@@ -100,15 +100,15 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
     private FragmentChangeManager mFragmentChangeManager;
     private float[] mRadiusArr = new float[8];
 
-    public SegmentTabLayout(Context context) {
+    public PullSegmentTabLayout(Context context) {
         this(context, null, 0);
     }
 
-    public SegmentTabLayout(Context context, AttributeSet attrs) {
+    public PullSegmentTabLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public SegmentTabLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public PullSegmentTabLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setWillNotDraw(false);//重写onDraw方法,需要调用这个方法来清除flag
         setClipChildren(false);
@@ -116,11 +116,10 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
 
         this.mContext = context;
         mTabsContainer = new LinearLayout(context);
+        setContainerTouchListener();
         addView(mTabsContainer);
 
         obtainAttributes(context, attrs);
-
-        setContainerTouchListener();
 
         //get layout_height
         String height = attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "layout_height");
@@ -139,6 +138,78 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         mValueAnimator.addUpdateListener(this);
     }
 
+    /**
+     * 拖动效果需要设置外层窗口的touch事件
+     */
+    private void setContainerTouchListener() {
+        mTabsContainer.setOnTouchListener(new OnTouchListener() {
+            float xDown;
+            int rectLeftDown, rectRightDown, downPosition;
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        xDown = motionEvent.getX();
+                        rectLeftDown = mIndicatorRect.left;
+                        rectRightDown = mIndicatorRect.right;
+                        for (int i = 0; i < mTabsContainer.getChildCount(); i++) {
+                            View child = mTabsContainer.getChildAt(i);
+                            if (child.getLeft() <= motionEvent.getX() && child.getRight() > motionEvent.getX()) {
+                                downPosition = (int) child.getTag();
+                                break;
+                            }
+                        }
+                        Log.e("AAAAA", "按下：");
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        if (downPosition == getCurrentTab()) {
+                            mIndicatorRect.left = (int) (motionEvent.getX() - xDown + rectLeftDown);
+                            mIndicatorRect.right = (int) (motionEvent.getX() - xDown + rectRightDown);
+                            invalidate();
+                        }
+                        Log.e("AAAAA", "滑动：");
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        int position = 0;
+                        if (motionEvent.getX() >= mTabsContainer.getRight()) {
+                            position = getTabCount() - 1;
+                        } else {
+                            for (int i = 0; i < mTabsContainer.getChildCount(); i++) {
+                                View child = mTabsContainer.getChildAt(i);
+                                if (child.getLeft() <= motionEvent.getX() && child.getRight() > motionEvent.getX()) {
+                                    position = (int) child.getTag();
+                                    break;
+                                }
+                            }
+                        }
+                        if (position != downPosition && downPosition != getCurrentTab()) {
+                            //抬起和按下的不是同一个
+                            return true;
+                        }
+                        if (mCurrentTab != position) {
+                            setCurrentTab(position);
+                            if (mListener != null) {
+                                mListener.onTabSelect(position);
+                            }
+                        } else {
+                            if (mIndicatorAnimEnable) {
+                                calcOffset();
+                            } else {
+                                invalidate();
+                            }
+                            if (mListener != null) {
+                                mListener.onTabReselect(position);
+                            }
+                        }
+                        Log.e("AAAAA", "抬起：");
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
     private void obtainAttributes(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.SegmentTabLayout);
 
@@ -152,7 +223,6 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         mIndicatorAnimEnable = ta.getBoolean(R.styleable.SegmentTabLayout_tl_indicator_anim_enable, false);
         mIndicatorBounceEnable = ta.getBoolean(R.styleable.SegmentTabLayout_tl_indicator_bounce_enable, true);
         mIndicatorAnimDuration = ta.getInt(R.styleable.SegmentTabLayout_tl_indicator_anim_duration, -1);
-        mIndicatorDraggable = ta.getBoolean(R.styleable.SegmentTabLayout_tl_indicator_draggable, false);
 
         mDividerColor = ta.getColor(R.styleable.SegmentTabLayout_tl_divider_color, mIndicatorColor);
         mDividerWidth = ta.getDimension(R.styleable.SegmentTabLayout_tl_divider_width, dp2px(1));
@@ -216,27 +286,22 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
         tv_tab_title.setText(mTitles[position]);
 
-        //click会消费掉事件，让外层的touch拖动无效
-        if (!mIndicatorDraggable) {
-            tabView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = (Integer) v.getTag();
-                    if (mCurrentTab != position) {
-                        setCurrentTab(position);
-                        if (mListener != null) {
-                            mListener.onTabSelect(position);
-                        }
-                    } else {
-                        if (mListener != null) {
-                            mListener.onTabReselect(position);
-                        }
-                    }
-                }
-            });
-        } else {
-            tabView.setClickable(false);
-        }
+//        tabView.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int position = (Integer) v.getTag();
+//                if (mCurrentTab != position) {
+//                    setCurrentTab(position);
+//                    if (mListener != null) {
+//                        mListener.onTabSelect(position);
+//                    }
+//                } else {
+//                    if (mListener != null) {
+//                        mListener.onTabReselect(position);
+//                    }
+//                }
+//            }
+//        });
 
         /** 每一个Tab的布局参数 */
         LinearLayout.LayoutParams lp_tab = mTabSpaceEqual ?
@@ -285,9 +350,10 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         mCurrentP.left = currentTabView.getLeft();
         mCurrentP.right = currentTabView.getRight();
 
+
+//        final View lastTabView = mTabsContainer.getChildAt(this.mLastTab);
         mLastP.left = mIndicatorRect.left;
         mLastP.right = mIndicatorRect.right;
-
 //        Log.d("AAA", "mLastP--->" + mLastP.left + "&" + mLastP.right);
 //        Log.d("AAA", "mCurrentP--->" + mCurrentP.left + "&" + mCurrentP.right);
         if (mLastP.left == mCurrentP.left && mLastP.right == mCurrentP.right) {
@@ -356,109 +422,6 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
             mRadiusArr[5] = mIndicatorCornerRadius;
             mRadiusArr[6] = mIndicatorCornerRadius;
             mRadiusArr[7] = mIndicatorCornerRadius;
-        }
-    }
-
-    /**
-     * 拖动效果需要设置外层窗口的touch事件
-     */
-    private void setContainerTouchListener() {
-        //两种listener只能存在一个，反正只能有一个能消费事件嘛，一个消费了，另一个就没了，很好理解
-        if (mIndicatorDraggable) {
-            mTabsContainer.setOnTouchListener(new OnTouchListener() {
-                float xDown;
-                int rectLeftDown, rectRightDown, downPosition;
-
-                @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
-                    switch (motionEvent.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            xDown = motionEvent.getX();
-                            rectLeftDown = mIndicatorRect.left;
-                            rectRightDown = mIndicatorRect.right;
-                            for (int i = 0; i < mTabsContainer.getChildCount(); i++) {
-                                View child = mTabsContainer.getChildAt(i);
-                                if (child.getLeft() <= motionEvent.getX() && child.getRight() > motionEvent.getX()) {
-                                    downPosition = (int) child.getTag();
-                                    break;
-                                }
-                            }
-                            break;
-                        case MotionEvent.ACTION_MOVE:
-                            if (downPosition == getCurrentTab()) {
-                                mIndicatorRect.left = (int) (motionEvent.getX() - xDown + rectLeftDown);
-                                mIndicatorRect.right = (int) (motionEvent.getX() - xDown + rectRightDown);
-                                invalidate();
-                            }
-                            break;
-                        case MotionEvent.ACTION_UP:
-                            int position = 0;
-                            if (motionEvent.getX() > mTabsContainer.getChildAt(getTabCount() - 1).getRight()) {
-                                position = getTabCount() - 1;
-                            } else if (motionEvent.getX() < mTabsContainer.getChildAt(0).getLeft()) {
-                                position = 0;
-                            } else {
-                                for (int i = 0; i < getTabCount(); i++) {
-                                    View child = mTabsContainer.getChildAt(i);
-                                    if (child.getLeft() <= motionEvent.getX() && child.getRight() > motionEvent.getX()) {
-                                        position = (int) child.getTag();
-                                        break;
-                                    }
-                                    if (i == getTabCount() - 1) {
-                                        position = getTabCount() - 1;
-                                    }
-                                }
-                            }
-                            if (position != downPosition && downPosition != getCurrentTab()) {
-                                //抬起和按下的不是同一个
-                                return true;
-                            }
-                            if (mCurrentTab != position) {
-                                setCurrentTab(position);
-                                if (mListener != null) {
-                                    mListener.onTabSelect(position);
-                                }
-                            } else {
-                                if (mIndicatorAnimEnable) {
-                                    calcOffset();
-                                } else {
-                                    invalidate();
-                                }
-                                if (mListener != null) {
-                                    mListener.onTabReselect(position);
-                                }
-                            }
-                            break;
-                    }
-                    return true;
-                }
-            });
-            for (int i = 0; i < mTabsContainer.getChildCount(); i++) {
-                View v = mTabsContainer.getChildAt(i);
-                v.setClickable(false);
-            }
-        } else {
-            mTabsContainer.setOnTouchListener(null);
-            for (int i = 0; i < mTabsContainer.getChildCount(); i++) {
-                View tabView = mTabsContainer.getChildAt(i);
-                tabView.setOnClickListener(null);
-                tabView.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int position = (Integer) v.getTag();
-                        if (mCurrentTab != position) {
-                            setCurrentTab(position);
-                            if (mListener != null) {
-                                mListener.onTabSelect(position);
-                            }
-                        } else {
-                            if (mListener != null) {
-                                mListener.onTabReselect(position);
-                            }
-                        }
-                    }
-                });
-            }
         }
     }
 
@@ -724,15 +687,6 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
 
     public boolean isTextAllCaps() {
         return mTextAllCaps;
-    }
-
-    public boolean ismIndicatorDraggable() {
-        return mIndicatorDraggable;
-    }
-
-    public void setmIndicatorDraggable(boolean mIndicatorDraggable) {
-        this.mIndicatorDraggable = mIndicatorDraggable;
-        setContainerTouchListener();
     }
 
     public TextView getTitleView(int tab) {
