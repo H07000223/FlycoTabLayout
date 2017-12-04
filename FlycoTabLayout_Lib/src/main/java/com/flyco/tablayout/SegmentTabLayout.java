@@ -441,7 +441,6 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
             mTabsContainer.setOnTouchListener(null);
             for (int i = 0; i < mTabsContainer.getChildCount(); i++) {
                 View tabView = mTabsContainer.getChildAt(i);
-                tabView.setOnClickListener(null);
                 tabView.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
