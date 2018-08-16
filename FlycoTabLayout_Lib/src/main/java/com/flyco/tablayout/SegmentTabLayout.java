@@ -223,9 +223,12 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
                 public void onClick(View v) {
                     int position = (Integer) v.getTag();
                     if (mCurrentTab != position) {
-                        setCurrentTab(position);
+                        boolean b = false;
                         if (mListener != null) {
-                            mListener.onTabSelect(position);
+                            b = mListener.onTabSelect(position);
+                        }
+                        if (!b) {
+                            setCurrentTab(position);
                         }
                     } else {
                         if (mListener != null) {
@@ -414,9 +417,12 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
                                 return true;
                             }
                             if (mCurrentTab != position) {
-                                setCurrentTab(position);
+                                boolean b = false;
                                 if (mListener != null) {
-                                    mListener.onTabSelect(position);
+                                    b = mListener.onTabSelect(position);
+                                }
+                                if (!b) {
+                                    setCurrentTab(position);
                                 }
                             } else {
                                 if (mIndicatorAnimEnable) {
@@ -446,9 +452,12 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
                     public void onClick(View v) {
                         int position = (Integer) v.getTag();
                         if (mCurrentTab != position) {
-                            setCurrentTab(position);
+                            boolean b = false;
                             if (mListener != null) {
-                                mListener.onTabSelect(position);
+                                b = mListener.onTabSelect(position);
+                            }
+                            if (!b) {
+                                setCurrentTab(position);
                             }
                         } else {
                             if (mListener != null) {

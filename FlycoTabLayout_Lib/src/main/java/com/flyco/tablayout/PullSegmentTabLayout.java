@@ -188,9 +188,12 @@ public class PullSegmentTabLayout extends FrameLayout implements ValueAnimator.A
                             return true;
                         }
                         if (mCurrentTab != position) {
-                            setCurrentTab(position);
+                            boolean b = false;
                             if (mListener != null) {
-                                mListener.onTabSelect(position);
+                                b = mListener.onTabSelect(position);
+                            }
+                            if (!b) {
+                                setCurrentTab(position);
                             }
                         } else {
                             if (mIndicatorAnimEnable) {
