@@ -77,12 +77,14 @@ public class SegmentTabActivity extends AppCompatActivity {
         mTabLayout_3.setTabData(mTitles_3);
         mTabLayout_3.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
-            public void onTabSelect(int position) {
+            public boolean onTabSelect(int position) {
                 vp_3.setCurrentItem(position);
+                return false;
             }
 
             @Override
-            public void onTabReselect(int position) {
+            public boolean onTabReselect(int position) {
+                return false;
             }
         });
 

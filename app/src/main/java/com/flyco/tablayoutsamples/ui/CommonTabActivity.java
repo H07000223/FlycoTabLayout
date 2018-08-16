@@ -92,7 +92,7 @@ public class CommonTabActivity extends AppCompatActivity {
 
         mTabLayout_3.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
-            public void onTabSelect(int position) {
+            public boolean onTabSelect(int position) {
                 mTabLayout_1.setCurrentTab(position);
                 mTabLayout_2.setCurrentTab(position);
                 mTabLayout_4.setCurrentTab(position);
@@ -100,11 +100,12 @@ public class CommonTabActivity extends AppCompatActivity {
                 mTabLayout_6.setCurrentTab(position);
                 mTabLayout_7.setCurrentTab(position);
                 mTabLayout_8.setCurrentTab(position);
+                return false;
             }
 
             @Override
-            public void onTabReselect(int position) {
-
+            public boolean onTabReselect(int position) {
+                return false;
             }
         });
         mTabLayout_8.setCurrentTab(2);
@@ -145,16 +146,18 @@ public class CommonTabActivity extends AppCompatActivity {
         mTabLayout_2.setTabData(mTabEntities);
         mTabLayout_2.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
-            public void onTabSelect(int position) {
+            public boolean onTabSelect(int position) {
                 mViewPager.setCurrentItem(position);
+                return false;
             }
 
             @Override
-            public void onTabReselect(int position) {
+            public boolean onTabReselect(int position) {
                 if (position == 0) {
                     mTabLayout_2.showMsg(0, mRandom.nextInt(100) + 1);
 //                    UnreadMsgUtils.show(mTabLayout_2.getMsgView(0), mRandom.nextInt(100) + 1);
                 }
+                return false;
             }
         });
 
