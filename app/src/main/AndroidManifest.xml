@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="com.flyco.tablayoutsamples"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.flyco.tablayoutsamples">
 
     <application
         android:allowBackup="true"
@@ -27,6 +27,9 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.SegmentTabActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.SildingActivity"
             android:screenOrientation="portrait"/>
 
     </application>
