@@ -32,7 +32,10 @@ class SildingActivity : AppCompatActivity() {
             TabEntity(it, 0, 0)
         }
         var tab = findViewById(R.id.tl_6) as CommonTabLayout
+        var tab7 = findViewById(R.id.tl_7) as CommonTabLayout
+
         tab.setTabData(tabEntitys)
+        tab7.setTabData(tabEntitys)
 
     }
 

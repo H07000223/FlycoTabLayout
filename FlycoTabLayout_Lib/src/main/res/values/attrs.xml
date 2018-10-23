@@ -149,6 +149,7 @@
 
         <!-- title -->
         <attr name="tl_textsize"/>
+        <attr name="tl_textSelectSize"/>
         <attr name="tl_textSelectColor"/>
         <attr name="tl_textUnselectColor"/>
         <attr name="tl_textBold"/>

@@ -7,7 +7,6 @@ apply plugin: 'com.novoda.bintray-release'//添加
 version = "2.1.2"
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.2"
 
     defaultConfig {
         minSdkVersion 11
@@ -51,7 +50,7 @@ task javadoc(type: Javadoc) {
 publish {
     artifactId = 'FlycoTabLayout_Lib' // library的名字
     groupId = 'com.vclicai'// 包名
-    publishVersion = '1.0.6' // 版本
+    publishVersion = '1.1.0' // 版本
     website = 'https://github.com/H07000223/FlycoTabLayout'
     userOrg = 'vclicai'
 }
