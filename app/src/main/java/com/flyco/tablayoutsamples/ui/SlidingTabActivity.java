@@ -23,8 +23,8 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
     private Context mContext = this;
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private final String[] mTitles = {
-            "热门", "iOS", "Android"
-            , "前端", "后端", "设计", "工具资源"
+            "1", "2", "3"
+            , "4", "5","6","7","8","9","10"
     };
     private MyPagerAdapter mAdapter;
 
@@ -73,10 +73,11 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
         tabLayout_6.setViewPager(vp);
         tabLayout_7.setViewPager(vp, mTitles);
         tabLayout_8.setViewPager(vp, mTitles, this, mFragments);
-        tabLayout_9.setViewPager(vp);
+        tabLayout_9.setViewPager(vp,mTitles);
         tabLayout_10.setViewPager(vp);
 
         vp.setCurrentItem(4);
+//        tabLayout_9.setTabStateTabStateComplete(1,4);
 
         tabLayout_1.showDot(4);
         tabLayout_3.showDot(4);
