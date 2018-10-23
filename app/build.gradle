@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.flyco.tablayoutsamples"
-        minSdkVersion 11
+        minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -17,15 +17,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    //noinspection GradleCompatible
     compile 'com.android.support:appcompat-v7:25.1.0'
-//    compile project(':FlycoTabLayout_Lib')
+    compile project(':FlycoTabLayout_Lib')
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     //--->support 3.0+
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+//    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     //--->support 2.2+
 //    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.0@aar'
 //    compile 'com.nineoldandroids:library:2.4.0'
