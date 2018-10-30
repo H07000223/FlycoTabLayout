@@ -64,6 +64,8 @@
     <!-- title -->
     <!-- 设置字体大小 -->
     <attr name="tl_textsize" format="dimension"/>
+    <!-- 设置选中字体大小-->
+    <attr name="tl_textSelectSize" format="dimension"/>
     <!-- 设置字体选中颜色 -->
     <attr name="tl_textSelectColor" format="color"/>
     <!-- 设置字体未选中颜色 -->
@@ -108,6 +110,7 @@
 
         <!-- title -->
         <attr name="tl_textsize"/>
+        <attr name="tl_textSelectSize"/>
         <attr name="tl_textSelectColor"/>
         <attr name="tl_textUnselectColor"/>
         <attr name="tl_textBold"/>
@@ -148,6 +151,7 @@
 
         <!-- title -->
         <attr name="tl_textsize"/>
+        <attr name="tl_textSelectSize"/>
         <attr name="tl_textSelectColor"/>
         <attr name="tl_textUnselectColor"/>
         <attr name="tl_textBold"/>
@@ -197,6 +201,7 @@
 
         <!-- title -->
         <attr name="tl_textsize"/>
+        <attr name="tl_textSelectSize"/>
         <attr name="tl_textSelectColor"/>
         <attr name="tl_textUnselectColor"/>
         <attr name="tl_textBold"/>

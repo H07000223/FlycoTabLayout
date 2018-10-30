@@ -88,6 +88,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
     private static final int TEXT_BOLD_WHEN_SELECT = 1;
     private static final int TEXT_BOLD_BOTH = 2;
     private float mTextsize;
+    private float mTextSelectSize;
     private int mTextSelectColor;
     private int mTextUnselectColor;
     private int mTextBold;
@@ -172,6 +173,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         mDividerPadding = ta.getDimension(R.styleable.CommonTabLayout_tl_divider_padding, dp2px(12));
 
         mTextsize = ta.getDimension(R.styleable.CommonTabLayout_tl_textsize, sp2px(13f));
+        mTextSelectSize = ta.getDimension(R.styleable.CommonTabLayout_tl_textSelectSize,sp2px(13f));
         mTextSelectColor = ta.getColor(R.styleable.CommonTabLayout_tl_textSelectColor, Color.parseColor("#ffffff"));
         mTextUnselectColor = ta.getColor(R.styleable.CommonTabLayout_tl_textUnselectColor, Color.parseColor("#AAffffff"));
         mTextBold = ta.getInt(R.styleable.CommonTabLayout_tl_textBold, TEXT_BOLD_NONE);
@@ -270,7 +272,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
             tabView.setPadding((int) mTabPadding, 0, (int) mTabPadding, 0);
             TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
             tv_tab_title.setTextColor(i == mCurrentTab ? mTextSelectColor : mTextUnselectColor);
-            tv_tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextsize);
+            tv_tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, i == mCurrentTab ? mTextSelectSize : mTextsize);
 //            tv_tab_title.setPadding((int) mTabPadding, 0, (int) mTabPadding, 0);
             if (mTextAllCaps) {
                 tv_tab_title.setText(tv_tab_title.getText().toString().toUpperCase());
@@ -313,6 +315,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
             final boolean isSelect = i == position;
             TextView tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
             tab_title.setTextColor(isSelect ? mTextSelectColor : mTextUnselectColor);
+            tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX,isSelect ? mTextSelectSize : mTextsize);
             ImageView iv_tab_icon = (ImageView) tabView.findViewById(R.id.iv_tab_icon);
             CustomTabEntity tabEntity = mTabEntitys.get(i);
             iv_tab_icon.setImageResource(isSelect ? tabEntity.getTabSelectedIcon() : tabEntity.getTabUnselectedIcon());
@@ -595,6 +598,11 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
 
     public void setTextsize(float textsize) {
         this.mTextsize = sp2px(textsize);
+        updateTabStyles();
+    }
+
+    public void setTextSelectSize(float textSize){
+        this.mTextSelectSize = sp2px(textSize);
         updateTabStyles();
     }
 
