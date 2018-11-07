@@ -105,7 +105,8 @@
         <attr name="tl_tab_padding"/>
         <attr name="tl_tab_space_equal"/>
         <attr name="tl_tab_width"/>
-
+        <attr name="tl_tab_default_background" format="reference"/>
+        <attr name="tl_tab_complete_background" format="reference"/>
         <!-- title -->
         <attr name="tl_textsize"/>
         <attr name="tl_textSelectColor"/>
@@ -148,6 +149,7 @@
 
         <!-- title -->
         <attr name="tl_textsize"/>
+        <attr name="tl_textSelectSize"/>
         <attr name="tl_textSelectColor"/>
         <attr name="tl_textUnselectColor"/>
         <attr name="tl_textBold"/>
