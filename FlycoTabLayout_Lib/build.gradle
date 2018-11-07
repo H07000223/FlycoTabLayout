@@ -50,7 +50,7 @@ task javadoc(type: Javadoc) {
 publish {
     artifactId = 'FlycoTabLayout_Lib' // library的名字
     groupId = 'com.vclicai'// 包名
-    publishVersion = '1.1.0' // 版本
+    publishVersion = '1.1.2' // 版本
     website = 'https://github.com/H07000223/FlycoTabLayout'
     userOrg = 'vclicai'
 }
@@ -60,7 +60,7 @@ publish {
 //group = "com.flyco.tablayout"       // Maven Group ID for the artifact，一般填你唯一的包名
 //install {
 //    repositories.mavenInstaller {
-//        // This generates POM.xml with proper parameters
+//        // This generate1 POM.xml with proper parameters
 //        pom {
 //            project {
 //                packaging 'aar'
