@@ -205,7 +205,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     }
 
     /** 关联ViewPager,用于连适配器都不想自己实例化的情况 */
-    public void setViewPager(ViewPager vp, String[] titles, FragmentActivity fa, ArrayList<Fragment> fragments) {
+    public void setViewPager(ViewPager vp, String[] titles, FragmentActivity fa, ArrayList<? extends Fragment> fragments) {
         if (vp == null) {
             throw new IllegalStateException("ViewPager can not be NULL !");
         }
@@ -262,14 +262,14 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
                 int position = mTabsContainer.indexOfChild(v);
                 if (position != -1) {
                     if (mViewPager.getCurrentItem() != position) {
-                        if (mSnapOnTabClick) {
+                        boolean b = false;
+                        if (mListener != null) {
+                            b = mListener.onTabSelect(position);
+                        }
+                        if (!b && mSnapOnTabClick) {
                             mViewPager.setCurrentItem(position, false);
                         } else {
                             mViewPager.setCurrentItem(position);
-                        }
-
-                        if (mListener != null) {
-                            mListener.onTabSelect(position);
                         }
                     } else {
                         if (mListener != null) {
@@ -848,10 +848,10 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     }
 
     class InnerPagerAdapter extends FragmentPagerAdapter {
-        private ArrayList<Fragment> fragments = new ArrayList<>();
+        private ArrayList<? extends Fragment> fragments = new ArrayList<>();
         private String[] titles;
 
-        public InnerPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments, String[] titles) {
+        public InnerPagerAdapter(FragmentManager fm, ArrayList<? extends Fragment> fragments, String[] titles) {
             super(fm);
             this.fragments = fragments;
             this.titles = titles;

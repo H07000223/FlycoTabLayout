@@ -108,13 +108,15 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
     }
 
     @Override
-    public void onTabSelect(int position) {
+    public boolean onTabSelect(int position) {
         Toast.makeText(mContext, "onTabSelect&position--->" + position, Toast.LENGTH_SHORT).show();
+        return false;
     }
 
     @Override
-    public void onTabReselect(int position) {
+    public boolean onTabReselect(int position) {
         Toast.makeText(mContext, "onTabReselect&position--->" + position, Toast.LENGTH_SHORT).show();
+        return false;
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {

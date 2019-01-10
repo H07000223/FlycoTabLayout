@@ -1,6 +1,10 @@
 package com.flyco.tablayout.listener;
 
 public interface OnTabSelectListener {
-    void onTabSelect(int position);
-    void onTabReselect(int position);
+    /**
+     * @param position
+     * @return 消费掉，不让tab设置
+     */
+    boolean onTabSelect(int position);
+    boolean onTabReselect(int position);
 }

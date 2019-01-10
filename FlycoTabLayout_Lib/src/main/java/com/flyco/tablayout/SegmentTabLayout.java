@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
@@ -33,11 +34,13 @@ import java.util.ArrayList;
 public class SegmentTabLayout extends FrameLayout implements ValueAnimator.AnimatorUpdateListener {
     private Context mContext;
     private String[] mTitles;
-    private LinearLayout mTabsContainer;
+    private ViewGroup mTabsContainer;
     private int mCurrentTab;
     private int mLastTab;
     private int mTabCount;
-    /** 用于绘制显示器 */
+    /**
+     * 用于绘制显示器
+     */
     private Rect mIndicatorRect = new Rect();
     private GradientDrawable mIndicatorDrawable = new GradientDrawable();
     private GradientDrawable mRectDrawable = new GradientDrawable();
@@ -48,7 +51,9 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
     private boolean mTabSpaceEqual;
     private float mTabWidth;
 
-    /** indicator */
+    /**
+     * indicator
+     */
     private int mIndicatorColor;
     private float mIndicatorHeight;
     private float mIndicatorCornerRadius;
@@ -59,13 +64,18 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
     private long mIndicatorAnimDuration;
     private boolean mIndicatorAnimEnable;
     private boolean mIndicatorBounceEnable;
+    private boolean mIndicatorDraggable;
 
-    /** divider */
+    /**
+     * divider
+     */
     private int mDividerColor;
     private float mDividerWidth;
     private float mDividerPadding;
 
-    /** title */
+    /**
+     * title
+     */
     private static final int TEXT_BOLD_NONE = 0;
     private static final int TEXT_BOLD_WHEN_SELECT = 1;
     private static final int TEXT_BOLD_BOTH = 2;
@@ -81,7 +91,9 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
 
     private int mHeight;
 
-    /** anim */
+    /**
+     * anim
+     */
     private ValueAnimator mValueAnimator;
     private OvershootInterpolator mInterpolator = new OvershootInterpolator(0.8f);
 
@@ -107,6 +119,8 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         addView(mTabsContainer);
 
         obtainAttributes(context, attrs);
+
+        setContainerTouchListener();
 
         //get layout_height
         String height = attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "layout_height");
@@ -138,6 +152,7 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         mIndicatorAnimEnable = ta.getBoolean(R.styleable.SegmentTabLayout_tl_indicator_anim_enable, false);
         mIndicatorBounceEnable = ta.getBoolean(R.styleable.SegmentTabLayout_tl_indicator_bounce_enable, true);
         mIndicatorAnimDuration = ta.getInt(R.styleable.SegmentTabLayout_tl_indicator_anim_duration, -1);
+        mIndicatorDraggable = ta.getBoolean(R.styleable.SegmentTabLayout_tl_indicator_draggable, false);
 
         mDividerColor = ta.getColor(R.styleable.SegmentTabLayout_tl_divider_color, mIndicatorColor);
         mDividerWidth = ta.getDimension(R.styleable.SegmentTabLayout_tl_divider_width, dp2px(1));
@@ -170,13 +185,17 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         notifyDataSetChanged();
     }
 
-    /** 关联数据支持同时切换fragments */
-    public void setTabData(String[] titles, FragmentActivity fa, int containerViewId, ArrayList<Fragment> fragments) {
+    /**
+     * 关联数据支持同时切换fragments
+     */
+    public void setTabData(String[] titles, FragmentActivity fa, int containerViewId, ArrayList<? extends Fragment> fragments) {
         mFragmentChangeManager = new FragmentChangeManager(fa.getSupportFragmentManager(), containerViewId, fragments);
         setTabData(titles);
     }
 
-    /** 更新数据 */
+    /**
+     * 更新数据
+     */
     public void notifyDataSetChanged() {
         mTabsContainer.removeAllViews();
         this.mTabCount = mTitles.length;
@@ -190,27 +209,37 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         updateTabStyles();
     }
 
-    /** 创建并添加tab */
+    /**
+     * 创建并添加tab
+     */
     private void addTab(final int position, View tabView) {
         TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
         tv_tab_title.setText(mTitles[position]);
 
-        tabView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = (Integer) v.getTag();
-                if (mCurrentTab != position) {
-                    setCurrentTab(position);
-                    if (mListener != null) {
-                        mListener.onTabSelect(position);
-                    }
-                } else {
-                    if (mListener != null) {
-                        mListener.onTabReselect(position);
+        //click会消费掉事件，让外层的touch拖动无效
+        if (!mIndicatorDraggable) {
+            tabView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = (Integer) v.getTag();
+                    if (mCurrentTab != position) {
+                        boolean b = false;
+                        if (mListener != null) {
+                            b = mListener.onTabSelect(position);
+                        }
+                        if (!b) {
+                            setCurrentTab(position);
+                        }
+                    } else {
+                        if (mListener != null) {
+                            mListener.onTabReselect(position);
+                        }
                     }
                 }
-            }
-        });
+            });
+        } else {
+            tabView.setClickable(false);
+        }
 
         /** 每一个Tab的布局参数 */
         LinearLayout.LayoutParams lp_tab = mTabSpaceEqual ?
@@ -259,9 +288,8 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         mCurrentP.left = currentTabView.getLeft();
         mCurrentP.right = currentTabView.getRight();
 
-        final View lastTabView = mTabsContainer.getChildAt(this.mLastTab);
-        mLastP.left = lastTabView.getLeft();
-        mLastP.right = lastTabView.getRight();
+        mLastP.left = mIndicatorRect.left;
+        mLastP.right = mIndicatorRect.right;
 
 //        Log.d("AAA", "mLastP--->" + mLastP.left + "&" + mLastP.right);
 //        Log.d("AAA", "mCurrentP--->" + mCurrentP.left + "&" + mCurrentP.right);
@@ -331,6 +359,117 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
             mRadiusArr[5] = mIndicatorCornerRadius;
             mRadiusArr[6] = mIndicatorCornerRadius;
             mRadiusArr[7] = mIndicatorCornerRadius;
+        }
+    }
+
+    /**
+     * 拖动效果需要设置外层窗口的touch事件
+     */
+    private void setContainerTouchListener() {
+        //两种listener只能存在一个，反正只能有一个能消费事件嘛，一个消费了，另一个就没了，很好理解
+        if (mIndicatorDraggable) {
+            mTabsContainer.setOnTouchListener(new OnTouchListener() {
+                float xDown;
+                int rectLeftDown, rectRightDown, downPosition;
+
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    switch (motionEvent.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            xDown = motionEvent.getX();
+                            rectLeftDown = mIndicatorRect.left;
+                            rectRightDown = mIndicatorRect.right;
+                            for (int i = 0; i < mTabsContainer.getChildCount(); i++) {
+                                View child = mTabsContainer.getChildAt(i);
+                                if (child.getLeft() <= motionEvent.getX() && child.getRight() > motionEvent.getX()) {
+                                    downPosition = (int) child.getTag();
+                                    break;
+                                }
+                            }
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            if (downPosition == getCurrentTab()) {
+                                mIndicatorRect.left = (int) (motionEvent.getX() - xDown + rectLeftDown);
+                                mIndicatorRect.right = (int) (motionEvent.getX() - xDown + rectRightDown);
+                                invalidate();
+                            }
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            int position = 0;
+                            if (motionEvent.getX() > mTabsContainer.getChildAt(getTabCount() - 1).getRight()) {
+                                position = getTabCount() - 1;
+                            } else if (motionEvent.getX() < mTabsContainer.getChildAt(0).getLeft()) {
+                                position = 0;
+                            } else {
+                                for (int i = 0; i < getTabCount(); i++) {
+                                    View child = mTabsContainer.getChildAt(i);
+                                    if (child.getLeft() <= motionEvent.getX() && child.getRight() > motionEvent.getX()) {
+                                        position = (int) child.getTag();
+                                        break;
+                                    }
+                                    if (i == getTabCount() - 1) {
+                                        position = getTabCount() - 1;
+                                    }
+                                }
+                            }
+                            if (position != downPosition && downPosition != getCurrentTab()) {
+                                //抬起和按下的不是同一个
+                                return true;
+                            }
+                            if (mCurrentTab != position) {
+                                boolean b = false;
+                                if (mListener != null) {
+                                    b = mListener.onTabSelect(position);
+                                }
+                                if (!b) {
+                                    setCurrentTab(position);
+                                }
+                            } else {
+                                if (mIndicatorAnimEnable) {
+                                    calcOffset();
+                                } else {
+                                    invalidate();
+                                }
+                                if (mListener != null) {
+                                    mListener.onTabReselect(position);
+                                }
+                            }
+                            break;
+                        case MotionEvent.ACTION_CANCEL:
+                            setCurrentTab(getCurrentTab());
+                            break;
+                    }
+                    return true;
+                }
+            });
+            for (int i = 0; i < mTabsContainer.getChildCount(); i++) {
+                View v = mTabsContainer.getChildAt(i);
+                v.setClickable(false);
+            }
+        } else {
+            mTabsContainer.setOnTouchListener(null);
+            for (int i = 0; i < mTabsContainer.getChildCount(); i++) {
+                View tabView = mTabsContainer.getChildAt(i);
+                tabView.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int position = (Integer) v.getTag();
+                        if (mCurrentTab != position) {
+                            boolean b = false;
+                            if (mListener != null) {
+                                b = mListener.onTabSelect(position);
+                            }
+                            if (!b) {
+                                setCurrentTab(position);
+                            }
+                        } else {
+                            if (mListener != null) {
+                                mListener.onTabReselect(position);
+                            }
+                        }
+                    }
+                });
+            }
         }
     }
 
@@ -598,6 +737,15 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         return mTextAllCaps;
     }
 
+    public boolean ismIndicatorDraggable() {
+        return mIndicatorDraggable;
+    }
+
+    public void setmIndicatorDraggable(boolean mIndicatorDraggable) {
+        this.mIndicatorDraggable = mIndicatorDraggable;
+        setContainerTouchListener();
+    }
+
     public TextView getTitleView(int tab) {
         View tabView = mTabsContainer.getChildAt(tab);
         TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
@@ -684,7 +832,9 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         }
     }
 
-    /** 当前类只提供了少许设置未读消息属性的方法,可以通过该方法获取MsgView对象从而各种设置 */
+    /**
+     * 当前类只提供了少许设置未读消息属性的方法,可以通过该方法获取MsgView对象从而各种设置
+     */
     public MsgView getMsgView(int position) {
         if (position >= mTabCount) {
             position = mTabCount - 1;
