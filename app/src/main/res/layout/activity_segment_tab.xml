@@ -97,6 +97,8 @@
             android:id="@+id/tl_6"
             android:layout_width="match_parent"
             android:layout_height="36dp"
+            android:layout_marginTop="500dp"
+            android:layout_marginBottom="200dp"
             android:layout_gravity="center_horizontal"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
