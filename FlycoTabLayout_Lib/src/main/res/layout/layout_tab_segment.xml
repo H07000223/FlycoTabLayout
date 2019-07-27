@@ -34,6 +34,7 @@
         mv:mv_backgroundColor="#FD481F"
         mv:mv_isRadiusHalfHeight="true"
         mv:mv_strokeColor="#ffffff"
-        mv:mv_strokeWidth="1dp"/>
+        android:layout_toEndOf="@+id/ll_tap"
+        mv:mv_strokeWidth="1dp" />
 
 </RelativeLayout>
