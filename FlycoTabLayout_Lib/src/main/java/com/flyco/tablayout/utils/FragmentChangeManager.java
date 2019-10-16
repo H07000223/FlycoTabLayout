@@ -1,6 +1,6 @@
 package com.flyco.tablayout.utils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -10,11 +10,11 @@ public class FragmentChangeManager {
     private FragmentManager mFragmentManager;
     private int mContainerViewId;
     /** Fragment切换数组 */
-    private ArrayList<Fragment> mFragments;
+    private List<? extends Fragment> mFragments;
     /** 当前选中的Tab */
     private int mCurrentTab;
 
-    public FragmentChangeManager(FragmentManager fm, int containerViewId, ArrayList<Fragment> fragments) {
+    public FragmentChangeManager(FragmentManager fm, int containerViewId, List<? extends Fragment> fragments) {
         this.mFragmentManager = fm;
         this.mContainerViewId = containerViewId;
         this.mFragments = fragments;

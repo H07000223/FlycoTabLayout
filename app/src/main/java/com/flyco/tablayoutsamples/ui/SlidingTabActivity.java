@@ -13,6 +13,7 @@ import com.flyco.tablayoutsamples.R;
 import com.flyco.tablayoutsamples.utils.ViewFindUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -21,13 +22,13 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 public class SlidingTabActivity extends AppCompatActivity implements OnTabSelectListener {
-    private Context mContext = this;
-    private ArrayList<Fragment> mFragments = new ArrayList<>();
-    private final String[] mTitles = {
+    private       Context        mContext   = this;
+    private       List<Fragment> mFragments = new ArrayList<>();
+    private final String[]       mTitles    = {
             "热门", "iOS", "Android"
             , "前端", "后端", "设计", "工具资源"
     };
-    private MyPagerAdapter mAdapter;
+    private       MyPagerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,7 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
         tabLayout_5.setViewPager(vp);
         tabLayout_6.setViewPager(vp);
         tabLayout_7.setViewPager(vp, mTitles);
-        tabLayout_8.setViewPager(vp, mTitles, this, mFragments);
+        tabLayout_8.setViewPager(vp, mTitles, getSupportFragmentManager(), mFragments);
         tabLayout_9.setViewPager(vp);
         tabLayout_10.setViewPager(vp);
 
