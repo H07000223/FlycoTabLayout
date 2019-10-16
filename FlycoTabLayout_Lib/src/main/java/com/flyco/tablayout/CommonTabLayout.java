@@ -12,8 +12,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.util.TypedValue;
@@ -33,6 +31,9 @@ import com.flyco.tablayout.utils.UnreadMsgUtils;
 import com.flyco.tablayout.widget.MsgView;
 
 import java.util.ArrayList;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 /** 没有继承HorizontalScrollView不能滑动,对于ViewPager无依赖 */
 public class CommonTabLayout extends FrameLayout implements ValueAnimator.AnimatorUpdateListener {

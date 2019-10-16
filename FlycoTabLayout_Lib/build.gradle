@@ -6,11 +6,11 @@ apply plugin: 'com.android.library'
 version = "2.1.2"
 android {
     compileSdkVersion 28
-    buildToolsVersion "28.0.0"
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 25
+        minSdkVersion 14
+        targetSdkVersion 28
         versionCode 212
         versionName version
     }
@@ -23,8 +23,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:25.1.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 }
 
 //def siteUrl = 'https://github.com/H07000223'  // 项目的主页
