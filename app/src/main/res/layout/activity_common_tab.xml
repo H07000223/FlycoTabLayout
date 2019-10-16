@@ -18,6 +18,8 @@
             android:background="#ffffff"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
+            tl:tl_iconHeight="24dp"
+            tl:tl_iconWidth="24dp"
             tl:tl_indicator_color="#2C97DE"
             tl:tl_textSelectColor="#2C97DE"
             tl:tl_textUnselectColor="#66000000"

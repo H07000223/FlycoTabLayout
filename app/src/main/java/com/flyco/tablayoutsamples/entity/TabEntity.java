@@ -7,10 +7,21 @@ public class TabEntity implements CustomTabEntity {
     public int selectedIcon;
     public int unSelectedIcon;
 
+    public String selectedIconUrl;
+    public String unSelectedIconUrl;
+
     public TabEntity(String title, int selectedIcon, int unSelectedIcon) {
         this.title = title;
         this.selectedIcon = selectedIcon;
         this.unSelectedIcon = unSelectedIcon;
+    }
+
+    public TabEntity(String title, int selectedIcon, int unSelectedIcon, String selectedIconUrl, String unSelectedIconUrl) {
+        this.title = title;
+        this.selectedIcon = selectedIcon;
+        this.unSelectedIcon = unSelectedIcon;
+        this.selectedIconUrl = selectedIconUrl;
+        this.unSelectedIconUrl = unSelectedIconUrl;
     }
 
     @Override
@@ -26,5 +37,23 @@ public class TabEntity implements CustomTabEntity {
     @Override
     public int getTabUnselectedIcon() {
         return unSelectedIcon;
+    }
+
+    @Override
+    public String getSelectedIconUrl() {
+        return selectedIconUrl;
+    }
+
+    @Override
+    public String getUnSelectedIconUrl() {
+        return unSelectedIconUrl;
+    }
+
+    public void setSelectedIconUrl(String selectedIconUrl) {
+        this.selectedIconUrl = selectedIconUrl;
+    }
+
+    public void setUnSelectedIconUrl(String unSelectedIconUrl) {
+        this.unSelectedIconUrl = unSelectedIconUrl;
     }
 }

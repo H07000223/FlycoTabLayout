@@ -10,4 +10,14 @@ public interface CustomTabEntity {
 
     @DrawableRes
     int getTabUnselectedIcon();
+
+    /*以下网络图片*/
+
+    String getSelectedIconUrl();
+
+    String getUnSelectedIconUrl();
+
+    void setSelectedIconUrl(String selectedIconUrl);
+
+    void setUnSelectedIconUrl(String unSelectedIconUrl);
 }

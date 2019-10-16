@@ -12,6 +12,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.util.TypedValue;
@@ -25,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnIconSetUrlListener;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.flyco.tablayout.utils.FragmentChangeManager;
 import com.flyco.tablayout.utils.UnreadMsgUtils;
@@ -232,12 +234,38 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         updateTabStyles();
     }
 
+    /**
+     * 获取网络图片后刷新
+     *
+     * @param selectedUrls
+     * @param unSelectedUrls
+     */
+    public void updateIconUrl(List<String> selectedUrls, List<String> unSelectedUrls) {
+        if (selectedUrls == null || selectedUrls.size() < mTabEntitys.size()) {
+            return;
+        }
+        if (unSelectedUrls == null || unSelectedUrls.size() < mTabEntitys.size()) {
+            return;
+        }
+        for (int i = 0; i < mTabEntitys.size(); i++) {
+            CustomTabEntity tabEntity = mTabEntitys.get(i);
+            tabEntity.setSelectedIconUrl(selectedUrls.get(i));
+            tabEntity.setUnSelectedIconUrl(unSelectedUrls.get(i));
+        }
+        updateTabStyles();
+    }
+
     /** 创建并添加tab */
     private void addTab(final int position, View tabView) {
+        CustomTabEntity tabEntity = mTabEntitys.get(position);
         TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
-        tv_tab_title.setText(mTabEntitys.get(position).getTabTitle());
+        tv_tab_title.setText(tabEntity.getTabTitle());
         ImageView iv_tab_icon = (ImageView) tabView.findViewById(R.id.iv_tab_icon);
-        iv_tab_icon.setImageResource(mTabEntitys.get(position).getTabUnselectedIcon());
+        if (mOnIconSetListener == null || noIconUrl(tabEntity)) {
+            iv_tab_icon.setImageResource(tabEntity.getTabUnselectedIcon());
+        } else {
+            mOnIconSetListener.onImageSet(iv_tab_icon, tabEntity.getUnSelectedIconUrl());
+        }
 
         tabView.setOnClickListener(new OnClickListener() {
             @Override
@@ -288,7 +316,12 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
             if (mIconVisible) {
                 iv_tab_icon.setVisibility(View.VISIBLE);
                 CustomTabEntity tabEntity = mTabEntitys.get(i);
-                iv_tab_icon.setImageResource(i == mCurrentTab ? tabEntity.getTabSelectedIcon() : tabEntity.getTabUnselectedIcon());
+                if (mOnIconSetListener == null || noIconUrl(tabEntity)) {
+                    iv_tab_icon.setImageResource(i == mCurrentTab ? tabEntity.getTabSelectedIcon() : tabEntity.getTabUnselectedIcon());
+                } else {
+                    mOnIconSetListener.onImageSet(iv_tab_icon, i == mCurrentTab ? tabEntity.getSelectedIconUrl() : tabEntity.getUnSelectedIconUrl());
+                }
+
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                         mIconWidth <= 0 ? LinearLayout.LayoutParams.WRAP_CONTENT : (int) mIconWidth,
                         mIconHeight <= 0 ? LinearLayout.LayoutParams.WRAP_CONTENT : (int) mIconHeight);
@@ -317,11 +350,26 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
             tab_title.setTextColor(isSelect ? mTextSelectColor : mTextUnselectColor);
             ImageView iv_tab_icon = (ImageView) tabView.findViewById(R.id.iv_tab_icon);
             CustomTabEntity tabEntity = mTabEntitys.get(i);
-            iv_tab_icon.setImageResource(isSelect ? tabEntity.getTabSelectedIcon() : tabEntity.getTabUnselectedIcon());
+            if (mOnIconSetListener == null || noIconUrl(tabEntity)) {
+                iv_tab_icon.setImageResource(isSelect ? tabEntity.getTabSelectedIcon() : tabEntity.getTabUnselectedIcon());
+            } else {
+                mOnIconSetListener.onImageSet(iv_tab_icon, isSelect ? tabEntity.getSelectedIconUrl() : tabEntity.getUnSelectedIconUrl());
+            }
             if (mTextBold == TEXT_BOLD_WHEN_SELECT) {
                 tab_title.getPaint().setFakeBoldText(isSelect);
             }
         }
+    }
+
+    /**
+     * 网络图片是否存在
+     *
+     * @param tabEntity
+     * @return
+     */
+    private boolean noIconUrl(CustomTabEntity tabEntity) {
+        return TextUtils.isEmpty(tabEntity.getSelectedIconUrl())
+                || TextUtils.isEmpty(tabEntity.getUnSelectedIconUrl());
     }
 
     private void calcOffset() {
@@ -903,6 +951,11 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         this.mListener = listener;
     }
 
+    private OnIconSetUrlListener mOnIconSetListener;
+
+    public void setOnIconSetUrlListener(OnIconSetUrlListener listener) {
+        this.mOnIconSetListener = listener;
+    }
 
     @Override
     protected Parcelable onSaveInstanceState() {
