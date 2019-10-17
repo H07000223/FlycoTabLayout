@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -242,9 +243,11 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
      */
     public void updateIconUrl(List<String> selectedUrls, List<String> unSelectedUrls) {
         if (selectedUrls == null || selectedUrls.size() < mTabEntitys.size()) {
+            Log.e("iconUrlError", "Wrong number of selectedUrls");
             return;
         }
         if (unSelectedUrls == null || unSelectedUrls.size() < mTabEntitys.size()) {
+            Log.e("iconUrlError", "Wrong number of unSelectedUrls");
             return;
         }
         for (int i = 0; i < mTabEntitys.size(); i++) {

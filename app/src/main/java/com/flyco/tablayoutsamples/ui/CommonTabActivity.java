@@ -156,7 +156,7 @@ public class CommonTabActivity extends AppCompatActivity {
     private void getIconUrl() {
         ArrayList<String> selectedUrl = new ArrayList<>();
         ArrayList<String> unSelectedUrl = new ArrayList<>();
-        for (int i = 0; i < mTabEntities.size()-1; i++) {
+        for (int i = 0; i < mTabEntities.size(); i++) {
             selectedUrl.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1571238544283&di=6dd89322871544d25148cdbbc04b9b84&imgtype=0&src=http%3A%2F%2Flogocola.poooster.com%2Flogocola%2F1801%2FGithub-5.jpg");
             unSelectedUrl.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1571238544289&di=47d741ec9dea4aab1066886681ed995c&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic2%2Fcover%2F00%2F33%2F09%2F581113ffe1269_610.jpg");
         }
