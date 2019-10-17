@@ -1,9 +1,10 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.github.dcendents.android-maven'
 //apply plugin: 'com.jfrog.bintray'
+group='com.github.yuanzaiyuanfang'
 
 // 这个version是区分library版本的，因此当我们需要更新library时记得修改这个version
-version = "2.1.2"
+version = "3.0.0"
 android {
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
@@ -11,7 +12,7 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 212
+        versionCode 300
         versionName version
     }
     buildTypes {
