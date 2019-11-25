@@ -51,7 +51,7 @@
             tl:tl_indicator_margin_top="2dp"
             tl:tl_textBold="SELECT"/>
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_2"
             android:layout_width="match_parent"
             android:layout_height="84dp"/>
