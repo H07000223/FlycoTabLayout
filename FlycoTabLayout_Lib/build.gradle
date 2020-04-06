@@ -4,7 +4,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.yuanzaiyuanfang'
 
 // 这个version是区分library版本的，因此当我们需要更新library时记得修改这个version
-version = "3.0.0"
+version = "3.0.1"
 android {
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
@@ -12,7 +12,7 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 300
+        versionCode 301
         versionName version
     }
     buildTypes {
@@ -25,7 +25,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    api 'androidx.appcompat:appcompat:1.1.0'
+    api 'androidx.legacy:legacy-support-v4:1.0.0'
 }
 
 //def siteUrl = 'https://github.com/H07000223'  // 项目的主页

@@ -1,10 +1,11 @@
 package com.flyco.tablayout.utils;
 
-import java.util.List;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Lifecycle;
+
+import java.util.List;
 
 public class FragmentChangeManager {
     private FragmentManager mFragmentManager;
@@ -23,6 +24,7 @@ public class FragmentChangeManager {
 
     /** 初始化fragments */
     private void initFragments() {
+
         for (Fragment fragment : mFragments) {
             mFragmentManager.beginTransaction().add(mContainerViewId, fragment).hide(fragment).commit();
         }
@@ -40,6 +42,7 @@ public class FragmentChangeManager {
             } else {
                 ft.hide(fragment);
             }
+            ft.setMaxLifecycle(fragment, Lifecycle.State.STARTED);
             ft.commit();
         }
         mCurrentTab = index;
