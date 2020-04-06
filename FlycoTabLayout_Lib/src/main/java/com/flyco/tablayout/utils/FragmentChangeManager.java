@@ -3,16 +3,19 @@ package com.flyco.tablayout.utils;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Lifecycle;
 
 import java.util.List;
 
 public class FragmentChangeManager {
     private FragmentManager mFragmentManager;
     private int mContainerViewId;
-    /** Fragment切换数组 */
+    /**
+     * Fragment切换数组
+     */
     private List<? extends Fragment> mFragments;
-    /** 当前选中的Tab */
+    /**
+     * 当前选中的Tab
+     */
     private int mCurrentTab;
 
     public FragmentChangeManager(FragmentManager fm, int containerViewId, List<? extends Fragment> fragments) {
@@ -22,7 +25,9 @@ public class FragmentChangeManager {
         initFragments();
     }
 
-    /** 初始化fragments */
+    /**
+     * 初始化fragments
+     */
     private void initFragments() {
 
         for (Fragment fragment : mFragments) {
@@ -32,7 +37,9 @@ public class FragmentChangeManager {
         setFragments(0);
     }
 
-    /** 界面切换控制 */
+    /**
+     * 界面切换控制
+     */
     public void setFragments(int index) {
         for (int i = 0; i < mFragments.size(); i++) {
             FragmentTransaction ft = mFragmentManager.beginTransaction();
@@ -42,7 +49,6 @@ public class FragmentChangeManager {
             } else {
                 ft.hide(fragment);
             }
-            ft.setMaxLifecycle(fragment, Lifecycle.State.STARTED);
             ft.commit();
         }
         mCurrentTab = index;
