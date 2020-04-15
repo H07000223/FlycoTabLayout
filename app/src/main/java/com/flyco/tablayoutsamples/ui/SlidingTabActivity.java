@@ -6,6 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.flyco.tablayout.widget.MsgView;
@@ -14,12 +20,6 @@ import com.flyco.tablayoutsamples.utils.ViewFindUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 public class SlidingTabActivity extends AppCompatActivity implements OnTabSelectListener {
     private       Context        mContext   = this;
@@ -78,7 +78,7 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
         tabLayout_9.setViewPager(vp);
         tabLayout_10.setViewPager(vp);
 
-        vp.setCurrentItem(4);
+        vp.setCurrentItem(0);
 
         tabLayout_1.showDot(4);
         tabLayout_3.showDot(4);

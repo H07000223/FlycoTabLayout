@@ -22,6 +22,7 @@
             tl:tl_indicator_color="#2C97DE"
             tl:tl_textBold="SELECT"
             tl:tl_textSelectColor="#2C97DE"
+            tl:tl_textSelectSize="16sp"
             tl:tl_textUnselectColor="#66000000"
             tl:tl_underline_color="#DDDDDD"
             tl:tl_underline_height="1dp" />

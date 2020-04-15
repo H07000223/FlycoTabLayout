@@ -19,7 +19,8 @@
             tl:tl_bar_color="#ffffff"
             tl:tl_indicator_color="#2C97DE"
             tl:tl_indicator_corner_radius="8dp"
-            tl:tl_tab_padding="20dp" />
+            tl:tl_tab_padding="20dp"
+            tl:tl_textBold="SELECT" />
 
         <com.flyco.tablayout.SegmentTabLayout
             android:id="@+id/tl_2"
