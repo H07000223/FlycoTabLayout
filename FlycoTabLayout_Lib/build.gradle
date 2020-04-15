@@ -4,7 +4,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.yuanzaiyuanfang'
 
 // 这个version是区分library版本的，因此当我们需要更新library时记得修改这个version
-version = "3.0.2"
+version = "3.0.3"
 android {
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
@@ -12,7 +12,7 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 302
+        versionCode 303
         versionName version
     }
     buildTypes {
