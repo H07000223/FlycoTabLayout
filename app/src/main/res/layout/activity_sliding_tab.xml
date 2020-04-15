@@ -1,5 +1,4 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tl="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -21,13 +20,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#666666"
-                android:paddingBottom="15dp"
                 android:paddingTop="15dp"
+                android:paddingBottom="15dp"
                 tl:tl_indicator_gravity="TOP"
                 tl:tl_textBold="SELECT"
                 tl:tl_underline_color="#1A000000"
                 tl:tl_underline_gravity="TOP"
-                tl:tl_underline_height="1dp"/>
+                tl:tl_underline_height="1dp" />
 
             <com.flyco.tablayout.SlidingTabLayout
                 android:id="@+id/tl_2"
@@ -45,7 +44,7 @@
                 tl:tl_textSelectColor="#000000"
                 tl:tl_textUnselectColor="#66000000"
                 tl:tl_underline_color="#1A000000"
-                tl:tl_underline_height="1dp"/>
+                tl:tl_underline_height="1dp" />
 
             <com.flyco.tablayout.SlidingTabLayout
                 android:id="@+id/tl_3"
@@ -54,7 +53,7 @@
                 android:background="#3F9FE0"
                 tl:tl_textAllCaps="true"
                 tl:tl_textBold="BOTH"
-                tl:tl_textsize="14sp"/>
+                tl:tl_textUnselectSize="14sp" />
 
             <com.flyco.tablayout.SlidingTabLayout
                 android:id="@+id/tl_4"
@@ -63,14 +62,16 @@
                 android:background="#009688"
                 tl:tl_tab_padding="0dp"
                 tl:tl_tab_width="95dp"
-                tl:tl_textsize="15sp"/>
+                tl:tl_textUnselectSize="15sp" />
 
             <com.flyco.tablayout.SlidingTabLayout
                 android:id="@+id/tl_5"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="#F6CE59"
-                tl:tl_indicator_width="10dp"/>
+                tl:tl_indicator_width="10dp"
+                tl:tl_textSelectSize="18sp"
+                tl:tl_textUnselectSize="14sp" />
 
             <com.flyco.tablayout.SlidingTabLayout
                 android:id="@+id/tl_6"
@@ -79,7 +80,7 @@
                 android:background="#EC7263"
                 tl:tl_indicator_corner_radius="2dp"
                 tl:tl_indicator_height="4dp"
-                tl:tl_indicator_width="4dp"/>
+                tl:tl_indicator_width="4dp" />
 
             <com.flyco.tablayout.SlidingTabLayout
                 android:id="@+id/tl_7"
@@ -88,7 +89,7 @@
                 android:background="#57385C"
                 tl:tl_indicator_corner_radius="1.5dp"
                 tl:tl_indicator_height="3dp"
-                tl:tl_indicator_width="10dp"/>
+                tl:tl_indicator_width="10dp" />
 
             <com.flyco.tablayout.SlidingTabLayout
                 android:id="@+id/tl_8"
@@ -96,7 +97,7 @@
                 android:layout_height="48dp"
                 android:background="#E45171"
                 tl:tl_indicator_color="#eeeeee"
-                tl:tl_indicator_style="TRIANGLE"/>
+                tl:tl_indicator_style="TRIANGLE" />
 
             <com.flyco.tablayout.SlidingTabLayout
                 android:id="@+id/tl_9"
@@ -107,7 +108,7 @@
                 android:paddingRight="5dp"
                 tl:tl_indicator_margin_left="2dp"
                 tl:tl_indicator_margin_right="2dp"
-                tl:tl_indicator_style="BLOCK"/>
+                tl:tl_indicator_style="BLOCK" />
 
             <com.flyco.tablayout.SlidingTabLayout
                 android:id="@+id/tl_10"
@@ -120,14 +121,14 @@
                 tl:tl_indicator_corner_radius="5dp"
                 tl:tl_indicator_margin_left="2dp"
                 tl:tl_indicator_margin_right="2dp"
-                tl:tl_indicator_style="BLOCK"/>
+                tl:tl_indicator_style="BLOCK" />
 
         </LinearLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp"
             android:layout_width="match_parent"
-            android:layout_height="84dp"/>
+            android:layout_height="84dp" />
 
     </LinearLayout>
 </ScrollView>

@@ -1,5 +1,4 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tl="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,7 +19,7 @@
             tl:tl_bar_color="#ffffff"
             tl:tl_indicator_color="#2C97DE"
             tl:tl_indicator_corner_radius="8dp"
-            tl:tl_tab_padding="20dp"/>
+            tl:tl_tab_padding="20dp" />
 
         <com.flyco.tablayout.SegmentTabLayout
             android:id="@+id/tl_2"
@@ -33,7 +32,7 @@
             tl:tl_indicator_anim_enable="true"
             tl:tl_indicator_bounce_enable="false"
             tl:tl_indicator_color="#009688"
-            tl:tl_tab_padding="20dp"/>
+            tl:tl_tab_padding="20dp" />
 
         <com.flyco.tablayout.SegmentTabLayout
             android:id="@+id/tl_3"
@@ -49,12 +48,14 @@
             tl:tl_indicator_margin_left="2dp"
             tl:tl_indicator_margin_right="2dp"
             tl:tl_indicator_margin_top="2dp"
-            tl:tl_textBold="SELECT"/>
+            tl:tl_textBold="SELECT"
+            tl:tl_textSelectSize="18sp"
+            tl:tl_textUnselectSize="14sp" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_2"
             android:layout_width="match_parent"
-            android:layout_height="84dp"/>
+            android:layout_height="84dp" />
 
         <com.flyco.tablayout.SegmentTabLayout
             android:id="@+id/tl_4"
@@ -70,12 +71,12 @@
             tl:tl_indicator_margin_right="2dp"
             tl:tl_indicator_margin_top="2dp"
             tl:tl_tab_width="80dp"
-            tl:tl_textBold="BOTH"/>
+            tl:tl_textBold="BOTH" />
 
         <FrameLayout
             android:id="@+id/fl_change"
             android:layout_width="match_parent"
-            android:layout_height="84dp"/>
+            android:layout_height="84dp" />
 
         <com.flyco.tablayout.SegmentTabLayout
             android:id="@+id/tl_5"
@@ -90,6 +91,6 @@
             tl:tl_indicator_margin_left="2dp"
             tl:tl_indicator_margin_right="2dp"
             tl:tl_indicator_margin_top="2dp"
-            tl:tl_tab_space_equal="true"/>
+            tl:tl_tab_space_equal="true" />
     </LinearLayout>
 </ScrollView>
