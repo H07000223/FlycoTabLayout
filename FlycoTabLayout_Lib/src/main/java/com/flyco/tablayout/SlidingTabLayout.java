@@ -25,6 +25,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.flyco.tablayout.utils.UnreadMsgUtils;
@@ -40,6 +41,7 @@ import java.util.List;
 public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.OnPageChangeListener {
     private Context mContext;
     private ViewPager mViewPager;
+    private ViewPager2 mViewPager2;
     private ArrayList<String> mTitles;
     private LinearLayout mTabsContainer;
     private int mCurrentTab;
@@ -201,6 +203,31 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     }
 
     /**
+     * 关联ViewPager2
+     */
+    public void setViewPager2(ViewPager2 vp2, String[] titles) {
+        if (vp2 == null || vp2.getAdapter() == null) {
+            throw new IllegalStateException("ViewPager or ViewPager adapter can not be NULL !");
+        }
+
+        if (titles == null || titles.length == 0) {
+            throw new IllegalStateException("Titles can not be EMPTY !");
+        }
+
+        if (titles.length != vp2.getAdapter().getItemCount()) {
+            throw new IllegalStateException("Titles length must be the same as the page count !");
+        }
+
+        this.mViewPager2 = vp2;
+        mTitles = new ArrayList<>();
+        Collections.addAll(mTitles, titles);
+
+        this.mViewPager2.unregisterOnPageChangeCallback(vp2ChangeCallback);
+        this.mViewPager2.registerOnPageChangeCallback(vp2ChangeCallback);
+        notifyDataSetChanged();
+    }
+
+    /**
      * 关联ViewPager,用于不想在ViewPager适配器中设置titles数据的情况
      */
     public void setViewPager(ViewPager vp, String[] titles) {
@@ -288,21 +315,40 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
             public void onClick(View v) {
                 int position = mTabsContainer.indexOfChild(v);
                 if (position != -1) {
-                    if (mViewPager.getCurrentItem() != position) {
-                        if (mSnapOnTabClick) {
-                            mViewPager.setCurrentItem(position, false);
-                        } else {
-                            mViewPager.setCurrentItem(position);
-                        }
+                    if (mViewPager != null) {
+                        if (mViewPager.getCurrentItem() != position) {
+                            if (mSnapOnTabClick) {
+                                mViewPager.setCurrentItem(position, false);
+                            } else {
+                                mViewPager.setCurrentItem(position);
+                            }
 
-                        if (mListener != null) {
-                            mListener.onTabSelect(position);
+                            if (mListener != null) {
+                                mListener.onTabSelect(position);
+                            }
+                        } else {
+                            if (mListener != null) {
+                                mListener.onTabReselect(position);
+                            }
                         }
                     } else {
-                        if (mListener != null) {
-                            mListener.onTabReselect(position);
+                        if (mViewPager2.getCurrentItem() != position) {
+                            if (mSnapOnTabClick) {
+                                mViewPager2.setCurrentItem(position, false);
+                            } else {
+                                mViewPager2.setCurrentItem(position);
+                            }
+
+                            if (mListener != null) {
+                                mListener.onTabSelect(position);
+                            }
+                        } else {
+                            if (mListener != null) {
+                                mListener.onTabReselect(position);
+                            }
                         }
                     }
+
                 }
             }
         });
@@ -362,6 +408,26 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     @Override
     public void onPageScrollStateChanged(int state) {
     }
+
+    ViewPager2.OnPageChangeCallback vp2ChangeCallback = new ViewPager2.OnPageChangeCallback() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            mCurrentTab = position;
+            mCurrentPositionOffset = positionOffset;
+            scrollToCurrentTab();
+            invalidate();
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            updateTabSelection(position);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+            super.onPageScrollStateChanged(state);
+        }
+    };
 
     /**
      * HorizontalScrollView滚到当前tab,并且居中显示
@@ -558,13 +624,21 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     //setter and getter
     public void setCurrentTab(int currentTab) {
         this.mCurrentTab = currentTab;
-        mViewPager.setCurrentItem(currentTab);
+        if (mViewPager != null) {
+            mViewPager.setCurrentItem(currentTab);
+        } else {
+            mViewPager2.setCurrentItem(currentTab);
+        }
 
     }
 
     public void setCurrentTab(int currentTab, boolean smoothScroll) {
         this.mCurrentTab = currentTab;
-        mViewPager.setCurrentItem(currentTab, smoothScroll);
+        if (mViewPager != null) {
+            mViewPager.setCurrentItem(currentTab, smoothScroll);
+        } else {
+            mViewPager2.setCurrentItem(currentTab, smoothScroll);
+        }
     }
 
     public void setIndicatorStyle(int indicatorStyle) {
