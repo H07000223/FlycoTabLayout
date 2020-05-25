@@ -973,7 +973,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         private String[] titles;
 
         public InnerPagerAdapter(FragmentManager fm, List<? extends Fragment> fragments, String[] titles) {
-            super(fm);
+            super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
             this.fragments = fragments;
             this.titles = titles;
         }
