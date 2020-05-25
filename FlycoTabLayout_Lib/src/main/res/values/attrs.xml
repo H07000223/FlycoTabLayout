@@ -62,8 +62,10 @@
     <attr name="tl_tab_width" format="dimension"/>
 
     <!-- title -->
-    <!-- 设置字体大小 -->
-    <attr name="tl_textsize" format="dimension"/>
+    <!-- 设置未选中字体大小 -->
+    <attr name="tl_textUnselectSize" format="dimension"/>
+    <!-- 设置选中字体大小 -->
+    <attr name="tl_textSelectSize" format="dimension"/>
     <!-- 设置字体选中颜色 -->
     <attr name="tl_textSelectColor" format="color"/>
     <!-- 设置字体未选中颜色 -->
@@ -107,7 +109,8 @@
         <attr name="tl_tab_width"/>
 
         <!-- title -->
-        <attr name="tl_textsize"/>
+        <attr name="tl_textUnselectSize"/>
+        <attr name="tl_textSelectSize"/>
         <attr name="tl_textSelectColor"/>
         <attr name="tl_textUnselectColor"/>
         <attr name="tl_textBold"/>
@@ -147,7 +150,8 @@
         <attr name="tl_tab_width"/>
 
         <!-- title -->
-        <attr name="tl_textsize"/>
+        <attr name="tl_textUnselectSize"/>
+        <attr name="tl_textSelectSize"/>
         <attr name="tl_textSelectColor"/>
         <attr name="tl_textUnselectColor"/>
         <attr name="tl_textBold"/>
@@ -196,7 +200,8 @@
         <attr name="tl_tab_width"/>
 
         <!-- title -->
-        <attr name="tl_textsize"/>
+        <attr name="tl_textUnselectSize"/>
+        <attr name="tl_textSelectSize"/>
         <attr name="tl_textSelectColor"/>
         <attr name="tl_textUnselectColor"/>
         <attr name="tl_textBold"/>

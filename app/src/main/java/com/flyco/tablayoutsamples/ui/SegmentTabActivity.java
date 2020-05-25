@@ -2,11 +2,6 @@ package com.flyco.tablayoutsamples.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.flyco.tablayout.SegmentTabLayout;
@@ -16,10 +11,17 @@ import com.flyco.tablayoutsamples.R;
 import com.flyco.tablayoutsamples.utils.ViewFindUtils;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 public class SegmentTabActivity extends AppCompatActivity {
-    private ArrayList<Fragment> mFragments = new ArrayList<>();
-    private ArrayList<Fragment> mFragments2 = new ArrayList<>();
+    private List<SimpleCardFragment>      mFragments  = new ArrayList<>();
+    private List<SimpleCardFragment> mFragments2 = new ArrayList<>();
 
     private String[] mTitles = {"首页", "消息"};
     private String[] mTitles_2 = {"首页", "消息", "联系人"};
@@ -51,7 +53,7 @@ public class SegmentTabActivity extends AppCompatActivity {
         tabLayout_1.setTabData(mTitles);
         tabLayout_2.setTabData(mTitles_2);
         tl_3();
-        tabLayout_4.setTabData(mTitles_2, this, R.id.fl_change, mFragments2);
+        tabLayout_4.setTabData(mTitles_2, getSupportFragmentManager(), R.id.fl_change, mFragments2);
         tabLayout_5.setTabData(mTitles_3);
 
         //显示未读红点

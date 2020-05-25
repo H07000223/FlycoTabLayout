@@ -3,15 +3,12 @@ package com.flyco.tablayoutsamples.ui;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.flyco.tablayout.CommonTabLayout;
-import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnIconSetUrlListener;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.flyco.tablayout.utils.UnreadMsgUtils;
 import com.flyco.tablayout.widget.MsgView;
@@ -20,12 +17,19 @@ import com.flyco.tablayoutsamples.entity.TabEntity;
 import com.flyco.tablayoutsamples.utils.ViewFindUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 public class CommonTabActivity extends AppCompatActivity {
-    private Context mContext = this;
-    private ArrayList<Fragment> mFragments = new ArrayList<>();
-    private ArrayList<Fragment> mFragments2 = new ArrayList<>();
+    private Context                  mContext    = this;
+    private List<Fragment>      mFragments  = new ArrayList<>();
+    private List<SimpleCardFragment> mFragments2 = new ArrayList<>();
 
     private String[] mTitles = {"首页", "消息", "联系人", "更多"};
     private int[] mIconUnselectIds = {
@@ -34,7 +38,7 @@ public class CommonTabActivity extends AppCompatActivity {
     private int[] mIconSelectIds = {
             R.mipmap.tab_home_select, R.mipmap.tab_speech_select,
             R.mipmap.tab_contact_select, R.mipmap.tab_more_select};
-    private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
+    private List<TabEntity> mTabEntities = new ArrayList<>();
     private View mDecorView;
     private ViewPager mViewPager;
     private CommonTabLayout mTabLayout_1;
@@ -82,8 +86,18 @@ public class CommonTabActivity extends AppCompatActivity {
         mTabLayout_8 = ViewFindUtils.find(mDecorView, R.id.tl_8);
 
         mTabLayout_1.setTabData(mTabEntities);
+        //icon的url自己选择图片框架
+        mTabLayout_1.setOnIconSetUrlListener(new OnIconSetUrlListener() {
+            @Override
+            public void onImageSet(ImageView iv, String iconUrl) {
+                System.out.println("iconUrl = " + iconUrl);
+                Glide.with(CommonTabActivity.this).load(iconUrl).into(iv);
+            }
+        });
+        getIconUrl();
+
         tl_2();
-        mTabLayout_3.setTabData(mTabEntities, this, R.id.fl_change, mFragments2);
+        mTabLayout_3.setTabData(mTabEntities, getSupportFragmentManager(), R.id.fl_change, mFragments2);
         mTabLayout_4.setTabData(mTabEntities);
         mTabLayout_5.setTabData(mTabEntities);
         mTabLayout_6.setTabData(mTabEntities);
@@ -137,6 +151,16 @@ public class CommonTabActivity extends AppCompatActivity {
         if (rtv_2_3 != null) {
             rtv_2_3.setBackgroundColor(Color.parseColor("#6D8FB0"));
         }
+    }
+
+    private void getIconUrl() {
+        ArrayList<String> selectedUrl = new ArrayList<>();
+        ArrayList<String> unSelectedUrl = new ArrayList<>();
+        for (int i = 0; i < mTabEntities.size(); i++) {
+            selectedUrl.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1571238544283&di=6dd89322871544d25148cdbbc04b9b84&imgtype=0&src=http%3A%2F%2Flogocola.poooster.com%2Flogocola%2F1801%2FGithub-5.jpg");
+            unSelectedUrl.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1571238544289&di=47d741ec9dea4aab1066886681ed995c&imgtype=0&src=http%3A%2F%2Fpic.51yuansu.com%2Fpic2%2Fcover%2F00%2F33%2F09%2F581113ffe1269_610.jpg");
+        }
+        mTabLayout_1.updateIconUrl(selectedUrl, unSelectedUrl);
     }
 
     Random mRandom = new Random();

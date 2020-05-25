@@ -3,25 +3,38 @@ package com.flyco.tablayoutsamples.ui;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.flyco.tablayout.SlidingTabLayout;
+import com.flyco.tablayout.adapter.BaseSlidingAdapter;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.flyco.tablayout.widget.MsgView;
+import com.flyco.tablayout.widget.ScaleInTransformer;
 import com.flyco.tablayoutsamples.R;
 import com.flyco.tablayoutsamples.utils.ViewFindUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SlidingTabActivity extends AppCompatActivity implements OnTabSelectListener {
     private Context mContext = this;
-    private ArrayList<Fragment> mFragments = new ArrayList<>();
+    private List<Fragment> mFragments = new ArrayList<>();
     private final String[] mTitles = {
             "热门", "iOS", "Android"
             , "前端", "后端", "设计", "工具资源"
@@ -42,6 +55,20 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
         ViewPager vp = ViewFindUtils.find(decorView, R.id.vp);
         mAdapter = new MyPagerAdapter(getSupportFragmentManager());
         vp.setAdapter(mAdapter);
+
+        ViewPager2 viewPager2 = findViewById(R.id.vp2);
+
+        viewPager2.setAdapter(new ViewPager2Adapter(mContext, Arrays.asList(mTitles)));
+        viewPager2.setOffscreenPageLimit(1);
+        RecyclerView view = (RecyclerView) viewPager2.getChildAt(0);
+        view.setPadding(80, 0, 80, 0);
+        view.setClipToPadding(false);
+
+        CompositePageTransformer transformer = new CompositePageTransformer();
+        transformer.addTransformer(new ScaleInTransformer());
+//        transformer.addTransformer(new MarginPageTransformer(40));
+        viewPager2.setPageTransformer(transformer);
+
 
         /** 默认 */
         SlidingTabLayout tabLayout_1 = ViewFindUtils.find(decorView, R.id.tl_1);
@@ -72,11 +99,11 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
         tabLayout_5.setViewPager(vp);
         tabLayout_6.setViewPager(vp);
         tabLayout_7.setViewPager(vp, mTitles);
-        tabLayout_8.setViewPager(vp, mTitles, this, mFragments);
+        tabLayout_8.setViewPager(vp, mTitles, getSupportFragmentManager(), mFragments);
         tabLayout_9.setViewPager(vp);
-        tabLayout_10.setViewPager(vp);
+        tabLayout_10.setViewPager2(viewPager2, mTitles);
 
-        vp.setCurrentItem(4);
+        vp.setCurrentItem(0);
 
         tabLayout_1.showDot(4);
         tabLayout_3.showDot(4);
@@ -137,4 +164,44 @@ public class SlidingTabActivity extends AppCompatActivity implements OnTabSelect
             return mFragments.get(position);
         }
     }
+
+    private class ViewPager2FragmentStateAdapter extends FragmentStateAdapter {
+
+        public ViewPager2FragmentStateAdapter(@NonNull FragmentActivity fragmentActivity) {
+            super(fragmentActivity);
+        }
+
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            return SimpleCardFragment.getInstance(mTitles[position]);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mTitles.length;
+        }
+    }
+
+    private class ViewPager2Adapter extends BaseSlidingAdapter<RecyclerView.ViewHolder, String> {
+
+        public ViewPager2Adapter(Context context, List<String> list) {
+            super(context, list);
+        }
+
+        @Override
+        public void onBindVH(RecyclerView.ViewHolder holder, String s, int position) {
+            TextView tv = holder.itemView.findViewById(R.id.card_title_tv);
+            tv.setText(s);
+        }
+
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new RecyclerView.ViewHolder(mInflater.inflate(R.layout.fr_simple_card, parent, false)) {
+
+            };
+        }
+    }
+
 }

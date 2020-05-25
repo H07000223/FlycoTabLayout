@@ -96,7 +96,8 @@ dependencies{
 | tl_tab_padding |dimension| set tab paddingLeft and paddingRight
 | tl_tab_space_equal |boolean| set tab space equal
 | tl_tab_width |dimension| set tab width
-| tl_textsize |dimension| set text size
+| tl_textUnselectSize |dimension| set unselect text size
+| tl_textSelectSize |dimension| set select text size
 | tl_textSelectColor |color| set text select color
 | tl_textUnselectColor |color|  set text unselect color
 | tl_textBold |boolean| set text is bold 

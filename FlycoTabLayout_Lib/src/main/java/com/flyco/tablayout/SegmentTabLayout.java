@@ -11,8 +11,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.util.TypedValue;
@@ -23,12 +21,15 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.flyco.tablayout.utils.FragmentChangeManager;
 import com.flyco.tablayout.utils.UnreadMsgUtils;
 import com.flyco.tablayout.widget.MsgView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class SegmentTabLayout extends FrameLayout implements ValueAnimator.AnimatorUpdateListener {
     private Context mContext;
@@ -37,7 +38,9 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
     private int mCurrentTab;
     private int mLastTab;
     private int mTabCount;
-    /** 用于绘制显示器 */
+    /**
+     * 用于绘制显示器
+     */
     private Rect mIndicatorRect = new Rect();
     private GradientDrawable mIndicatorDrawable = new GradientDrawable();
     private GradientDrawable mRectDrawable = new GradientDrawable();
@@ -48,7 +51,9 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
     private boolean mTabSpaceEqual;
     private float mTabWidth;
 
-    /** indicator */
+    /**
+     * indicator
+     */
     private int mIndicatorColor;
     private float mIndicatorHeight;
     private float mIndicatorCornerRadius;
@@ -60,16 +65,21 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
     private boolean mIndicatorAnimEnable;
     private boolean mIndicatorBounceEnable;
 
-    /** divider */
+    /**
+     * divider
+     */
     private int mDividerColor;
     private float mDividerWidth;
     private float mDividerPadding;
 
-    /** title */
+    /**
+     * title
+     */
     private static final int TEXT_BOLD_NONE = 0;
     private static final int TEXT_BOLD_WHEN_SELECT = 1;
     private static final int TEXT_BOLD_BOTH = 2;
-    private float mTextsize;
+    private float mTextUnselectSize;
+    private float mTextSelectSize;
     private int mTextSelectColor;
     private int mTextUnselectColor;
     private int mTextBold;
@@ -81,7 +91,9 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
 
     private int mHeight;
 
-    /** anim */
+    /**
+     * anim
+     */
     private ValueAnimator mValueAnimator;
     private OvershootInterpolator mInterpolator = new OvershootInterpolator(0.8f);
 
@@ -143,7 +155,8 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         mDividerWidth = ta.getDimension(R.styleable.SegmentTabLayout_tl_divider_width, dp2px(1));
         mDividerPadding = ta.getDimension(R.styleable.SegmentTabLayout_tl_divider_padding, 0);
 
-        mTextsize = ta.getDimension(R.styleable.SegmentTabLayout_tl_textsize, sp2px(13f));
+        mTextUnselectSize = ta.getDimension(R.styleable.SegmentTabLayout_tl_textUnselectSize, sp2px(13f));
+        mTextSelectSize = ta.getDimension(R.styleable.SegmentTabLayout_tl_textSelectSize, sp2px(13f));
         mTextSelectColor = ta.getColor(R.styleable.SegmentTabLayout_tl_textSelectColor, Color.parseColor("#ffffff"));
         mTextUnselectColor = ta.getColor(R.styleable.SegmentTabLayout_tl_textUnselectColor, mIndicatorColor);
         mTextBold = ta.getInt(R.styleable.SegmentTabLayout_tl_textBold, TEXT_BOLD_NONE);
@@ -170,13 +183,17 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         notifyDataSetChanged();
     }
 
-    /** 关联数据支持同时切换fragments */
-    public void setTabData(String[] titles, FragmentActivity fa, int containerViewId, ArrayList<Fragment> fragments) {
-        mFragmentChangeManager = new FragmentChangeManager(fa.getSupportFragmentManager(), containerViewId, fragments);
+    /**
+     * 关联数据支持同时切换fragments
+     */
+    public void setTabData(String[] titles, FragmentManager fm, int containerViewId, List<? extends Fragment> fragments) {
+        mFragmentChangeManager = new FragmentChangeManager(fm, containerViewId, fragments);
         setTabData(titles);
     }
 
-    /** 更新数据 */
+    /**
+     * 更新数据
+     */
     public void notifyDataSetChanged() {
         mTabsContainer.removeAllViews();
         this.mTabCount = mTitles.length;
@@ -190,7 +207,9 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         updateTabStyles();
     }
 
-    /** 创建并添加tab */
+    /**
+     * 创建并添加tab
+     */
     private void addTab(final int position, View tabView) {
         TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
         tv_tab_title.setText(mTitles[position]);
@@ -228,7 +247,7 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
             tabView.setPadding((int) mTabPadding, 0, (int) mTabPadding, 0);
             TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
             tv_tab_title.setTextColor(i == mCurrentTab ? mTextSelectColor : mTextUnselectColor);
-            tv_tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextsize);
+            tv_tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, i == mCurrentTab ? mTextSelectSize : mTextUnselectSize);
 //            tv_tab_title.setPadding((int) mTabPadding, 0, (int) mTabPadding, 0);
             if (mTextAllCaps) {
                 tv_tab_title.setText(tv_tab_title.getText().toString().toUpperCase());
@@ -238,6 +257,8 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
                 tv_tab_title.getPaint().setFakeBoldText(true);
             } else if (mTextBold == TEXT_BOLD_NONE) {
                 tv_tab_title.getPaint().setFakeBoldText(false);
+            } else if (mTextBold == TEXT_BOLD_WHEN_SELECT) {
+                tv_tab_title.getPaint().setFakeBoldText(i == mCurrentTab);
             }
         }
     }
@@ -248,6 +269,7 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
             final boolean isSelect = i == position;
             TextView tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
             tab_title.setTextColor(isSelect ? mTextSelectColor : mTextUnselectColor);
+            tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, isSelect ? mTextSelectSize : mTextUnselectSize);
             if (mTextBold == TEXT_BOLD_WHEN_SELECT) {
                 tab_title.getPaint().setFakeBoldText(isSelect);
             }
@@ -482,7 +504,7 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
     }
 
     public void setTextsize(float textsize) {
-        this.mTextsize = sp2px(textsize);
+        this.mTextUnselectSize = sp2px(textsize);
         updateTabStyles();
     }
 
@@ -579,7 +601,7 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
     }
 
     public float getTextsize() {
-        return mTextsize;
+        return mTextUnselectSize;
     }
 
     public int getTextSelectColor() {
@@ -672,7 +694,7 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         MsgView tipView = (MsgView) tabView.findViewById(R.id.rtv_msg_tip);
         if (tipView != null) {
             TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
-            mTextPaint.setTextSize(mTextsize);
+            mTextPaint.setTextSize(mTextUnselectSize);
             float textWidth = mTextPaint.measureText(tv_tab_title.getText().toString());
             float textHeight = mTextPaint.descent() - mTextPaint.ascent();
             MarginLayoutParams lp = (MarginLayoutParams) tipView.getLayoutParams();
@@ -684,7 +706,9 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         }
     }
 
-    /** 当前类只提供了少许设置未读消息属性的方法,可以通过该方法获取MsgView对象从而各种设置 */
+    /**
+     * 当前类只提供了少许设置未读消息属性的方法,可以通过该方法获取MsgView对象从而各种设置
+     */
     public MsgView getMsgView(int position) {
         if (position >= mTabCount) {
             position = mTabCount - 1;
