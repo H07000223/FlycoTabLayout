@@ -43,7 +43,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     private float mCurrentPositionOffset;
     private int mTabCount;
     /** 用于绘制显示器 */
-    private Rect mIndicatorRect = new Rect();
+    protected Rect mIndicatorRect = new Rect();
     /** 用于实现滚动居中 */
     private Rect mTabRect = new Rect();
     private GradientDrawable mIndicatorDrawable = new GradientDrawable();

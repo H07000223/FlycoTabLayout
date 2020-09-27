@@ -109,18 +109,19 @@
                 tl:tl_indicator_margin_right="2dp"
                 tl:tl_indicator_style="BLOCK"/>
 
-            <com.flyco.tablayout.SlidingTabLayout
+            <com.flyco.tablayoutsamples.ui.SlidingTabLayoutV2
                 android:id="@+id/tl_10"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="#222831"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
+
                 tl:tl_indicator_color="#393E46"
                 tl:tl_indicator_corner_radius="5dp"
                 tl:tl_indicator_margin_left="2dp"
                 tl:tl_indicator_margin_right="2dp"
-                tl:tl_indicator_style="BLOCK"/>
+                />
 
         </LinearLayout>
 
