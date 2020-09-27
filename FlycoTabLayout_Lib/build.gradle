@@ -24,7 +24,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:25.1.0'
+    compile 'com.android.support:support-v4:25+'
 }
 
 //def siteUrl = 'https://github.com/H07000223'  // 项目的主页
