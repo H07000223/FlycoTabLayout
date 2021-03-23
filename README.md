@@ -99,7 +99,7 @@ dependencies{
 | tl_textsize |dimension| set text size
 | tl_textSelectColor |color| set text select color
 | tl_textUnselectColor |color|  set text unselect color
-| tl_textBold |boolean| set text is bold 
+| tl_textBold |boolean| set text is bold
 | tl_iconWidth |dimension| set icon width(only for CommonTabLayout)
 | tl_iconHeight |dimension|set icon height(only for CommonTabLayout)
 | tl_iconVisible |boolean| set icon is visible(only for CommonTabLayout)
