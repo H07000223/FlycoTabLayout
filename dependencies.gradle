@@ -1,0 +1,27 @@
+ext {
+    minSdkVersion = 16
+    targetSdkVersion = 29
+    compileSdkVersion = 29
+    buildToolsVersion = '29.0.2'
+    versionCode = 100
+    versionName = '1.0.0'
+
+    lifecycle_version = '2.3.1'
+
+    support = [
+            'v4'                    : "androidx.legacy:legacy-support-v4:1.0.0",
+            'annotations'           : "androidx.annotation:annotation:1.1.0",
+            'appcompat'             : "androidx.appcompat:appcompat:1.2.0",
+            'recyclerview'          : "androidx.recyclerview:recyclerview:1.1.0",
+            'design'                : "com.google.android.material:material:1.2.1",
+            'constraintlayout'      : "androidx.constraintlayout:constraintlayout:2.0.4",
+    ]
+
+    arch_lifecycle = [
+            'viewmodel'             : "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version",
+            'livedata'              : "androidx.lifecycle:lifecycle-livedata:$lifecycle_version",
+            'lifecycle'             : "androidx.lifecycle:lifecycle-runtime:$lifecycle_version",
+            'lifecycle-ktx'         : "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version",
+            'lifecycle-process'     : "androidx.lifecycle:lifecycle-process:$lifecycle_version",
+    ]
+}
