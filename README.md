@@ -39,34 +39,22 @@ can be used freely with other widgets together.
 ![](https://github.com/H07000223/FlycoTabLayout/blob/master/preview_3.gif)
 
 
->## Change Log
+## Change Log
 
- > v2.0.0(2016-03-01)
-   - remove the dependence of FlycoRoundView
-   - new added method getIconView and getTitleView
-
- > v2.0.2(2016-04-23)
-   - remove the dependence of NineOldAnimation(only support 3.0+)
+ > 3.0.0 (2021-09-30)
+   - upgrade to AndroidX
+   - publish on Maven Central
 
 
 ## Gradle
 
 ```groovy
-dependencies{
-    compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.flyco.roundview:FlycoRoundView_Lib:1.1.2@aar'
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:1.5.0@aar'
+// AndroidX
+dependencies {
+    implementation 'io.github.h07000223:flycoTabLayout:3.0.0'
 }
 
-After v2.0.0
-dependencies{
-    compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.0@aar'
-}
-
-After v2.0.2(support 3.0+)
+// Old
 dependencies{
     compile 'com.android.support:support-v4:23.1.1'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'

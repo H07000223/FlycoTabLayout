@@ -1,9 +1,5 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'com.github.dcendents.android-maven'
-//apply plugin: 'com.jfrog.bintray'
 
-// 这个version是区分library版本的，因此当我们需要更新library时记得修改这个version
-version = "2.1.2"
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -11,10 +7,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-//        versionCode rootProject.ext.versionCode
-//        versionName rootProject.ext.versionName
-        versionCode 212
-        versionName version
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
     }
 
     buildTypes {
@@ -37,89 +31,21 @@ dependencies {
     implementation support.design
 }
 
-//def siteUrl = 'https://github.com/H07000223'  // 项目的主页
-//def gitUrl = 'https://github.com/H07000223'   // Git仓库的url
-//group = "com.flyco.tablayout"       // Maven Group ID for the artifact，一般填你唯一的包名
-//install {
-//    repositories.mavenInstaller {
-//        // This generates POM.xml with proper parameters
-//        pom {
-//            project {
-//                packaging 'aar'
-//                // Add your description here
-//                name 'Android TabLayout Library'    //项目描述
-//                url siteUrl
-//                // Set your license
-//                licenses {
-//                    license {
-//                        name 'MIT'
-//                        url 'http://opensource.org/licenses/MIT'
-//                    }
-//                }
-//                developers {
-//                    developer {
-//                        id 'H07000223'        //填写的一些基本信息
-//                        name 'H07000223'
-//                        email '867318349@qq.com'
-//                    }
-//                }
-//                scm {
-//                    connection gitUrl
-//                    developerConnection gitUrl
-//                    url siteUrl
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//task sourcesJar(type: Jar) {
-//    from android.sourceSets.main.java.srcDirs
-//    classifier = 'sources'
-//}
-//
-//artifacts {
-//    archives sourcesJar
-//}
-//
-//android.libraryVariants.all { variant ->
-//    println variant.javaCompile.classpath.files
-//    if (variant.name == 'release') { //我们只需 release 的 javadoc
-//        task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
-//            // title = ''
-//            // description = ''
-//            source = variant.javaCompile.source
-//            classpath = files(variant.javaCompile.classpath.files, project.android.getBootClasspath())
-//            options {
-//                encoding "utf-8"
-//                links "http://docs.oracle.com/javase/7/docs/api/"
-//                linksOffline "http://d.android.com/reference", "${android.sdkDirectory}/docs/reference"
-//            }
-//            exclude '**/BuildConfig.java'
-//            exclude '**/R.java'
-//        }
-//        task("javadoc${variant.name.capitalize()}Jar", type: Jar, dependsOn: "generate${variant.name.capitalize()}Javadoc") {
-//            classifier = 'javadoc'
-//            from tasks.getByName("generate${variant.name.capitalize()}Javadoc").destinationDir
-//        }
-//        artifacts {
-//            archives tasks.getByName("javadoc${variant.name.capitalize()}Jar")
-//        }
-//    }
-//}
-//
-//Properties properties = new Properties()
-//properties.load(project.rootProject.file('local.properties').newDataInputStream())
-//bintray {
-//    user = properties.getProperty("bintray.user")
-//    key = properties.getProperty("bintray.apikey")
-//    configurations = ['archives']
-//    pkg {
-//        repo = "maven"
-//        name = "FlycoTabLayout_Lib"    //发布到JCenter上的项目名字
-//        websiteUrl = siteUrl
-//        vcsUrl = gitUrl
-//        licenses = ["MIT"]
-//        publish = true
-//    }
-//}
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.18.0'
+    }
+}
+
+allprojects {
+    plugins.withId("com.vanniktech.maven.publish") {
+        mavenPublish {
+            sonatypeHost = "S01"
+        }
+    }
+}
+
+apply plugin: "com.vanniktech.maven.publish"
