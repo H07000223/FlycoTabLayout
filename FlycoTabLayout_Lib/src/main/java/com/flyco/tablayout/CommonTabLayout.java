@@ -869,7 +869,9 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
             float margin = 0;
             if (mIconVisible) {
                 if (iconH <= 0) {
-                    iconH = mContext.getResources().getDrawable(mTabEntitys.get(position).getTabSelectedIcon()).getIntrinsicHeight();
+                     if(mTabEntitys.get(position).getTabSelectedIcon() > 0) {
+                        iconH = mContext.getResources().getDrawable(mTabEntitys.get(position).getTabSelectedIcon()).getIntrinsicHeight();
+                    }
                 }
                 margin = mIconMargin;
             }
