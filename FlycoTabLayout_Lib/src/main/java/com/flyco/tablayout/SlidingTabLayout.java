@@ -899,7 +899,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
             Bundle bundle = (Bundle) state;
             mCurrentTab = bundle.getInt("mCurrentTab");
             state = bundle.getParcelable("instanceState");
-            if (mCurrentTab != 0 && mTabsContainer.getChildCount() > 0) {
+            if (mCurrentTab != 0 && mTabsContainer.getChildCount() > mCurrentTab) {
                 updateTabSelection(mCurrentTab);
                 scrollToCurrentTab();
             }
