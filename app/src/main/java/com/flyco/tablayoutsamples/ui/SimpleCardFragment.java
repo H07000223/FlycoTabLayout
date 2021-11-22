@@ -2,13 +2,14 @@ package com.flyco.tablayoutsamples.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.flyco.tablayoutsamples.R;
+
+import androidx.fragment.app.Fragment;
 
 @SuppressLint("ValidFragment")
 public class SimpleCardFragment extends Fragment {

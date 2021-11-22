@@ -4,12 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.flyco.tablayoutsamples.adapter.SimpleHomeAdapter;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SimpleHomeActivity extends AppCompatActivity {
     private Context mContext = this;

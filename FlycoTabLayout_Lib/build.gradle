@@ -34,7 +34,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.lizhongkan'
                 artifactId = 'FlycoTableLayout'
-                version = '2.1.4'
+                version = '2.1.5'
             }
         }
     }
