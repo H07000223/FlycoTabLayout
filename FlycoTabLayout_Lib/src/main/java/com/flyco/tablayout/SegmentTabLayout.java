@@ -235,7 +235,7 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
                 tv_tab_title.setText(tv_tab_title.getText().toString().toUpperCase());
             }
 
-            if (mTextBold == TEXT_BOLD_BOTH) {
+            if (mTextBold == TEXT_BOLD_BOTH || mTextBold == TEXT_BOLD_WHEN_SELECT) {
                 tv_tab_title.getPaint().setFakeBoldText(true);
             } else if (mTextBold == TEXT_BOLD_NONE) {
                 tv_tab_title.getPaint().setFakeBoldText(false);
