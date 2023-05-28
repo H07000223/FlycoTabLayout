@@ -294,10 +294,8 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
      */
     private void addTab(final int position, String title, View tabView) {
         TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
-        if (tv_tab_title != null) {
-            if (title != null)
-                tv_tab_title.setText(title);
-        }
+        if (tv_tab_title != null && title != null)
+            tv_tab_title.setText(title);
         tabView.setOnClickListener(new OnClickListener() {
 
             @Override
