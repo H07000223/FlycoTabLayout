@@ -12,8 +12,11 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 public class SimpleHomeAdapter extends BaseAdapter {
+
     private Context mContext;
+
     private String[] mItems;
+
     private DisplayMetrics mDisplayMetrics;
 
     public SimpleHomeAdapter(Context context, String[] items) {
@@ -40,17 +43,14 @@ public class SimpleHomeAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         int padding = (int) (mDisplayMetrics.density * 10);
-
         TextView tv = new TextView(mContext);
         tv.setText(mItems[position]);
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         tv.setTextColor(Color.parseColor("#468ED0"));
         // tv.setGravity(Gravity.CENTER);
         tv.setPadding(padding, padding, padding, padding);
-        AbsListView.LayoutParams lp = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT,
-                AbsListView.LayoutParams.WRAP_CONTENT);
+        AbsListView.LayoutParams lp = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT);
         tv.setLayoutParams(lp);
         return tv;
     }
