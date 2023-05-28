@@ -3,8 +3,9 @@ package com.flyco.tablayoutsamples.utils;
 import android.util.SparseArray;
 import android.view.View;
 
-@SuppressWarnings({"unchecked"})
+@SuppressWarnings({ "unchecked" })
 public class ViewFindUtils {
+
     /**
      * ViewHolder简洁写法,避免适配器中重复定义ViewHolder,减少代码量 用法:
      *
@@ -19,19 +20,15 @@ public class ViewFindUtils {
      */
     public static <T extends View> T hold(View view, int id) {
         SparseArray<View> viewHolder = (SparseArray<View>) view.getTag();
-
         if (viewHolder == null) {
             viewHolder = new SparseArray<View>();
             view.setTag(viewHolder);
         }
-
         View childView = viewHolder.get(id);
-
         if (childView == null) {
             childView = view.findViewById(id);
             viewHolder.put(id, childView);
         }
-
         return (T) childView;
     }
 

@@ -8,18 +8,27 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.TextView;
-
 import com.flyco.tablayout.R;
 
-/** 用于需要圆角矩形框背景的TextView的情况,减少直接使用TextView时引入的shape资源文件 */
+/**
+ * 用于需要圆角矩形框背景的TextView的情况,减少直接使用TextView时引入的shape资源文件
+ */
 public class MsgView extends TextView {
+
     private Context context;
+
     private GradientDrawable gd_background = new GradientDrawable();
+
     private int backgroundColor;
+
     private int cornerRadius;
+
     private int strokeWidth;
+
     private int strokeColor;
+
     private boolean isRadiusHalfHeight;
+
     private boolean isWidthHeightEqual;
 
     public MsgView(Context context) {
@@ -44,7 +53,6 @@ public class MsgView extends TextView {
         strokeColor = ta.getColor(R.styleable.MsgView_mv_strokeColor, Color.TRANSPARENT);
         isRadiusHalfHeight = ta.getBoolean(R.styleable.MsgView_mv_isRadiusHalfHeight, false);
         isWidthHeightEqual = ta.getBoolean(R.styleable.MsgView_mv_isWidthHeightEqual, false);
-
         ta.recycle();
     }
 
@@ -56,7 +64,6 @@ public class MsgView extends TextView {
             super.onMeasure(measureSpec, measureSpec);
             return;
         }
-
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
@@ -69,7 +76,6 @@ public class MsgView extends TextView {
             setBgSelector();
         }
     }
-
 
     public void setBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
@@ -143,11 +149,10 @@ public class MsgView extends TextView {
 
     public void setBgSelector() {
         StateListDrawable bg = new StateListDrawable();
-
         setDrawable(gd_background, backgroundColor, strokeColor);
-        bg.addState(new int[]{-android.R.attr.state_pressed}, gd_background);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {//16
+        bg.addState(new int[] { -android.R.attr.state_pressed }, gd_background);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            //16
             setBackground(bg);
         } else {
             //noinspection deprecation
